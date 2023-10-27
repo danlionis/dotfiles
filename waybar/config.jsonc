@@ -1,0 +1,156 @@
+{
+  "layer": "top",
+  "position": "top",
+  "mod": "dock",
+  "exclusive": true,
+  "passthrough": false,
+  "gtk-layer-shell": true,
+  "height": 36,
+  // "margin-top": 8,
+  // "margin-left": 8,
+  // "margin-right": 8,
+  // "margin-bottom": 8,
+  // "padding-left": 20,
+  // "padding-right": 4,
+  "modules-left": [
+    // "clock",
+    "hyprland/workspaces",
+    "memory",
+    "cpu",
+    "disk",
+  ],
+  "modules-center": [
+    // "hyprland/window"
+    "clock"
+  ],
+  "modules-right": [
+    "backlight",
+    "pulseaudio",
+    "pulseaudio#microphone",
+    "battery",
+    // "bluetooth",
+    // "network",
+    "tray"
+  ],
+  "hyprland/window": {
+    "format": "{}"
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}", 
+    "disable-scroll": true,
+    "all-outputs": true,
+    "on-click": "activate",
+    "persistent_workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": [],
+      "6": [],
+      "7": [],
+      "8": [],
+      "9": [],
+      "10": [],
+    },
+    "format-icons": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "discord": "󰙯"
+    }
+  },
+  "tray": {
+    "icon-size": 14,
+    "spacing": 8
+  },
+  "clock": {
+    "format": "{:%H:%M:%S %d. %b}",
+    "interval": 1
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon} {percent}%",
+    "format-icons": ["󰃛", "󰃝", "󰃠"],
+    "on-scroll-up": "brightnessctl -q s 10%+",
+    "on-scroll-down": "brightnessctl -q s 10%-",
+    "disable-scroll": true,
+    "min-length": 5
+  },
+  "battery": {
+    "states": {
+      "good": 100,
+      "warning": 30,
+      "critical": 20
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    // "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    "format-icons": ["󰂎", "󱊡", "󱊢", "󱊣"]
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "tooltip": false,
+    "format-muted": " Muted",
+    "on-click": "pamixer -t",
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +10%",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -10%",
+    "scroll-step": 10,
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    }
+  },
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": "󰍬 {volume}%",
+    "format-source-muted": "󰍭 Muted",
+    "on-click": "pamixer --default-source -t",
+    "on-scroll-up": "pamixer --default-source -i 5",
+    "on-scroll-down": "pamixer --default-source -d 5",
+    "scroll-step": 5
+  },
+  "network": {
+    "format-disconnected": "Disconnected",
+    "format-wifi": " ", //{essid}",
+    "tooltip-format": "{essid} ({signalStrength}%)"
+  },
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "", // an empty format will hide the module
+    "format-connected": " {num_connections}",
+    "tooltip-format": "{device_alias}",
+    "tooltip-format-connected": " {device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}"
+  },
+
+  "memory": {
+    "interval": 1,
+    //"format": "  {used:0.1f} G "
+    // "format": "󰍛 {used:0.1f}G "
+    "format": "RAM: {used:0.1f}G"
+  },
+  "cpu": {
+    "interval": 1,
+    //"format": "  {used:0.1f} G "
+    // "format": "󰍛 {used:0.1f}G "
+    "format": "| CPU: {usage}%"
+  },
+
+  "disk": {
+    "interval": 30,
+    "format": "| DISK: {free} free"
+  }
+}
