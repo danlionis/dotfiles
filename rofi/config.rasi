@@ -1,0 +1,16 @@
+/** Basic config file **/
+
+configuration {
+  font: "JetBrainsMono Nerd Font 10";
+  show-icons: true;
+  icon-theme: "Papirus";
+  display-drun: " 󰵆 ";
+  display-run: " > ";
+  display-window: " 󱂬 ";
+  display-combi: "󰆌 ";
+}
+/** @theme "themes/sidetab-nord.rasi" **/
+@theme "themes/nord.rasi"
+/** @theme "themes/sidetab-nord.rasi" **/
+/** @theme "themes/sidetab-nord.rasi" **/
+
