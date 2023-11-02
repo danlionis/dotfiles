@@ -8,8 +8,6 @@
     # # Home manager
     # home-manager.url = "github:nix-community/home-manager/release-23.05";
     # home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    #
-    # xremap.url = "github:xremap/nix-flake";
   };
 
   outputs = { self, nixpkgs, ... }@inputs:

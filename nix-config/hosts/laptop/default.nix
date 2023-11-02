@@ -10,7 +10,6 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../common/hyprland.nix
-      inputs.xremap.nixosModules.default
     ];
 
   # Bootloader.
@@ -308,24 +307,4 @@
   services.ratbagd.enable = true;
 
   services.blueman.enable = true;
-
-  services.xremap = {
-    userName = "dan";
-    serviceMode = "user";
-    withWlroots = true;
-    config = {
-      modmap = [
-        {
-          name = "Global";
-          remap = {
-            "Capslock" = {
-              held = "leftctrl";
-              alone = "Esc";
-              alone_timeout_millis = 150;
-            };
-          };
-        }
-      ];
-    };
-  };
 }
