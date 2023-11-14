@@ -178,7 +178,6 @@
       nodejs
       obsidian
       piper
-      prismlauncher-qt5
       python3
       ripgrep
       rustup
