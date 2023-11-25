@@ -5,6 +5,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    (callPackage ../../packages/sway-audio-idle-inhibit/default.nix { })
     dunst
     eww-wayland
     grim
