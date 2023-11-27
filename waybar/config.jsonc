@@ -28,6 +28,7 @@
     "pulseaudio",
     "pulseaudio#microphone",
     "battery",
+    "custom/audio_idle_inhibitor",
     // "bluetooth",
     // "network",
     "tray"
@@ -152,5 +153,17 @@
   "disk": {
     "interval": 30,
     "format": "| DISK: {free} free"
+  },
+  "custom/audio_idle_inhibitor": {
+    "format": "{icon}",
+    "exec": "sway-audio-idle-inhibit --dry-print-both-waybar",
+    "exec-if": "which sway-audio-idle-inhibit",
+    "return-type": "json",
+    "format-icons": {
+      "output": "󰐊",
+      "input": "󰍬",
+      "output-input": "󰐊 󰍬",
+      "none": ""
+    }
   }
 }
