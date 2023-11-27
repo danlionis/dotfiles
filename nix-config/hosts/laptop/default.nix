@@ -216,6 +216,7 @@
     virt-manager
     wget
     xclip
+    zip
   ];
 
   # programs.starship.enable = true;
