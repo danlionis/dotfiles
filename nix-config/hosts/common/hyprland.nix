@@ -16,6 +16,7 @@
     playerctl
     pywal
     rofi-wayland
+    tofi
     slurp
     swappy
     swayidle
