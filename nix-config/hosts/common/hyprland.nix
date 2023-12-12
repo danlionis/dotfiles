@@ -13,6 +13,7 @@
     imagemagick
     libnotify
     networkmanagerapplet
+    pavucontrol
     playerctl
     pywal
     rofi-wayland
