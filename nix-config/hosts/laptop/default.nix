@@ -170,19 +170,20 @@
       firefox
       fzf
       gdu
-      jetbrains.rider
       killall
       lazygit
       lf
+      navi
       nixpkgs-fmt
       nodejs
-      obsidian
+      nushell
       piper
       python3
       ripgrep
       rustup
       spotify
       starship
+      tldr
       yubikey-manager
       yubioath-flutter
       zoxide
