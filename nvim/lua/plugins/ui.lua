@@ -177,6 +177,7 @@ return {
     },
     {
         "ThePrimeagen/harpoon",
+        branch = "harpoon2",
         dependencies = {
             "nvim-lua/plenary.nvim",
             'nvim-telescope/telescope.nvim',
@@ -184,13 +185,16 @@ return {
         keys = {
             {
                 "<leader>a",
-                function() require("harpoon.mark").add_file() end,
+                function() require("harpoon"):list():append() end,
                 desc = "Harpoon Mark File",
                 mode = "n"
             },
             {
                 "<leader>ht",
-                function() require("harpoon.ui").toggle_quick_menu() end,
+                function()
+                    local harpoon = require("harpoon")
+                    harpoon.ui:toggle_quick_menu(harpoon:list())
+                end,
                 desc = "[H]arpoon [T]oggle Menu",
                 mode = "n"
             },
@@ -202,38 +206,38 @@ return {
             },
             {
                 "<C-1>",
-                function() require("harpoon.ui").nav_file(1) end,
+                function() require("harpoon"):list():select(1) end,
                 desc = "Harpoon 1",
                 mode = "n"
             },
             {
                 "<C-2>",
-                function() require("harpoon.ui").nav_file(2) end,
+                function() require("harpoon"):list():select(2) end,
                 desc = "Harpoon 2",
                 mode = "n"
             },
             {
                 "<C-3>",
-                function() require("harpoon.ui").nav_file(3) end,
+                function() require("harpoon"):list():select(3) end,
                 desc = "Harpoon 3",
                 mode = "n"
             },
             {
                 "<C-4>",
-                function() require("harpoon.ui").nav_file(4) end,
+                function() require("harpoon"):list():select(4) end,
                 desc = "Harpoon 4",
                 mode = "n"
             },
             {
                 "<C-5>",
-                function() require("harpoon.ui").nav_file(5) end,
+                function() require("harpoon"):list():select(5) end,
                 desc = "Harpoon 5",
                 mode = "n"
             },
         },
         config = function(_, opts)
             local harpoon = require("harpoon")
-            harpoon.setup(opts)
+            harpoon:setup(opts)
             require("telescope").load_extension("harpoon")
         end
     }
