@@ -1,20 +1,8 @@
 return {
-    -- {
-    --     "jcdickinson/codeium.nvim",
-    --     dependencies = {
-    --         "nvim-lua/plenary.nvim",
-    --         "hrsh7th/nvim-cmp",
-    --     },
-    --     config = function()
-    --         require("codeium").setup({
-    --         })
-    --     end
-    -- }
-    --
     {
         'Exafunction/codeium.vim',
         enabled = true,
-        event = 'VeryLazy',
+        cmd = 'CodeiumEnable',
         config = function()
             -- Change '<C-g>' here to any keycode you like.
             vim.g.codeium_disable_bindings = 1
