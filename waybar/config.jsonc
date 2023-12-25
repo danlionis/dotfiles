@@ -21,7 +21,8 @@
     "tray"
   ],
   "hyprland/window": {
-    "format": "{}"
+    "separate-outputs": true,
+    "format": "[{class}] {title}"
   },
   "hyprland/workspaces": {
     "format": "{icon}",
