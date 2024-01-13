@@ -27,6 +27,11 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
 
+vim.keymap.set("n", "<C-Left>", "<C-w>h", { desc = "Go to left window" })
+vim.keymap.set("n", "<C-Down>", "<C-w>j", { desc = "Go to lower window" })
+vim.keymap.set("n", "<C-Up>", "<C-w>k", { desc = "Go to upper window" })
+vim.keymap.set("n", "<C-Right>", "<C-w>l", { desc = "Go to right window" })
+
 -- Move Line
 vim.keymap.set("n", "<A-j>", ":m .+1<cr>==", { desc = "Move down" })
 vim.keymap.set("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
@@ -71,8 +76,8 @@ vim.keymap.set("n", "<leader>to", ":tabnew<CR>", { silent = true, desc = "Open n
 vim.keymap.set("n", "<leader>tx", ":tabclose<CR>", { silent = true, desc = "Close Tab" })
 vim.keymap.set("n", "<leader>tn", ":tabn<CR>", { silent = true, desc = "Next Tab" })
 vim.keymap.set("n", "<leader>tp", ":tabp<CR>", { silent = true, desc = "Previous Tab" })
-vim.keymap.set("n", "<right>", ":tabn<CR>", { silent = true, desc = "Next Buffer" })
-vim.keymap.set("n", "<left>", ":tabp<CR>", { silent = true, desc = "Previous Buffer" })
+-- vim.keymap.set("n", "<right>", ":tabn<CR>", { silent = true, desc = "Next Buffer" })
+-- vim.keymap.set("n", "<left>", ":tabp<CR>", { silent = true, desc = "Previous Buffer" })
 
 -- -- Diagnostic keymaps
 -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
