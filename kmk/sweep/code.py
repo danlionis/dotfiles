@@ -69,19 +69,21 @@ I_CTL = KC.HT(KC.I, KC.RCTRL, prefer_hold=False)
 S_ALT = KC.HT(KC.S, KC.LALT, prefer_hold=False)
 E_ALT = KC.HT(KC.E, KC.LALT, prefer_hold=False)
 
-X_CTL = KC.HT(KC.X, KC.LCTRL, prefer_hold=False, tap_time=200)
-C_GUI = KC.HT(KC.C, KC.LGUI, prefer_hold=False, tap_time=200)
-DOT_CTL = KC.HT(KC.DOT, KC.RCTRL, prefer_hold=False, tap_time=200)
-COM_GUI = KC.HT(KC.COMM, KC.LGUI, prefer_hold=False, tap_time=200)
-Z_ALT = KC.HT(KC.Z, KC.LALT, prefer_hold=False, tap_time=200)
-SLASH_ALT = KC.HT(KC.SLASH, KC.LALT, prefer_hold=False, tap_time=200)
+mod_time = 180
+
+X_CTL = KC.HT(KC.X, KC.LCTRL, prefer_hold=False, tap_time=mod_time)
+C_GUI = KC.HT(KC.C, KC.LGUI, prefer_hold=False, tap_time=mod_time)
+DOT_CTL = KC.HT(KC.DOT, KC.RCTRL, prefer_hold=False, tap_time=mod_time)
+COM_GUI = KC.HT(KC.COMM, KC.LGUI, prefer_hold=False, tap_time=mod_time)
+Z_ALT = KC.HT(KC.Z, KC.LALT, prefer_hold=False, tap_time=mod_time)
+SLASH_ALT = KC.HT(KC.SLASH, KC.LALT, prefer_hold=False, tap_time=mod_time)
 
 ESC_TAB = KC.HT(KC.ESC, KC.TAB)  # TAB when held, ESC when tapped
 
 # Layers
-SPC_LNAV = KC.LT(1, KC.SPC, tap_time=180, prefer_hold=True, tap_interrupted=False)
-ENT_LNUM = KC.LT(2, KC.ENT, tap_time=160, prefer_hold=True)
-ESC_LSYM = KC.LT(3, KC.ESC, tap_time=160, prefer_hold=True)
+SPC_LNAV = KC.LT(1, KC.SPC, tap_time=250, prefer_hold=True, tap_interrupted=False)
+ENT_LNUM = KC.LT(2, KC.ENT, tap_time=250, prefer_hold=True)
+ESC_LSYM = KC.LT(3, KC.ESC, tap_time=250, prefer_hold=True)
 
 # Misc
 KITTY_MOD = KC.LSHIFT(KC.LCTRL)
@@ -115,7 +117,7 @@ keyboard.keymap = [
                                             ESC_LSYM,   SHFT_OS,    SPC_LNAV,   ENT_LNUM,
     ],
     [ # NAV/VIM (1)
-        VIM_SAVE,   DC_MUTE,    DC_DEAF,    _______,    LOCK,       _______,    _______,    CTL_BSPC,   KC.BSPC,     _______,
+        VIM_SAVE,   DC_MUTE,    DC_DEAF,    _______,    _______,    _______,    _______,    CTL_BSPC,   KC.BSPC,     _______,
         _______,    _______,    _______,    KC.TAB,     GUI_SPC,    KC.LEFT,    KC.DOWN,    KC.UP,      KC.RIGHT,    _______,
         _______,    KC.LCTRL,   KC.LGUI,    KITTY_MOD,  _______,    _______,    _______,    KC.LGUI,    KC.LCTRL,    KC.LALT,
                                             _______,    _______,    _______,    _______,
@@ -133,13 +135,13 @@ keyboard.keymap = [
                                             _______,    _______,    _______,    _______,
     ],
     [  # SYMBOLS (3)
-        _______,    _______,    _______,    KC.GRAVE,   KC.TILDE,   KC.UNDS,    KC.LCBR,    KC.RCBR,    _______,    KC.DEL,
-        _______,    KC.PERC,    KC.SLSH,    KC.QUOTE,   _______,    KC.BSLASH,  KC.LPRN,    KC.RPRN,    _______,    KC.SCLN,
-        KC.PIPE,    _______,    KC.PERC,    KC.DQUO,    _______,    _______,    KC.LBRC,    KC.RBRC,    _______,    _______,
+        _______,    _______,    _______,    KC.GRAVE,   KC.TILDE,   KC.UNDS,    KC.LCBR,    KC.RCBR,    _______,    KC.COLN,
+        _______,    KC.EXLM,    KC.EQL,     KC.QUOTE,   _______,    KC.BSLASH,  KC.LPRN,    KC.RPRN,    _______,    KC.SCLN,
+        KC.PIPE,    _______,    _______,    KC.DQUO,    _______,    _______,    KC.LBRC,    KC.RBRC,    _______,    _______,
                                             _______,    _______,    _______,    _______,
     ],
     [  # FN (4)
-        _______,    KC.F7,      KC.F8,      KC.F9,      KC.F10,     _______,    KC.TG(6),   _______,    _______,    _______,
+        _______,    KC.F7,      KC.F8,      KC.F9,      KC.F10,     _______,    KC.TG(6),   KC.TG(5),   _______,    _______,
         _______,    KC.F1,      KC.F2,      KC.F3,      KC.F11,     _______,    _______,    _______,    _______,    _______,
         _______,    KC.F4,      KC.F5,      KC.F6,      KC.F12,     _______,    _______,    _______,    _______,    _______,
                                             _______,    _______,    _______,    _______,
@@ -147,8 +149,8 @@ keyboard.keymap = [
     [  # QWERTY (5)
         KC.Q,       KC.W,       KC.E,       KC.R,       KC.T,       KC.Y,       KC.U,       KC.I,       KC.O,       KC.P,
         KC.A,       KC.S,       KC.D,       KC.F,       KC.G,       KC.H,       KC.J,       KC.K,       KC.L,       KC.SCLN,
-        KC.Z,       KC.X,       KC.C,       KC.V,       KC.B,       KC.N,       KC.M,        KC.COMM,    KC.DOT,    KC.SLSH,
-                                            KC.BSPC,    SPC_LNAV,   SPC_LNAV,   KC.ENT,
+        Z_ALT,      X_CTL,      C_GUI,      KC.V,       KC.B,       KC.N,       KC.M,       COM_GUI,    DOT_CTL,    SLASH_ALT,
+                                            ESC_LSYM,   SHFT_OS,    SPC_LNAV,   ENT_LNUM,
     ],
     [  # GAMING (6) 
         ESC_TAB,    KC.Q,       KC.W,       KC.E,       KC.R,       KC.Y,       KC.U,       KC.I,       KC.O,       KC.P,
