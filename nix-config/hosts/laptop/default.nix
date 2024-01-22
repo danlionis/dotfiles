@@ -84,26 +84,6 @@
     };
   };
 
-
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --time --cmd Hyprland";
-        user = "greeter";
-      };
-    };
-  };
-
-  # https://github.com/apognu/tuigreet/issues/76
-  systemd.tmpfiles.rules =
-    # let
-    #   user = config.services.greetd.settings.default_session.user;
-    # in
-    [
-      "d /var/cache/tuigreet 700 greeter greeter"
-    ];
-
   programs.direnv.enable = true;
 
 

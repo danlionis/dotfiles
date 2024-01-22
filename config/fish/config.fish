@@ -51,3 +51,8 @@ function lf
         end
     end
 end
+
+set TTY1 (tty)
+if [ "$TTY1" = "/dev/tty1" ]; then
+    exec Hyprland
+end
