@@ -73,10 +73,6 @@
   #   xkbVariant = "";
   # };
 
-  # Enable the GNOME Desktop Environment.
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
-
   xdg = {
     autostart.enable = true;
     portal = {
@@ -152,13 +148,6 @@
     shell = pkgs.fish;
     extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" ];
     packages = with pkgs; [
-      # discord # install via flatpak
-      # gnome.gnome-tweaks
-      # gnomeExtensions.blur-my-shell
-      # gnomeExtensions.dash-to-dock
-      # gnomeExtensions.gesture-improvements
-      # gnomeExtensions.pop-shell
-      # gnomeExtensions.x11-gestures
       bat
       bottles
       brave
