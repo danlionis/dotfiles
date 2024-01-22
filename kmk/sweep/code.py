@@ -69,7 +69,7 @@ I_CTL = KC.HT(KC.I, KC.RCTRL, prefer_hold=False)
 S_ALT = KC.HT(KC.S, KC.LALT, prefer_hold=False)
 E_ALT = KC.HT(KC.E, KC.LALT, prefer_hold=False)
 
-mod_time = 180
+mod_time = 200
 
 X_CTL = KC.HT(KC.X, KC.LCTRL, prefer_hold=False, tap_time=mod_time)
 C_GUI = KC.HT(KC.C, KC.LGUI, prefer_hold=False, tap_time=mod_time)
@@ -81,9 +81,9 @@ SLASH_ALT = KC.HT(KC.SLASH, KC.LALT, prefer_hold=False, tap_time=mod_time)
 ESC_TAB = KC.HT(KC.ESC, KC.TAB)  # TAB when held, ESC when tapped
 
 # Layers
-SPC_LNAV = KC.LT(1, KC.SPC, tap_time=250, prefer_hold=True, tap_interrupted=False)
-ENT_LNUM = KC.LT(2, KC.ENT, tap_time=250, prefer_hold=True)
-ESC_LSYM = KC.LT(3, KC.ESC, tap_time=250, prefer_hold=True)
+SPC_LNAV = KC.LT(1, KC.SPC, tap_time=300, prefer_hold=True, tap_interrupted=False)
+ENT_LNUM = KC.LT(2, KC.ENT, tap_time=300, prefer_hold=True)
+ESC_LSYM = KC.LT(3, KC.ESC, tap_time=300, prefer_hold=True)
 
 # Misc
 KITTY_MOD = KC.LSHIFT(KC.LCTRL)
@@ -117,7 +117,7 @@ keyboard.keymap = [
                                             ESC_LSYM,   SHFT_OS,    SPC_LNAV,   ENT_LNUM,
     ],
     [ # NAV/VIM (1)
-        VIM_SAVE,   DC_MUTE,    DC_DEAF,    _______,    _______,    _______,    _______,    CTL_BSPC,   KC.BSPC,     _______,
+        _______,    VIM_SAVE,   DC_DEAF,    DC_MUTE,    _______,    _______,    _______,    CTL_BSPC,   KC.BSPC,     _______,
         _______,    _______,    _______,    KC.TAB,     GUI_SPC,    KC.LEFT,    KC.DOWN,    KC.UP,      KC.RIGHT,    _______,
         _______,    KC.LCTRL,   KC.LGUI,    KITTY_MOD,  _______,    _______,    _______,    KC.LGUI,    KC.LCTRL,    KC.LALT,
                                             _______,    _______,    _______,    _______,
