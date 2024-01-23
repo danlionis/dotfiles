@@ -11,7 +11,8 @@ window {
 }
 
 window#waybar {
-  background-color: @background;
+  /* background-color: #0c0c17; */
+  background-color: #0c0a09;
   color: @foreground;
   transition-duration: 0.5s;
 }
@@ -49,18 +50,19 @@ button:hover {
 
 #workspaces button {
   padding: 0 2px;
+  min-width: 28px;
   font-weight: bold;
   color: @foreground;
 }
 
 #workspaces button.active {
-  background: @color1;
+  background: #d97706;
   font-weight: bolder;
   text-decoration: underline;
 }
 
 #workspaces button:hover {
-  background: @color5;
+  background: #78350f;
 }
 
 #workspaces button.focused {
