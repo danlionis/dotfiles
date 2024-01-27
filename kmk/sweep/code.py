@@ -117,7 +117,7 @@ keyboard.keymap = [
                                             ESC_LSYM,   SHFT_OS,    SPC_LNAV,   ENT_LNUM,
     ],
     [ # NAV/VIM (1)
-        _______,    VIM_SAVE,   DC_DEAF,    DC_MUTE,    _______,    _______,    _______,    CTL_BSPC,   KC.BSPC,     _______,
+        _______,    VIM_SAVE,   DC_DEAF,    DC_MUTE,    _______,    _______,    _______,    CTL_BSPC,   KC.BSPC,     KC.DEL,
         _______,    _______,    _______,    KC.TAB,     GUI_SPC,    KC.LEFT,    KC.DOWN,    KC.UP,      KC.RIGHT,    _______,
         _______,    KC.LCTRL,   KC.LGUI,    KITTY_MOD,  _______,    _______,    _______,    KC.LGUI,    KC.LCTRL,    KC.LALT,
                                             _______,    _______,    _______,    _______,
