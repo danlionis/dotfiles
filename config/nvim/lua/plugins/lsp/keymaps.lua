@@ -3,6 +3,8 @@ local M = {}
 function M.on_attach(client, buffer)
     local self = M.new(client, buffer)
 
+    self:map("<leader>lr", "LspRestart", { desc = "LSP Restart" })
+
     self:map("<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
     self:map("<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action", mode = { "n", "v" }, has = "codeAction" })
     self:map("<C-.>", vim.lsp.buf.code_action, { desc = "Code Action", mode = { "n", "v" }, has = "codeAction" })
