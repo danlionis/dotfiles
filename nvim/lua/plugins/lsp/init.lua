@@ -55,8 +55,17 @@ return {
                 tsserver = {},
                 texlab = {},
                 gopls = {
-                    completeUnimported = true,
-                    usePlaceholders = true,
+                    settings = {
+                        gopls = {
+                            completeUnimported = true,
+                            usePlaceholders = true,
+                            hints = {
+                                compositeLiteralFields = true,
+                                constantValues = true,
+                                parameterNames = true,
+                            },
+                        },
+                    }
                 },
                 svelte = {},
                 lua_ls = {
@@ -104,6 +113,9 @@ return {
                 require("plugins.lsp.keymaps").on_attach(client, buffer)
                 if client.server_capabilities.documentSymbolProvider then
                     require("nvim-navic").attach(client, buffer)
+                end
+                if client.server_capabilities.inlayHintProvider then
+                    vim.lsp.inlay_hint.enable(buffer, true)
                 end
             end)
 
