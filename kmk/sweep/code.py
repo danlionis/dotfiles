@@ -10,6 +10,7 @@ from kmk.modules.capsword import CapsWord
 from kmk.modules.oneshot import OneShot
 from kmk.modules.holdtap import HoldTap
 from kmk.modules.layers import Layers
+from kmk.modules.combos import Combos, Chord
 from kmk.modules.mouse_keys import MouseKeys
 from kmk.modules.split import Split, SplitSide
 from kmk.modules.tapdance import TapDance
@@ -49,12 +50,15 @@ tapdance.tap_time = 150
 
 oneshot = OneShot()
 
+combos = Combos()
+
 keyboard.modules = [
     split,
     holdtap,
     oneshot,
     layers,
     mouse_key,
+    combos,
     tapdance,
     capsword,
 ]
@@ -135,9 +139,9 @@ keyboard.keymap = [
                                             _______,    _______,    _______,    _______,
     ],
     [  # SYMBOLS (3)
-        _______,    _______,    _______,    KC.GRAVE,   KC.TILDE,   KC.UNDS,    KC.LCBR,    KC.RCBR,    _______,    KC.COLN,
-        _______,    KC.EXLM,    KC.EQL,     KC.QUOTE,   _______,    KC.BSLASH,  KC.LPRN,    KC.RPRN,    _______,    KC.SCLN,
-        KC.PIPE,    _______,    _______,    KC.DQUO,    _______,    _______,    KC.LBRC,    KC.RBRC,    _______,    _______,
+        _______,    _______,    _______,    KC.GRAVE,   KC.TILDE,   _______,    KC.LCBR,    KC.RCBR,    _______,    KC.COLN,
+        _______,    KC.EXLM,    KC.EQL,     KC.DQUO,    KC.UNDS,    KC.BSLASH,  KC.LPRN,    KC.RPRN,    _______,    KC.SCLN,
+        KC.PIPE,    _______,    _______,    KC.QUOTE,   _______,    _______,    KC.LBRC,    KC.RBRC,    _______,    KC.BSLASH,
                                             _______,    _______,    _______,    _______,
     ],
     [  # FN (4)
@@ -165,6 +169,10 @@ keyboard.keymap = [
                                             # KC.HT(KC.TAB, KC.TG(7)),   SHFT_CW,    KC.SPACE,   ENT_LNUM,
                                             _______,    _______,    _______,    _______,
     ],
+]
+
+combos.combos = [
+    Chord((KC.EQL, KC.EXLM), simple_key_sequence((KC.EXLM, KC.EQL))),
 ]
 
 
