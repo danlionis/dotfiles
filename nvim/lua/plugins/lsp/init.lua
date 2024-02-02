@@ -107,10 +107,9 @@ return {
             setup = {}
         },
         config = function(_, opts)
-            -- setup formatting and keymaps
+            require("plugins.lsp.keymaps").setup()
             on_attach(function(client, buffer)
                 require("plugins.lsp.format").on_attach(client, buffer)
-                require("plugins.lsp.keymaps").on_attach(client, buffer)
                 if client.server_capabilities.inlayHitProvider then
                     vim.lsp.inlay_hint.enable(buffer, true)
                 end
