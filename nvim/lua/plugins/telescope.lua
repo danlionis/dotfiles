@@ -4,6 +4,16 @@ function telescope_builtin(builtin, opts)
     end
 end
 
+function is_git()
+    local git_root = vim.fs.find(".git", {
+        upward = true,
+        stop = vim.uv.os_homedir(),
+        path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+    })[1]
+
+    return git_root ~= nil
+end
+
 return {
     -- Fuzzy Finder (files, lsp, etc)
     {
@@ -18,7 +28,17 @@ return {
         },
         cmd = "Telescope",
         keys = {
-            { '<C-p>',     telescope_builtin("git_files"),       desc = 'Search git files' },
+            {
+                '<C-p>',
+                function()
+                    if is_git() then
+                        telescope_builtin("git_files")()
+                    else
+                        telescope_builtin("find_files")()
+                    end
+                end,
+                desc = 'Search git files'
+            },
             { '<leader>,', telescope_builtin("oldfiles"),        desc = '[?] Find recently opened files' },
             { '<leader>:', telescope_builtin("command_history"), desc = '[:] Command History' },
             {
