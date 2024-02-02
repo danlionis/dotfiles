@@ -93,9 +93,6 @@ return {
                         { "filename",    path = 1, symbols = { modified = "*", readonly = "", unnamed = "" } },
                         -- stylua: ignore
                         { "diagnostics", },
-                        {
-                            require("nvim-navic").get_location, cond = require("nvim-navic").is_available
-                        },
                         -- { "buffers" },
                     },
                     lualine_x = {
@@ -136,15 +133,5 @@ return {
                 }
             }
         end,
-    },
-
-    -- lsp symbol navigation for lualine
-    {
-        "SmiteshP/nvim-navic",
-        event = "BufReadPost",
-        opts = { separator = " ", highlight = true, depth_limit = 5 },
-        depencendies = {
-            "neovim/nvim-lspconfig"
-        }
     },
 } -- Fancier statusline

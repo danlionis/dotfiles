@@ -46,3 +46,5 @@ vim.o.termguicolors = true
 vim.o.completeopt = 'menuone,noselect'
 
 vim.o.conceallevel = 1
+
+vim.filetype.add({ extension = { templ = "templ" } })
