@@ -7,7 +7,6 @@ end
 function is_git()
     local git_root = vim.fs.find(".git", {
         upward = true,
-        stop = vim.uv.os_homedir(),
         path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
     })[1]
 
