@@ -19,7 +19,7 @@ return {
             { "[t",         function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
             { "<leader>xt", "<cmd>TodoTrouble<cr>",                              desc = "Todo Trouble" },
             -- { "<leader>xtt", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>",      desc = "Todo Trouble" },
-            { "<leader>xT", "<cmd>TodoTelescope<cr>",                            desc = "Todo Telescope" },
+            -- { "<leader>xT", "<cmd>TodoTelescope<cr>",                            desc = "Todo Telescope" },
             { "<leader>st", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>",    desc = "[S]earch [T]odos" },
         },
     },
@@ -40,8 +40,7 @@ return {
         opts = { use_diagnostic_signs = true },
         keys = {
             -- TODO: find better keybindings
-            -- { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Document Diagnostics (Trouble)" },
-            { "<leader>xx", "<cmd>TroubleToggle<cr>", desc = "Workspace Diagnostics (Trouble)" },
+            { "<leader>xx", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
         },
     },
 }

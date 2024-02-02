@@ -17,7 +17,6 @@ function M.format()
 
     vim.lsp.buf.format({
         bufnr = buf,
-        async = true,
         filter = function(client)
             -- disable formatting, lsp setting does not seem to work
             if client.name == "html" then
