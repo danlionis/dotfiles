@@ -1,7 +1,7 @@
 return {
     {
         "nvimtools/none-ls.nvim",
-        event = "BufReadPost",
+        -- event = "BufReadPost",
         config = function()
             local null_ls = require("null-ls")
 
@@ -14,7 +14,9 @@ return {
                     null_ls.builtins.formatting.markdownlint,
                     null_ls.builtins.formatting.nixpkgs_fmt,
                     null_ls.builtins.formatting.prettier,
-                    null_ls.builtins.formatting.rustywind,
+                    null_ls.builtins.formatting.rustywind.with({
+                        extra_filetypes = { "templ" }
+                    }),
                     null_ls.builtins.formatting.sql_formatter,
                     null_ls.builtins.hover.dictionary,
                 }

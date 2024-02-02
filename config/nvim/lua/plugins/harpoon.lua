@@ -1,4 +1,4 @@
-function harpoonSelectTable(keys)
+local function harpoonSelectTable(keys)
     for i = 1, 9 do
         local entry = {
             ("<C-" .. i .. ">"),

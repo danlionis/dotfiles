@@ -19,7 +19,7 @@ return {
     {
         -- LSP Configuration & Plugins
         'neovim/nvim-lspconfig',
-        event = "BufReadPre",
+        -- event = "BufReadPre",
         dependencies = {
             -- Automatically install LSPs to stdpath for neovim
             'williamboman/mason.nvim',
@@ -30,23 +30,32 @@ return {
         },
         opts = {
             servers = {
+                html = {
+                    filetypes = { "html", "templ" },
+                    settings = {
+                        html = {
+                            autoClosingTags = true,
+                            format = {
+                                enable = false, -- use prettier, also messes with templ
+                            },
+                            hover = {
+                                documentation = true,
+                                references = true,
+                            },
+                        },
+                    },
+                },
+                templ = {},
+                tailwindcss = {
+                    filetypes = { "templ", "html", "css", "javascript" },
+                    init_options = { userLanguages = { templ = "html" } },
+                },
                 ltex = {
-                    -- filetypes = { "norg" },
                     settings = {
                         ltex = {
-                            -- enabled = {
-                            --     "bibtex", "context", "context.tex", "html", "latex", "markdown", "org",
-                            --     "restructuredtext", "rsweave", "norg"
-                            -- },
-                            dictionary = {
-                                ["en-US"] = { "QUIC" },
-                            },
                             disabledRules = {
                                 ["en-US"] = { "ARROWS" },
                             },
-                            -- hiddenFalsePositives = {
-                            --     ["en-US"] = { "./test/ltex-false-positives.txt" }
-                            -- }
                         }
                     }
                 },
@@ -94,15 +103,6 @@ return {
                         },
                     },
                 },
-                -- -- use rust-tools instead
-                -- rust_analyzer = {
-                --     settings = {
-                --         ["rust-analyzer"] = {
-                --             procMacro = { enable = true },
-                --             cargo = { features = "all" }
-                --         }
-                --     }
-                -- }
             },
             setup = {}
         },
@@ -111,10 +111,7 @@ return {
             on_attach(function(client, buffer)
                 require("plugins.lsp.format").on_attach(client, buffer)
                 require("plugins.lsp.keymaps").on_attach(client, buffer)
-                if client.server_capabilities.documentSymbolProvider then
-                    require("nvim-navic").attach(client, buffer)
-                end
-                if client.server_capabilities.inlayHintProvider then
+                if client.server_capabilities.inlayHitProvider then
                     vim.lsp.inlay_hint.enable(buffer, true)
                 end
             end)
@@ -124,7 +121,24 @@ return {
             local servers = opts.servers
             local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-            -- require("mason-lspconfig").setup({ ensure_installed = vim.tbl_keys(servers) })
+
+            -- TODO: make this and mason-lspconfig nicer
+
+            for server, server_opts in pairs(servers) do
+                server_opts.capabilities = capabilities
+                if opts.setup[server] then
+                    if opts.setup[server](server, server_opts) then
+                        return
+                    end
+                elseif opts.setup["*"] then
+                    if opts.setup["*"](server, server_opts) then
+                        return
+                    end
+                end
+                pcall(require("lspconfig")[server].setup, server_opts)
+            end
+
+
             require("mason-lspconfig").setup_handlers({
                 function(server)
                     local server_opts = servers[server] or {}
