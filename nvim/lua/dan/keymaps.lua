@@ -33,14 +33,13 @@ vim.keymap.set("n", "<C-Up>", "<C-w>k", { desc = "Go to upper window" })
 vim.keymap.set("n", "<C-Right>", "<C-w>l", { desc = "Go to right window" })
 
 -- Move Line
-vim.keymap.set("n", "<A-j>", ":m .+1<cr>==", { desc = "Move down" })
-vim.keymap.set("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
--- vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<cr>==gi", { desc = "Move down" })
-vim.keymap.set("n", "<A-k>", ":m .-2<cr>==", { desc = "Move up" })
-vim.keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
--- vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<cr>==gi", { desc = "Move up" })
-vim.keymap.set("v", "<A-l>", ">gv", { desc = "Indent" })
-vim.keymap.set("v", "<A-h>", "<gv", { desc = "De-Indent" })
+vim.keymap.set("v", "<C-Up>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+vim.keymap.set("v", "<C-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+vim.keymap.set("v", "<C-Down>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+vim.keymap.set("v", "<C-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+
+vim.keymap.set("v", "<C-Right>", ">gv", { desc = "Indent" })
+vim.keymap.set("v", "<C-Left>", "<gv", { desc = "De-Indent" })
 
 vim.keymap.set("n", "x", '"_x') -- dont copy to register
 
