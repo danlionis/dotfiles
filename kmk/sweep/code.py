@@ -133,8 +133,8 @@ keyboard.keymap = [
     #                                         _______,    _______,    _______,    _______,
     # ],
     [  # NUMBERS (2)
-        KC.SLSH,    KC.N7,      KC.N8,      KC.N9,      KC.PLUS,    _______,    _______,    UML["U"],   _______,    _______,
-        UML["A"],   KC.N1,      KC.N2,      KC.N3,      KC.MINS,    _______,    KC.N0,      UML["S"],   _______,   UML["O"],
+        KC.SLSH,    KC.N7,      KC.N8,      KC.N9,      KC.PLUS,    _______,    _______,    UML["U"],   UML["S"],   _______,
+        UML["A"],   KC.N1,      KC.N2,      KC.N3,      KC.MINS,    _______,    KC.N0,      _______,    _______,    UML["O"],
         KC.ASTR,    KC.N4,      KC.N5,      KC.N6,      KC.EQL,     _______,    _______,    _______,    _______,    _______,
                                             _______,    _______,    _______,    _______,
     ],
