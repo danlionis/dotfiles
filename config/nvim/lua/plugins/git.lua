@@ -17,6 +17,10 @@ return {
     {
         'lewis6991/gitsigns.nvim',
         event = "BufReadPre",
+        keys = {
+            { '<leader>gh', "<cmd>Gitsigns preview_hunk_inline<CR>" }
+        }
+        ,
         opts = {
             signs = {
                 -- add = { text = '+' },
