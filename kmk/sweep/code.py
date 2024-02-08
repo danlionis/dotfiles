@@ -22,6 +22,9 @@ split_side = SplitSide.LEFT if left else SplitSide.RIGHT
 
 keyboard = KMKKeyboard()
 
+powerled = digitalio.DigitalInOut(board.POWER_LED)
+powerled.direction = digitalio.Direction.OUTPUT
+powerled.value = True  # true is off in this case
 
 split = Split(
     # split_flip=True,
