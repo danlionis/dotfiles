@@ -5,9 +5,16 @@ function telescope_builtin(builtin, opts)
 end
 
 function is_git()
+
+    path = vim.api.nvim_buf_get_name(0)
+    if path == "" then
+        path = vim.fn.getcwd()
+    end
+    path = vim.fs.dirname(path)
+
     local git_root = vim.fs.find(".git", {
         upward = true,
-        path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+        path = path
     })[1]
 
     return git_root ~= nil
