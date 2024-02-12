@@ -1,4 +1,5 @@
 return {
+    nil_ls = {},
     htmx = {},
     html = {
         filetypes = { "html", "templ" },
