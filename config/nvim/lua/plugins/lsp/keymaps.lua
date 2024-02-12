@@ -8,7 +8,10 @@ function M.setup()
             local client = vim.lsp.get_client_by_id(args.data.client_id)
             local self = M.new(client, buffer)
 
-            self:map("<leader>lr", "LspRestart", { desc = "LSP Restart" })
+            self:map("<leader>lr", function()
+                vim.cmd("LspRestart")
+                vim.notify("Restarting LSP")
+            end, { desc = "LSP Restart" })
 
             self:map("<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
             self:map("<leader>ca", vim.lsp.buf.code_action,

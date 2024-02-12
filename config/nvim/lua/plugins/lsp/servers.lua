@@ -1,11 +1,12 @@
 return {
+    htmx = {},
     html = {
         filetypes = { "html", "templ" },
         settings = {
             html = {
                 autoClosingTags = true,
                 format = {
-                    enable = false,             -- use prettier, also messes with templ
+                    enable = false, -- use prettier, also messes with templ
                 },
                 hover = {
                     documentation = true,
@@ -36,7 +37,7 @@ return {
         settings = {
             gopls = {
                 completeUnimported = true,
-                usePlaceholders = true,
+                usePlaceholders = false,
                 hints = {
                     compositeLiteralFields = true,
                     constantValues = true,
@@ -73,4 +74,3 @@ return {
         },
     },
 }
-
