@@ -139,6 +139,7 @@
       lf
       lua-language-server
       navi
+      nil
       nixpkgs-fmt
       nodejs
       nushell
