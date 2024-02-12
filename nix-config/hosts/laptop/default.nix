@@ -20,11 +20,6 @@
   # kernel version
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
-
   networking.hostName = "dan-laptop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -142,6 +137,7 @@
       killall
       lazygit
       lf
+      lua-language-server
       navi
       nixpkgs-fmt
       nodejs
@@ -214,10 +210,6 @@
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
-  # services.fprintd.enable = true;
-  # services.fprintd.tod.enable = true;
-  # services.fprintd.tod.driver = pkgs.libfprint;
-
   services.flatpak.enable = true;
 
   services.pcscd.enable = true;
@@ -277,6 +269,8 @@
   services.ratbagd.enable = true;
 
   services.blueman.enable = true;
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
   services.logind.extraConfig = ''
     # don’t shutdown when power button is short-pressed

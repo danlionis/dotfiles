@@ -9,22 +9,22 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "sd_mod" "sdhci_pci" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
     {
-      device = "/dev/disk/by-uuid/b07c05af-385d-4506-a73a-ae7a9f782a8f";
+      device = "/dev/disk/by-uuid/c422ce56-4509-4da4-b983-809824d4593e";
       fsType = "ext4";
     };
 
-  boot.initrd.luks.devices."luks-7ada0a53-d403-4da0-b5e1-1ad342efb03b".device = "/dev/disk/by-uuid/7ada0a53-d403-4da0-b5e1-1ad342efb03b";
+  boot.initrd.luks.devices."luks-6d716eca-5837-48bc-982c-66697b7e9091".device = "/dev/disk/by-uuid/6d716eca-5837-48bc-982c-66697b7e9091";
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-uuid/7AFF-0465";
+      device = "/dev/disk/by-uuid/3266-CC94";
       fsType = "vfat";
     };
 
@@ -38,15 +38,9 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp0s31f6.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp58s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  # services.fprintd.enable = true;
-  # services.fprintd.tod.enable = true;
-  # services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
-
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
