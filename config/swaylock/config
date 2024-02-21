@@ -2,11 +2,9 @@ ignore-empty-password
 show-failed-attempts
 indicator
 
-screenshots
 effect-blur=20x20
 
-color=1e1e2e
-color=11111b
+color=000000
 
 separator-color=00000000
 
