@@ -4,13 +4,13 @@ for a in (abbr --list)
 end
 
 # ls
-if command -v exa > /dev/null
-    abbr -a l "exa"
-    abbr -a ls "exa"
-    abbr -a ll "exa -l"
-    abbr -a lll "exa -la"
-    abbr -a la "exa -la"
-    abbr -a lt "exa -laT -I '.git|target|node_modules'"
+if command -v eza > /dev/null
+    abbr -a l "eza"
+    abbr -a ls "eza"
+    abbr -a ll "eza -l"
+    abbr -a lll "eza -la"
+    abbr -a la "eza -la"
+    abbr -a lt "eza -laT -I '.git|target|node_modules'"
 else
     abbr -a ll "ls -l"
     abbr -a lll "ls -la"
@@ -39,9 +39,11 @@ end
 
 abbr -a 2fa "ykman oath accounts code"
 
+abbr kssh "kitty +kitten ssh"
 
 alias pandoc 'docker run --rm -v "$(pwd):/data" -u $(id -u):$(id -g) pandoc/latex'
 alias latexmk 'docker run --rm --workdir /data -v "$(pwd):/data" -u $(id -u):$(id -g) texlive/texlive latexmk'
 alias bashly 'docker run --rm -it --user $(id -u):$(id -g) --volume "$PWD:/app" dannyben/bashly'
 alias icat 'kitty +kitten icat'
 
+alias + steam-run

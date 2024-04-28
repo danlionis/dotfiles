@@ -1,5 +1,10 @@
 set -gx EDITOR /usr/bin/env nvim
 
+set TTY1 (tty)
+if test "$TTY1" = "/dev/tty1"
+    exec Hyprland
+end
+
 source /home/dan/.config/fish/fish_greeting.fish
 
 if type -q starship
@@ -11,8 +16,13 @@ if type -q zoxide
 end
 
 if type -q direnv
-    direnv hook fish| source
+    direnv hook fish | source
 end
+
+if type -q atuin
+    atuin init fish | source
+end
+
 
 # https://github.com/gokcehan/lf/blob/master/etc/lfcd.fish
 # 
@@ -44,9 +54,5 @@ function lf
     end
 end
 
-set TTY1 (tty)
-if [ "$TTY1" = "/dev/tty1" ]; then
-    exec Hyprland
-end
 
 fish_vi_key_bindings
