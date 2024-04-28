@@ -9,6 +9,7 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./power.nix
       ../common/hyprland.nix
     ];
 
@@ -81,7 +82,6 @@
 
   programs.direnv.enable = true;
 
-
   # Configure console keymap
   console.keyMap = "us";
 
@@ -102,6 +102,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber.enable = true;
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
 
@@ -109,6 +110,7 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+
 
   # services.https-dns-proxy.enable = true;
   # services.https-dns-proxy.port = 53;
@@ -121,9 +123,11 @@
     isNormalUser = true;
     description = "Dan Lionis";
     shell = pkgs.fish;
-    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "wireshark" ];
     packages = with pkgs; [
+      atuin
       bat
+      beautysh
       bottles
       brave
       btop
@@ -134,7 +138,6 @@
       firefox
       fzf
       gdu
-      killall
       lazygit
       lf
       lua-language-server
@@ -146,10 +149,12 @@
       piper
       python3
       ripgrep
+      ruff
       rustup
       spotify
       starship
       tldr
+      wireshark
       yubikey-manager
       yubioath-flutter
       zoxide
@@ -215,14 +220,14 @@
 
   services.pcscd.enable = true;
 
-  programs.nix-ld.enable = true;
+  # programs.nix-ld.enable = true;
 
   # steam
   programs.steam.enable = true;
 
   environment.variables = {
     # NIX_LD = lib.fileContents "${pkgs.stdenv.cc}/nix-support/dynamic-linker";
-    PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
+    # PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
   };
 
   # Open ports in the firewall.
@@ -250,6 +255,7 @@
 
   # fonts
   fonts.packages = with pkgs; [
+    noto-fonts
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
@@ -278,4 +284,12 @@
     HandlePowerKey=ignore
     HandleLidSwitchDocked=suspend
   '';
+
+  programs.command-not-found.enable = false;
+  programs.nix-index = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  programs.wireshark.enable = true;
 }

@@ -4,6 +4,7 @@
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # # Home manager
     # home-manager.url = "github:nix-community/home-manager/release-23.05";
@@ -19,9 +20,12 @@
         inherit inputs outputs;
       };
 
+
       nixosConfigurations = {
         dan-laptop = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs; }; # Pass flake inputs to our config
+          specialArgs = {
+            inherit inputs outputs;
+          }; # Pass flake inputs to our config
           # > Our main nixos configuration file <
           modules = [
             ./hosts/laptop
