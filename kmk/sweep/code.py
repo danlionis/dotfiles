@@ -1,5 +1,6 @@
 import board
 import digitalio
+import supervisor
 
 # import neopixel
 
@@ -16,6 +17,7 @@ from kmk.modules.split import Split, SplitSide
 from kmk.modules.tapdance import TapDance
 from kmk.handlers.sequences import simple_key_sequence
 
+supervisor.set_next_code_file(filename='code.py', reload_on_error=True)
 
 left = str(getmount("/").label)[-1] == "L"
 split_side = SplitSide.LEFT if left else SplitSide.RIGHT
@@ -46,6 +48,7 @@ holdtap = HoldTap()
 holdtap.tap_time = 300
 
 mouse_key = MouseKeys()
+
 capsword = CapsWord()
 
 tapdance = TapDance()
@@ -75,6 +78,12 @@ R_CTL = KC.HT(KC.R, KC.LCTRL, prefer_hold=False)
 I_CTL = KC.HT(KC.I, KC.RCTRL, prefer_hold=False)
 S_ALT = KC.HT(KC.S, KC.LALT, prefer_hold=False)
 E_ALT = KC.HT(KC.E, KC.LALT, prefer_hold=False)
+
+ALT = lambda k: KC.HT(k, KC.LALT, prefer_hold=False)
+RCTL = lambda k: KC.HT(k, KC.RCTL, prefer_hold=False)
+LCTL = lambda k: KC.HT(k, KC.LCTL, prefer_hold=False)
+RGUI = lambda k: KC.HT(k, KC.RGUI, prefer_hold=False)
+LGUI = lambda k: KC.HT(k, KC.LGUI, prefer_hold=False)
 
 mod_time = 200
 
@@ -118,39 +127,34 @@ keyboard.keymap = [
     [  # Colemak-DH (0)
         KC.Q,       KC.W,       KC.F,       KC.P,       KC.B,       KC.J,       KC.L,       KC.U,       KC.Y,       KC.SCLN,
         KC.A,       KC.R,       KC.S,       KC.T,       KC.G,       KC.M,       KC.N,        KC.E,       KC.I,      KC.O,
-        # KC.A,       R_CTL,      S_ALT,      KC.T,       KC.G,       KC.M,       KC.N,       E_ALT,      I_CTL,      KC.O,
-        Z_ALT,      X_CTL,      C_GUI,      KC.D,       KC.V,       KC.K,       KC.H,       COM_GUI,    DOT_CTL,    SLASH_ALT,
-        # KC.Z,       KC.X,      KC.C,       KC.D,       KC.V,       KC.K,       KC.H,       KC.COMM,    KC.DOT,    KC.SLASH,
+        # ALT(KC.A),  LCTL(KC.R), LGUI(KC.S), KC.T,       KC.G,       KC.M,       KC.N,       RGUI(KC.E), RCTL(KC.I), ALT(KC.O),
+        ALT(KC.Z),  LCTL(KC.X), LGUI(KC.C), KC.D,       KC.V,       KC.K,       KC.H,       COM_GUI,    DOT_CTL,    SLASH_ALT,
+        # Z_ALT,      X_CTL,      C_GUI,      KC.D,       KC.V,       KC.K,       KC.H,       COM_GUI,    DOT_CTL,    SLASH_ALT,
+        # KC.Z,       KC.X,       KC.C,       KC.D,       KC.V,       KC.K,       KC.H,       KC.COMM,    KC.DOT,    KC.SLASH,
                                             ESC_LSYM,   SHFT_OS,    SPC_LNAV,   ENT_LNUM,
     ],
     [ # NAV/VIM (1)
         _______,    VIM_SAVE,   DC_DEAF,    DC_MUTE,    _______,    _______,    _______,    CTL_BSPC,   KC.BSPC,     KC.DEL,
-        _______,    _______,    _______,    KC.TAB,     GUI_SPC,    KC.LEFT,    KC.DOWN,    KC.UP,      KC.RIGHT,    _______,
-        _______,    KC.LCTRL,   KC.LGUI,    KITTY_MOD,  _______,    _______,    _______,    KC.LGUI,    KC.LCTRL,    KC.LALT,
+        _______,    _______,    _______,    KC.TAB,     _______,    KC.LEFT,    KC.DOWN,    KC.UP,      KC.RIGHT,    _______,
+        _______,    KC.LCTRL,   KC.LGUI,    KITTY_MOD,  KC.CW,      KC.HOME,    KC.PGDOWN,  KC.PGUP,    KC.END,      _______,
                                             _______,    _______,    _______,    _______,
     ],
-    # [  # NUMBERS/UMLAUT (2)
-    #     _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-    #     KC.N1,      KC.N2,      KC.N3,      KC.N4,      KC.N5,      KC.N6,      KC.N7,      KC.N8,      KC.N9,      KC.N0,
-    #     _______,    _______,    KC.MINUS,   KC.PLUS,    _______,    UML["A"],   UML["O"],   UML["U"],   UML["S"],   _______,
-    #                                         _______,    _______,    _______,    _______,
-    # ],
     [  # NUMBERS (2)
-        KC.SLSH,    KC.N7,      KC.N8,      KC.N9,      KC.PLUS,    _______,    _______,    UML["U"],   UML["S"],   _______,
+        _______,    KC.N7,      KC.N8,      KC.N9,      KC.PLUS,    _______,    _______,    UML["U"],   UML["S"],   _______,
         UML["A"],   KC.N1,      KC.N2,      KC.N3,      KC.MINS,    _______,    KC.N0,      _______,    _______,    UML["O"],
         KC.ASTR,    KC.N4,      KC.N5,      KC.N6,      KC.EQL,     _______,    _______,    _______,    _______,    _______,
                                             _______,    _______,    _______,    _______,
     ],
     [  # SYMBOLS (3)
-        _______,    _______,    _______,    KC.GRAVE,   KC.TILDE,   _______,    KC.LCBR,    KC.RCBR,    _______,    KC.COLN,
-        _______,    KC.EXLM,    KC.EQL,     KC.DQUO,    KC.UNDS,    KC.BSLASH,  KC.LPRN,    KC.RPRN,    _______,    KC.SCLN,
-        KC.PIPE,    _______,    _______,    KC.QUOTE,   _______,    _______,    KC.LBRC,    KC.RBRC,    _______,    KC.BSLASH,
+        _______,    KC.AMPR,    KC.ASTR,    _______,    KC.TILDE,   KC.GRAVE,   KC.LCBR,    KC.RCBR,    _______,    KC.COLN,
+        _______,    KC.EXLM,    KC.AT,      KC.HASH,    KC.UNDS,    KC.QUOTE,   KC.LPRN,    KC.RPRN,    _______,    _______,
+        KC.PIPE,    KC.DOLLAR,  KC.PERC,    KC.CIRC,    _______,    KC.DQUO,    KC.LBRC,    KC.RBRC,    _______,    KC.BSLASH,
                                             _______,    _______,    _______,    _______,
     ],
     [  # FN (4)
         _______,    KC.F7,      KC.F8,      KC.F9,      KC.F10,     _______,    KC.TG(6),   KC.TG(5),   _______,    KC.RESET,
-        _______,    KC.F1,      KC.F2,      KC.F3,      KC.F11,     _______,    _______,    _______,    _______,    _______,
-        _______,    KC.F4,      KC.F5,      KC.F6,      KC.F12,     _______,    _______,    _______,    _______,    _______,
+        _______,    KC.F1,      KC.F2,      KC.F3,      KC.F11,     KC.MS_LT,   KC.MS_DN,   KC.MS_UP,   KC.MS_RT,   _______,
+        _______,    KC.F4,      KC.F5,      KC.F6,      KC.F12,     _______,    KC.MB_LMB,  KC.MB_RMB,  _______,    _______,
                                             _______,    _______,    _______,    _______,
     ],
     [  # QWERTY (5)
@@ -160,7 +164,7 @@ keyboard.keymap = [
                                             ESC_LSYM,   SHFT_OS,    SPC_LNAV,   ENT_LNUM,
     ],
     [  # GAMING (6) 
-        ESC_TAB,    KC.Q,       KC.W,       KC.E,       KC.R,       KC.Y,       KC.U,       KC.I,       KC.O,       KC.P,
+        KC.TAB,     KC.Q,       KC.W,       KC.E,       KC.R,       KC.Y,       KC.U,       KC.I,       KC.O,       KC.P,
         KC.LSHIFT,  KC.A,       KC.S,       KC.D,       KC.F,       KC.H,       KC.J,       KC.K,       KC.L,       KC.SCLN,
         KC.LCTRL,   KC.Z,       KC.X,       KC.C,       KC.V,       KC.N,       KC.M,       KC.COMM,    KC.DOT,    KC.SLSH,
                                             ESC_LSYM,   KC.SPACE,   SPC_LNAV,   KC.ENT,
