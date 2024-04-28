@@ -8,8 +8,8 @@ return {
             null_ls.setup({
                 sources = {
                     null_ls.builtins.diagnostics.mypy,
-                    null_ls.builtins.diagnostics.ruff,
-                    null_ls.builtins.formatting.beautysh,
+                    -- null_ls.builtins.diagnostics.ruff,
+                    -- null_ls.builtins.formatting.beautysh,
                     null_ls.builtins.formatting.black,
                     null_ls.builtins.formatting.markdownlint,
                     null_ls.builtins.formatting.nixpkgs_fmt,
@@ -17,7 +17,9 @@ return {
                     null_ls.builtins.formatting.rustywind.with({
                         extra_filetypes = { "templ" }
                     }),
-                    null_ls.builtins.formatting.sql_formatter,
+                    null_ls.builtins.formatting.sql_formatter.with({
+                        extra_args = { "-l", "sqlite" },
+                    }),
                     null_ls.builtins.hover.dictionary,
                 }
             })
