@@ -16,7 +16,7 @@ end
 local keys = {
     {
         "<leader>a",
-        function() require("harpoon"):list():append() end,
+        function() require("harpoon"):list():add() end,
         desc = "Harpoon Mark File",
         mode = "n"
     },
