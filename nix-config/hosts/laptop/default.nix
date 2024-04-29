@@ -185,7 +185,6 @@
     pkg-config
     unzip
     vim
-    virt-manager
     wget
     xclip
     zip
@@ -202,6 +201,8 @@
   # Docker
   virtualisation.docker.enable = true;
   virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
