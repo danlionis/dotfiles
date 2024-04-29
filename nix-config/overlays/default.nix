@@ -15,5 +15,6 @@
         hash = "sha256-HaLNHEumpj0fgsiYFDs+vktWzbfdbHv5ejQcBpMHMfk=";
       };
     });
+    sway-audio-idle-inhibit = prev.callPackage ./../packages/sway-audio-idle-inhibit { };
   };
 }
