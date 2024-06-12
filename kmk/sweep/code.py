@@ -126,11 +126,11 @@ UML = {
 keyboard.keymap = [
     [  # Colemak-DH (0)
         KC.Q,       KC.W,       KC.F,       KC.P,       KC.B,       KC.J,       KC.L,       KC.U,       KC.Y,       KC.SCLN,
-        KC.A,       KC.R,       KC.S,       KC.T,       KC.G,       KC.M,       KC.N,        KC.E,       KC.I,      KC.O,
-        # ALT(KC.A),  LCTL(KC.R), LGUI(KC.S), KC.T,       KC.G,       KC.M,       KC.N,       RGUI(KC.E), RCTL(KC.I), ALT(KC.O),
-        ALT(KC.Z),  LCTL(KC.X), LGUI(KC.C), KC.D,       KC.V,       KC.K,       KC.H,       COM_GUI,    DOT_CTL,    SLASH_ALT,
+        # KC.A,       KC.R,       KC.S,       KC.T,       KC.G,       KC.M,       KC.N,        KC.E,       KC.I,      KC.O,
+        ALT(KC.A),  LCTL(KC.R), LGUI(KC.S), KC.T,       KC.G,       KC.M,       KC.N,       RGUI(KC.E), RCTL(KC.I), ALT(KC.O),
+        # ALT(KC.Z),  LCTL(KC.X), LGUI(KC.C), KC.D,       KC.V,       KC.K,       KC.H,       COM_GUI,    DOT_CTL,    SLASH_ALT,
         # Z_ALT,      X_CTL,      C_GUI,      KC.D,       KC.V,       KC.K,       KC.H,       COM_GUI,    DOT_CTL,    SLASH_ALT,
-        # KC.Z,       KC.X,       KC.C,       KC.D,       KC.V,       KC.K,       KC.H,       KC.COMM,    KC.DOT,    KC.SLASH,
+        KC.Z,       KC.X,       KC.C,       KC.D,       KC.V,       KC.K,       KC.H,       KC.COMM,    KC.DOT,    KC.SLASH,
                                             ESC_LSYM,   SHFT_OS,    SPC_LNAV,   ENT_LNUM,
     ],
     [ # NAV/VIM (1)
