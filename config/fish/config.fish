@@ -9,6 +9,7 @@ source /home/dan/.config/fish/fish_greeting.fish
 
 if type -q starship
     starship init fish | source
+    enable_transience
 end
 
 if type -q zoxide
