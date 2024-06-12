@@ -147,6 +147,7 @@
       nodejs
       nushell
       piper
+      pyright
       python3
       ripgrep
       ruff
@@ -155,6 +156,7 @@
       starship
       tldr
       wireshark
+      yt-dlp
       yubikey-manager
       yubioath-flutter
       zoxide
@@ -267,6 +269,8 @@
     # the 'login' configuration file (see /etc/pam.d/login)
     auth include login
   '';
+
+  security.polkit.enable = true;
 
   documentation = {
     enable = true;

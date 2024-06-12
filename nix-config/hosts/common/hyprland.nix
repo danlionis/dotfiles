@@ -9,11 +9,10 @@
     dunst
     eww
     grim
-    unstable.hypridle
-    unstable.hyprlock
     hyprpaper
     imagemagick
     libnotify
+    libsForQt5.polkit-kde-agent
     networkmanagerapplet
     pavucontrol
     playerctl
@@ -22,10 +21,10 @@
     slurp
     swappy
     sway-audio-idle-inhibit
-    # swayidle
-    # swaylock-effects
     tofi
     udiskie
+    unstable.hypridle
+    unstable.hyprlock
     waybar
     wl-clipboard
     wlogout
