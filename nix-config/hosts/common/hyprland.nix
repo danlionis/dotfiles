@@ -5,10 +5,12 @@
   };
 
   environment.systemPackages = with pkgs; [
-    sway-audio-idle-inhibit
+    ags
     dunst
-    eww-wayland
+    eww
     grim
+    unstable.hypridle
+    unstable.hyprlock
     hyprpaper
     imagemagick
     libnotify
@@ -17,11 +19,12 @@
     playerctl
     pywal
     rofi-wayland
-    tofi
     slurp
     swappy
-    swayidle
-    swaylock-effects
+    sway-audio-idle-inhibit
+    # swayidle
+    # swaylock-effects
+    tofi
     udiskie
     waybar
     wl-clipboard
