@@ -6,6 +6,7 @@
 
   environment.systemPackages = with pkgs; [
     ags
+    brightnessctl
     dunst
     eww
     grim

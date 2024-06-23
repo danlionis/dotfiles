@@ -5,6 +5,10 @@
   };
 
   config = lib.mkIf config.gaming.enable {
+    environment.systemPackages = with pkgs; [
+      bottles
+    ];
+
     # steam
     programs.steam.enable = true;
   };

@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, outputs, inputs, ... }:
+{ config, pkgs, lib, outputs, inputs, meta, ... }:
 
 {
   imports =
@@ -10,8 +10,14 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./power.nix
-      ../../modules/hyprland.nix
+
       ../../modules/gaming
+      ../../modules/hyprland.nix
+      ../../modules/libvirt.nix
+      ../../modules/podman.nix
+      ../../modules/terminal.nix
+      ../../modules/users/dan.nix
+      ../../modules/yubikey.nix
     ];
 
   # Bootloader.
@@ -22,7 +28,7 @@
   # kernel version
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "dan-laptop"; # Define your hostname.
+  networking.hostName = meta.hostname; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   networking.extraHosts =
@@ -81,8 +87,6 @@
     };
   };
 
-  programs.direnv.enable = true;
-
   # Configure console keymap
   console.keyMap = "us";
 
@@ -119,52 +123,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.dan = {
-    isNormalUser = true;
-    description = "Dan Lionis";
-    shell = pkgs.fish;
-    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "wireshark" ];
-    packages = with pkgs; [
-      atuin
-      bat
-      beautysh
-      bottles
-      brave
-      btop
-      chromium
-      comma
-      distrobox
-      eza
-      fd
-      firefox
-      fzf
-      gdu
-      lazygit
-      lf
-      yazi
-      lua-language-server
-      navi
-      nil
-      nixpkgs-fmt
-      nodejs
-      nushell
-      piper
-      pyright
-      python3
-      ripgrep
-      ruff
-      rustup
-      spotify
-      tldr
-      wireshark
-      yt-dlp
-      yubikey-manager
-      yubioath-flutter
-      zoxide
-    ];
-  };
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -172,39 +130,41 @@
 
   environment.shells = with pkgs; [ fish ];
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
-    brightnessctl
-    dig
-    file
+    # dev
+    beautysh
+    distrobox
     gcc
     gnumake
+    lazygit
+    lua-language-server
+    nil
+    nixpkgs-fmt
+    nodejs
+    pyright
+    python3
+    ruff
+    rustup
+
+    # gui / desktop
+    brave
+    brightnessctl
+    chromium
+    firefox
     kitty
     libreoffice
-    man-pages
-    man-pages-posix
+    piper
+    spotify
+    wireshark
+
+    # other
+    comma
     openssl
     pkg-config
-    unzip
-    vim
-    wget
-    xclip
-    zip
   ];
 
-  programs.starship.enable = true;
-  programs.fish.enable = true;
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
-  programs.git.enable = true;
-
   # Docker
-  virtualisation.docker.enable = true;
-  virtualisation.libvirtd.enable = true;
-  programs.virt-manager.enable = true;
+  # virtualisation.docker.enable = true;
 
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -222,7 +182,6 @@
 
   services.flatpak.enable = true;
 
-  services.pcscd.enable = true;
 
   # programs.nix-ld.enable = true;
 
@@ -279,7 +238,7 @@
     dev.enable = true;
   };
 
-  services.ratbagd.enable = true;
+  services.ratbagd.enable = true; # service for piper (gaming mouse)
 
   services.blueman.enable = true;
   hardware.bluetooth.enable = true;

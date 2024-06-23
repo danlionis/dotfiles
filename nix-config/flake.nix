@@ -15,26 +15,31 @@
 
   outputs = { self, nixpkgs, nixos-hardware, ... }@inputs:
     let inherit (self) outputs; in {
-      # NixOS configuration entrypoint
-      # Available through 'nixos-rebuild --flake .#your-hostname'
 
       overlays = import ./overlays {
         inherit inputs outputs;
       };
 
 
-      nixosConfigurations = {
-        dan-laptop = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs;
-          }; # Pass flake inputs to our config
-          # > Our main nixos configuration file <
-          modules = [
-            ./hosts/laptop
-            nixos-hardware.nixosModules.lenovo-thinkpad-t470s
-          ];
+      nixosConfigurations =
+        let
+          mapHostname = builtins.mapAttrs (name: f: f name);
+        in
+        mapHostname {
+          dan-laptop = hostname: nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              inherit inputs outputs;
+              meta = {
+                inherit hostname;
+              };
+            };
+            modules = [
+              ./hosts/laptop
+              nixos-hardware.nixosModules.lenovo-thinkpad-t470s
+            ];
+          };
+
         };
-      };
 
       # # Standalone home-manager configuration entrypoint
       # # Available through 'home-manager --flake .#your-username@your-hostname'
