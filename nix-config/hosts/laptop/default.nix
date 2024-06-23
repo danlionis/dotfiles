@@ -140,6 +140,7 @@
       gdu
       lazygit
       lf
+      yazi
       lua-language-server
       navi
       nil
