@@ -6,12 +6,14 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     # # Home manager
     # home-manager.url = "github:nix-community/home-manager/release-23.05";
     # home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, nixos-hardware, ... }@inputs:
     let inherit (self) outputs; in {
       # NixOS configuration entrypoint
       # Available through 'nixos-rebuild --flake .#your-hostname'
@@ -29,6 +31,7 @@
           # > Our main nixos configuration file <
           modules = [
             ./hosts/laptop
+            nixos-hardware.nixosModules.lenovo-thinkpad-t470s
           ];
         };
       };

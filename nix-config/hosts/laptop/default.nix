@@ -10,7 +10,8 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./power.nix
-      ../common/hyprland.nix
+      ../../modules/hyprland.nix
+      ../../modules/gaming
     ];
 
   # Bootloader.
@@ -155,7 +156,6 @@
       ruff
       rustup
       spotify
-      starship
       tldr
       wireshark
       yt-dlp
@@ -184,7 +184,6 @@
     libreoffice
     man-pages
     man-pages-posix
-    neofetch
     openssl
     pkg-config
     unzip
@@ -194,7 +193,7 @@
     zip
   ];
 
-  # programs.starship.enable = true;
+  programs.starship.enable = true;
   programs.fish.enable = true;
   programs.neovim = {
     enable = true;
@@ -228,7 +227,7 @@
   # programs.nix-ld.enable = true;
 
   # steam
-  programs.steam.enable = true;
+  gaming.enable = true;
 
   environment.variables = {
     # NIX_LD = lib.fileContents "${pkgs.stdenv.cc}/nix-support/dynamic-linker";
