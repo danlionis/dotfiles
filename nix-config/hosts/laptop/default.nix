@@ -133,6 +133,7 @@
       btop
       chromium
       comma
+      distrobox
       eza
       fd
       firefox
