@@ -23,6 +23,21 @@
         inherit inputs outputs;
       };
 
+      devShells.x86_64-linux.default =
+        let
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        in
+        pkgs.mkShell {
+          buildInputs = with pkgs;
+            [
+              lua-language-server
+              nil
+              nixpkgs-fmt
+              nodePackages.typescript-language-server
+              pyright
+            ];
+        };
+
 
       nixosConfigurations =
         let
