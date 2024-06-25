@@ -8,6 +8,9 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    ags.url = "github:Aylur/ags";
+    ags.inputs.nixpkgs.follows = "nixpkgs";
+
     # # Home manager
     # home-manager.url = "github:nix-community/home-manager/release-23.05";
     # home-manager.inputs.nixpkgs.follows = "nixpkgs";

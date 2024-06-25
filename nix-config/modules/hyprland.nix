@@ -1,11 +1,13 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
-    ags
+    inputs.ags.packages."x86_64-linux".ags # https://github.com/NixOS/nixpkgs/issues/306446
+    adw-gtk3
+
     brightnessctl
     dunst
     eww
@@ -24,12 +26,13 @@
     sway-audio-idle-inhibit
     tofi
     udiskie
-    unstable.hypridle
-    unstable.hyprlock
     waybar
     wl-clipboard
     wlogout
     wlsunset
+
+    unstable.hypridle
+    unstable.hyprlock
   ];
 
   services.udisks2.enable = true;
