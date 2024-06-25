@@ -131,7 +131,7 @@ keyboard.keymap = [
         # ALT(KC.Z),  LCTL(KC.X), LGUI(KC.C), KC.D,       KC.V,       KC.K,       KC.H,       COM_GUI,    DOT_CTL,    SLASH_ALT,
         # Z_ALT,      X_CTL,      C_GUI,      KC.D,       KC.V,       KC.K,       KC.H,       COM_GUI,    DOT_CTL,    SLASH_ALT,
         KC.Z,       KC.X,       KC.C,       KC.D,       KC.V,       KC.K,       KC.H,       KC.COMM,    KC.DOT,    KC.SLASH,
-                                            ESC_LSYM,   SHFT_OS,    SPC_LNAV,   ENT_LNUM,
+                                            ESC_LSYM,   KC.LSFT,    SPC_LNAV,   ENT_LNUM,
     ],
     [ # NAV/VIM (1)
         _______,    VIM_SAVE,   DC_DEAF,    DC_MUTE,    _______,    _______,    _______,    CTL_BSPC,   KC.BSPC,     KC.DEL,
