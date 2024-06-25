@@ -19,7 +19,7 @@
   outputs = { self, nixpkgs, nixos-hardware, ... }@inputs:
     let inherit (self) outputs; in {
 
-      overlays = import ./overlays {
+      overlays = import ./nixos/overlays {
         inherit inputs outputs;
       };
 
@@ -37,7 +37,7 @@
               };
             };
             modules = [
-              ./hosts/laptop
+              ./nixos/hosts/laptop
               nixos-hardware.nixosModules.lenovo-thinkpad-t470s
             ];
           };
