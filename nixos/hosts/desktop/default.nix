@@ -9,6 +9,11 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./impermanence.nix
+      ./disko.nix
+
+      inputs.disko.nixosModules.default
+      inputs.impermanence.nixosModules.impermanence
 
       ../../modules/gaming
       ../../modules/hyprland.nix

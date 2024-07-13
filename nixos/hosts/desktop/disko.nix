@@ -27,18 +27,18 @@
                 # unless their parent is mounted
                 subvolumes = {
                   # Subvolume name is different from mountpoint
-                  "@root" = {
+                  "/root" = {
                     mountpoint = "/";
                   };
-                  "@persist" = {
+                  "/persist" = {
                     mountOptions = [ "subvol=persist" "noatime" ];
                     mountpoint = "/persist";
                   };
-                  "@nix" = {
+                  "/nix" = {
                     mountOptions = [ "compress=zstd" "noatime" ];
                     mountpoint = "/nix";
                   };
-                  "@swap" = {
+                  "/swap" = {
                     mountpoint = "/.swapvol";
                     swap = {
                       swapfile.size = "16G";

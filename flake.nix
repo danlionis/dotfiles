@@ -71,10 +71,6 @@
             };
             modules = [
               ./nixos/hosts/desktop
-              ./nixos/hosts/desktop/disko.nix
-
-              inputs.disko.nixosModules.default
-              inputs.impermanence.nixosModules.impermanence
             ];
           };
 
