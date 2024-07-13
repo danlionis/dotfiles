@@ -11,6 +11,12 @@
     ags.url = "github:Aylur/ags";
     ags.inputs.nixpkgs.follows = "nixpkgs";
 
+    impermanence.url = "github:nix-community/impermanence";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # # Home manager
     # home-manager.url = "github:nix-community/home-manager/release-23.05";
     # home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -54,6 +60,21 @@
             modules = [
               ./nixos/hosts/laptop
               nixos-hardware.nixosModules.lenovo-thinkpad-t470s
+            ];
+          };
+          dan-pc = hostname: nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              inherit inputs outputs;
+              meta = {
+                inherit hostname;
+              };
+            };
+            modules = [
+              ./nixos/hosts/desktop
+              ./nixos/hosts/desktop/disko.nix
+
+              inputs.disko.nixosModules.default
+              inputs.impermanence.nixosModules.impermanence
             ];
           };
 
