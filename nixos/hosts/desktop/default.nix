@@ -30,7 +30,7 @@
   boot.loader.systemd-boot.configurationLimit = 30;
 
   # kernel version
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages;
 
   networking.hostName = meta.hostname; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -153,10 +153,12 @@
     # gui / desktop
     brave
     brightnessctl
-    chromium
+    ungoogled-chromium
+    discord
     firefox
     kitty
     libreoffice
+    obsidian
     piper
     spotify
     wireshark
@@ -166,6 +168,13 @@
     openssl
     pkg-config
   ];
+
+  programs.chromium = {
+    enable = true;
+    extensions = [
+      "nngceckbapebfimnlniiiahkandclblb"
+    ];
+  };
 
   # List services that you want to enable:
 
@@ -235,5 +244,18 @@
   programs.wireshark.enable = true;
 
 
+  # Enable OpenGL
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
 
+  # Load nvidia driver for Xorg and Wayland
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.nvidia = {
+    # Modesetting is required.
+    modesetting.enable = true;
+  };
 }
