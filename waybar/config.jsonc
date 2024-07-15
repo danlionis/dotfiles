@@ -1,6 +1,7 @@
 {
   "layer": "top",
   "position": "top",
+  "output": "DP-1",
   "mod": "dock",
   "exclusive": true,
   "passthrough": false,
