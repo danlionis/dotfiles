@@ -1,9 +1,5 @@
 set -gx EDITOR /usr/bin/env nvim
 
-set TTY1 (tty)
-if test "$TTY1" = "/dev/tty1"
-    exec Hyprland
-end
 
 source /home/dan/.config/fish/fish_greeting.fish
 
@@ -68,3 +64,8 @@ end
 
 
 fish_vi_key_bindings
+
+set TTY1 (tty)
+if test "$TTY1" = "/dev/tty1"
+    exec Hyprland
+end
