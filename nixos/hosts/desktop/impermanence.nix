@@ -34,7 +34,7 @@
       "/var/lib/nixos"
       "/var/lib/tailscale" # maybe move to own module
       "/var/lib/libvirt" # maybe move to own module
-      "/var/lib/containers"  # maybe move to own module
+      "/var/lib/containers" # maybe move to own module
       "/var/lib/docker" # maybe move to own module
       "/var/lib/flatpak" # maybe move to own module
       "/var/lib/systemd/coredump"
@@ -49,6 +49,9 @@
       directories = [
         "dev"
         "Downloads"
+        "dotfiles"
+        "uni"
+        ".persist"
         "Music"
         "Pictures"
         "Documents"
@@ -58,10 +61,20 @@
         { directory = ".local/share/keyrings"; mode = "0700"; }
         ".local/share/direnv"
         ".local/share/Steam"
+        ".local/share/nvim"
+        ".local/share/atuin"
+        ".local/share/zoxide"
+        ".local/share/fish"
         ".config"
       ];
       files = [
       ];
     };
   };
+
+  security.sudo.extraConfig = ''
+    # rollback results in sudo lectures after each reboot
+    Defaults lecture = never
+  '';
+
 }
