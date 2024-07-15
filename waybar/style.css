@@ -201,7 +201,6 @@ label:focus {
 #tray {
   margin-right: 0;
   padding: 0px 8px;
-  background-color: #ff0000;
 }
 
 #tray > .passive {
