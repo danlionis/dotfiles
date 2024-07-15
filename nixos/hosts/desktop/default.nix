@@ -172,7 +172,8 @@
   programs.chromium = {
     enable = true;
     extensions = [
-      "nngceckbapebfimnlniiiahkandclblb"
+      "nngceckbapebfimnlniiiahkandclblb" # bitwarden
+      "mnjggcdmjocbbbhaepdhchncahnbgone" # sponsorblock
     ];
   };
 
