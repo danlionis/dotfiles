@@ -65,6 +65,9 @@
         ".local/share/atuin"
         ".local/share/zoxide"
         ".local/share/fish"
+
+        ".cache/nix-index"
+
         ".config"
       ];
       files = [
