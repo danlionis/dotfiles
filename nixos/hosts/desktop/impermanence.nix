@@ -65,10 +65,14 @@
         ".local/share/atuin"
         ".local/share/zoxide"
         ".local/share/fish"
+        ".local/share/bottles"
+        ".local/state/lazygit"
 
         ".cache/nix-index"
 
         ".config"
+
+        ".var/app/com.discordapp.Discord"
       ];
       files = [
       ];
