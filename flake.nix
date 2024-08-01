@@ -21,7 +21,6 @@
     # home-manager.url = "github:nix-community/home-manager/release-23.05";
     # home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
@@ -91,7 +90,7 @@
       #     modules = [ ./home-manager/home.nix ];
       #   };
       # };
-       
+
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#dan-mbp
       darwinConfigurations."dan-mbp" = nix-darwin.lib.darwinSystem {
