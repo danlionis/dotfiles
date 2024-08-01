@@ -16,7 +16,8 @@
       inputs.impermanence.nixosModules.impermanence
 
       ../../modules/gaming
-      ../../modules/hyprland.nix
+      # ../../modules/hyprland.nix
+      ../../modules/gnome.nix
       ../../modules/libvirt.nix
       ../../modules/podman.nix
       ../../modules/terminal.nix
@@ -80,16 +81,16 @@
   #   xkbVariant = "";
   # };
 
-  xdg = {
-    autostart.enable = true;
-    portal = {
-      enable = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal
-        pkgs.xdg-desktop-portal-gtk
-      ];
-    };
-  };
+  # xdg = {
+  #   autostart.enable = true;
+  #   portal = {
+  #     enable = true;
+  #     extraPortals = [
+  #       pkgs.xdg-desktop-portal
+  #       pkgs.xdg-desktop-portal-gtk
+  #     ];
+  #   };
+  # };
 
   # Configure console keymap
   console.keyMap = "us";
@@ -148,13 +149,11 @@
     pyright
     python3
     ruff
-    rustup
 
     # gui / desktop
     brave
     brightnessctl
     ungoogled-chromium
-    discord
     firefox
     kitty
     libreoffice
@@ -217,7 +216,7 @@
   # fonts
   fonts.packages = with pkgs; [
     noto-fonts
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    (nerdfonts.override { fonts = [ "JetBrainsMono" "Meslo" ]; })
   ];
 
   services.tailscale.enable = true;
@@ -258,5 +257,10 @@
   hardware.nvidia = {
     # Modesetting is required.
     modesetting.enable = true;
+  };
+
+
+  services.hardware.openrgb = {
+    enable = true;
   };
 }

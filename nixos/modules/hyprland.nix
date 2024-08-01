@@ -2,6 +2,7 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+    # package = pkgs.unstable.hyprland;
   };
 
   environment.systemPackages = with pkgs; [
