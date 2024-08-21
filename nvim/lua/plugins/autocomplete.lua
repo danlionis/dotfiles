@@ -38,6 +38,7 @@ return {
                     { name = "crates" },
                     { name = "codeium" },
                     { name = "neorg" },
+                    { name = "vim-dadbod-completion" },
                 }),
                 -- formatting = {
                 --     format = function(_, item)
