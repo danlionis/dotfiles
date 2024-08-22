@@ -8,6 +8,13 @@
         mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
     fi
 
+    if [[ -e /btrfs_tmp/persist ]]; then
+        mkdir -p /btrfs_tmp/old_persists
+        timestamp=$(date "+%Y-%m-%-d_%H:%M:%S")
+        btrfs subvolume snapshot /btrfs_tmp/persist "/btrfs_tmp/old_persists/$timestamp"
+        touch "/btrfs_tmp/old_persists/$timestamp" # set mtime to properly delete old snapshots
+    fi
+
     delete_subvolume_recursively() {
         IFS=$'\n'
         for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
@@ -17,6 +24,10 @@
     }
 
     for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +30); do
+        delete_subvolume_recursively "$i"
+    done
+
+    for i in $(find /btrfs_tmp/old_persists/ -maxdepth 1 -mtime +30); do
         delete_subvolume_recursively "$i"
     done
 
