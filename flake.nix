@@ -18,14 +18,16 @@
     };
 
     # # Home manager
-    # home-manager.url = "github:nix-community/home-manager/release-23.05";
-    # home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-24.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, nix-darwin, ... }@inputs:
+  outputs = { self, nixpkgs, nixos-hardware, nix-darwin, home-manager, ... }@inputs:
     let inherit (self) outputs; in {
 
       overlays = import ./nixos/overlays {
@@ -74,6 +76,12 @@
             };
             modules = [
               ./nixos/hosts/desktop
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.dan = import ./home/dan;
+              }
             ];
           };
 
@@ -93,11 +101,12 @@
 
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#dan-mbp
-      darwinConfigurations."dan-mbp" = nix-darwin.lib.darwinSystem {
-        specialArgs = {
-          inherit inputs outputs;
+      darwinConfigurations."dan-mbp" = nix-darwin.lib.darwinSystem
+        {
+          specialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [ ./darwin/mbp ];
         };
-        modules = [ ./darwin/mbp ];
-      };
     };
 }

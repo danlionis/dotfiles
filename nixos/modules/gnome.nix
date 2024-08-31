@@ -8,6 +8,7 @@
 
   environment.systemPackages = with pkgs; [
     gnome.gnome-tweaks
+    gnomeExtensions.dash-to-dock
   ];
 
   environment.gnome.excludePackages = (with pkgs; [
@@ -28,4 +29,6 @@
     hitori # sudoku game
     atomix # puzzle game
   ]);
+
+  programs.dconf.enable = true;
 }
