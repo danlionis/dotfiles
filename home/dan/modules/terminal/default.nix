@@ -10,12 +10,14 @@
       btop
       comma
       dig
+      distrobox
       eza
       fd
       file
       fzf
       gdu
       jq
+      lazygit
       man-pages
       man-pages-posix
       navi

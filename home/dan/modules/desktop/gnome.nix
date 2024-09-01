@@ -15,6 +15,16 @@ let
 in
 {
   dconf.settings = {
+    "org/gnome/mutter" = {
+      dynamic-workspaces = false;
+      edge-tiling = true;
+      workspaces-only-on-primary = true;
+    };
+
+    "org/gnome/desktop/wm/preferences" = {
+      num-workspaces = 9;
+    };
+
     "org/gnome/shell/keybindings" = {
       switch-to-application-1 = [ ];
       switch-to-application-2 = [ ];
@@ -25,7 +35,6 @@ in
       switch-to-application-7 = [ ];
       switch-to-application-8 = [ ];
       switch-to-application-9 = [ ];
-      switch-to-application-10 = [ ];
     };
 
     "org/gnome/desktop/wm/keybindings" = {
@@ -38,7 +47,6 @@ in
       switch-to-workspace-7 = [ "<Super>7" ];
       switch-to-workspace-8 = [ "<Super>8" ];
       switch-to-workspace-9 = [ "<Super>9" ];
-      switch-to-workspace-10 = [ "<Super>0" ];
 
       move-to-workspace-1 = [ "<Shift><Super>1" ];
       move-to-workspace-2 = [ "<Shift><Super>2" ];
@@ -49,7 +57,6 @@ in
       move-to-workspace-7 = [ "<Shift><Super>7" ];
       move-to-workspace-8 = [ "<Shift><Super>8" ];
       move-to-workspace-9 = [ "<Shift><Super>9" ];
-      move-to-workspace-10 = [ "<Shift><Super>0" ];
 
       close = [
         "<Super>q"
