@@ -138,7 +138,6 @@
     gnumake
     lazygit
     lua-language-server
-    nil
     nixpkgs-fmt
     nodejs
     pyright

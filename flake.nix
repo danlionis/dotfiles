@@ -42,7 +42,7 @@
           buildInputs = with pkgs;
             [
               lua-language-server
-              nil
+              nixd
               nixpkgs-fmt
               nodePackages.typescript-language-server
               pyright
@@ -80,24 +80,12 @@
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-                home-manager.users.dan = import ./home/dan;
+                home-manager.users.dan = import ./home/dan/desktop.nix;
               }
             ];
           };
 
         };
-
-      # # Standalone home-manager configuration entrypoint
-      # # Available through 'home-manager --flake .#your-username@your-hostname'
-      # homeConfigurations = {
-      #   # FIXME replace with your username@hostname
-      #   "dan@dan-laptop" = home-manager.lib.homeManagerConfiguration {
-      #     pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-      #     extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
-      #     # > Our main home-manager configuration file <
-      #     modules = [ ./home-manager/home.nix ];
-      #   };
-      # };
 
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#dan-mbp

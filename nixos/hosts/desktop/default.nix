@@ -131,6 +131,8 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+
   nixpkgs.overlays = builtins.attrValues outputs.overlays;
 
   environment.shells = with pkgs; [ fish ];
@@ -142,10 +144,7 @@
     gcc
     gnumake
     lazygit
-    lua-language-server
-    nil
-    nixpkgs-fmt
-    nodejs
+
     pyright
     python3
     ruff
@@ -163,7 +162,6 @@
     wireshark
 
     # other
-    comma
     openssl
     pkg-config
   ];
