@@ -1,4 +1,3 @@
-{ ... }:
 let
   binds = {
     kitty = {
@@ -16,6 +15,20 @@ let
 in
 {
   dconf.settings = {
+    "org/gnome/shell/keybindings" = {
+      switch-to-application-1 = [ ];
+      switch-to-application-2 = [ ];
+      switch-to-application-3 = [ ];
+      switch-to-application-4 = [ ];
+      switch-to-application-5 = [ ];
+      switch-to-application-6 = [ ];
+      switch-to-application-7 = [ ];
+      switch-to-application-8 = [ ];
+      switch-to-application-9 = [ ];
+      switch-to-application-10 = [ ];
+
+    };
+
     "org/gnome/desktop/wm/keybindings" = {
       switch-to-workspace-1 = [ "<Super>1" ];
       switch-to-workspace-2 = [ "<Super>2" ];
@@ -27,7 +40,6 @@ in
       switch-to-workspace-8 = [ "<Super>8" ];
       switch-to-workspace-9 = [ "<Super>9" ];
       switch-to-workspace-10 = [ "<Super>0" ];
-
 
       move-to-workspace-1 = [ "<Shift><Super>1" ];
       move-to-workspace-2 = [ "<Shift><Super>2" ];
@@ -44,12 +56,11 @@ in
         "<Super>q"
       ];
     };
-
     "org/gnome/settings-daemon/plugins/media-keys" = {
       search = [
         "<Super>space"
       ];
-      custom-keybindings = builtins.attrNames bindsWithPrefix;
+      custom-keybindings = builtins.map (name: "/${name}/") (builtins.attrNames bindsWithPrefix);
     };
 
   } // bindsWithPrefix;
