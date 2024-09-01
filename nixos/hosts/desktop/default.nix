@@ -15,13 +15,15 @@
       inputs.disko.nixosModules.default
       inputs.impermanence.nixosModules.impermanence
 
-      ../../modules/gaming
+      ../../modules/users/dan.nix
+
       # ../../modules/hyprland.nix
+      ../../modules/gaming
       ../../modules/gnome.nix
       ../../modules/libvirt.nix
       ../../modules/podman.nix
+      ../../modules/tailscale.nix
       ../../modules/terminal.nix
-      ../../modules/users/dan.nix
       ../../modules/yubikey.nix
     ];
 
@@ -35,12 +37,6 @@
 
   networking.hostName = meta.hostname; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  networking.extraHosts =
-    ''
-      100.91.107.48 athena
-    '';
-
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -159,7 +155,6 @@
     obsidian
     piper
     spotify
-    wireshark
 
     # other
     openssl
@@ -217,8 +212,6 @@
     (nerdfonts.override { fonts = [ "JetBrainsMono" "Meslo" ]; })
   ];
 
-  services.tailscale.enable = true;
-
   security.polkit.enable = true;
 
   documentation = {
@@ -238,8 +231,6 @@
     enable = true;
     enableFishIntegration = true;
   };
-
-  programs.wireshark.enable = true;
 
 
   # Enable OpenGL

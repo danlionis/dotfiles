@@ -26,7 +26,6 @@ in
       switch-to-application-8 = [ ];
       switch-to-application-9 = [ ];
       switch-to-application-10 = [ ];
-
     };
 
     "org/gnome/desktop/wm/keybindings" = {
@@ -56,6 +55,7 @@ in
         "<Super>q"
       ];
     };
+
     "org/gnome/settings-daemon/plugins/media-keys" = {
       search = [
         "<Super>space"
