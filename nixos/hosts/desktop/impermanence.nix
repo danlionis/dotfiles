@@ -83,7 +83,7 @@
 
         ".config"
 
-        ".var/app/com.discordapp.Discord"
+        ".var/app" # flatpak data
       ];
       files = [
       ];
