@@ -6,4 +6,6 @@
     shell = pkgs.fish;
     extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "wireshark" ];
   };
+
+  programs.fish.enable = true;
 }
