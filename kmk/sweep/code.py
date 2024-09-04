@@ -8,14 +8,12 @@ from kb import KMKKeyboard
 from storage import getmount
 from kmk.keys import KC
 from kmk.modules.capsword import CapsWord
-from kmk.modules.oneshot import OneShot
 from kmk.modules.holdtap import HoldTap
 from kmk.modules.layers import Layers
 from kmk.modules.combos import Combos, Chord
 from kmk.modules.mouse_keys import MouseKeys
 from kmk.modules.split import Split, SplitSide
 from kmk.modules.tapdance import TapDance
-from kmk.handlers.sequences import simple_key_sequence
 
 supervisor.set_next_code_file(filename='code.py', reload_on_error=True)
 
@@ -54,14 +52,11 @@ capsword = CapsWord()
 tapdance = TapDance()
 tapdance.tap_time = 150
 
-oneshot = OneShot()
-
 combos = Combos()
 
 keyboard.modules = [
     split,
     holdtap,
-    oneshot,
     layers,
     mouse_key,
     combos,
@@ -104,8 +99,8 @@ ESC_LSYM = KC.LT(3, KC.ESC, tap_time=300, prefer_hold=True)
 # Misc
 KITTY_MOD = KC.LSHIFT(KC.LCTRL)
 # SHFT_CW = KC.TD(KC.OS(KC.LSFT), KC.CW)  # SHIFT when held, CapsWord when double tapped
-SHFT_OS = KC.OS(KC.LSFT)
-VIM_SAVE = simple_key_sequence((KC.ESC, KC.COLN, KC.W, KC.ENTER))
+# SHFT_OS = KC.OS(KC.LSFT)
+# VIM_SAVE = simple_key_sequence((KC.ESC, KC.COLN, KC.W, KC.ENTER))
 DC_MUTE = KC.LALT(KC.LCTL(KC.LSFT(KC.M)))
 DC_DEAF = KC.LALT(KC.LCTL(KC.LSFT(KC.D)))
 LOCK = KC.LGUI(KC.ESC)
@@ -134,7 +129,7 @@ keyboard.keymap = [
                                             ESC_LSYM,   KC.LSFT,    SPC_LNAV,   ENT_LNUM,
     ],
     [ # NAV/VIM (1)
-        _______,    VIM_SAVE,   DC_DEAF,    DC_MUTE,    _______,    _______,    _______,    CTL_BSPC,   KC.BSPC,     KC.DEL,
+        _______,    _______,   DC_DEAF,    DC_MUTE,    _______,    _______,    _______,    CTL_BSPC,   KC.BSPC,     KC.DEL,
         _______,    _______,    _______,    KC.TAB,     _______,    KC.LEFT,    KC.DOWN,    KC.UP,      KC.RIGHT,    _______,
         _______,    KC.LCTRL,   KC.LGUI,    KITTY_MOD,  KC.CW,      KC.HOME,    KC.PGDOWN,  KC.PGUP,    KC.END,      _______,
                                             _______,    _______,    _______,    _______,
@@ -161,7 +156,7 @@ keyboard.keymap = [
         KC.Q,       KC.W,       KC.E,       KC.R,       KC.T,       KC.Y,       KC.U,       KC.I,       KC.O,       KC.P,
         KC.A,       KC.S,       KC.D,       KC.F,       KC.G,       KC.H,       KC.J,       KC.K,       KC.L,       KC.SCLN,
         Z_ALT,      X_CTL,      C_GUI,      KC.V,       KC.B,       KC.N,       KC.M,       COM_GUI,    DOT_CTL,    SLASH_ALT,
-                                            ESC_LSYM,   SHFT_OS,    SPC_LNAV,   ENT_LNUM,
+                                            ESC_LSYM,   KC.LSFT,    SPC_LNAV,   ENT_LNUM,
     ],
     [  # GAMING (6) 
         KC.TAB,     KC.Q,       KC.W,       KC.E,       KC.R,       KC.Y,       KC.U,       KC.I,       KC.O,       KC.P,
@@ -178,9 +173,9 @@ keyboard.keymap = [
     ],
 ]
 
-combos.combos = [
-    Chord((KC.EQL, KC.EXLM), simple_key_sequence((KC.EXLM, KC.EQL))),
-]
+# combos.combos = [
+#     Chord((KC.EQL, KC.EXLM), simple_key_sequence((KC.EXLM, KC.EQL))),
+# ]
 
 
 if __name__ == "__main__":
