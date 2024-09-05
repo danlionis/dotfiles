@@ -2,7 +2,7 @@ let
   binds = {
     kitty = {
       binding = "<Super>Return";
-      command = "kitty -o allow_remote_control=yes -o enabled_layouts=tall";
+      command = "kitty -o allow_remote_control=yes";
       name = "kitty";
     };
     brave = {
