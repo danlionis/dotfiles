@@ -14,6 +14,8 @@ from kmk.modules.combos import Combos, Chord
 from kmk.modules.mouse_keys import MouseKeys
 from kmk.modules.split import Split, SplitSide
 from kmk.modules.tapdance import TapDance
+from kmk.modules.sticky_keys import StickyKeys
+
 
 supervisor.set_next_code_file(filename='code.py', reload_on_error=True)
 
@@ -43,7 +45,7 @@ combo_layers = {
 layers = Layers(combo_layers)
 
 holdtap = HoldTap()
-holdtap.tap_time = 300
+holdtap.tap_time = 250
 
 mouse_key = MouseKeys()
 
@@ -51,6 +53,9 @@ capsword = CapsWord()
 
 tapdance = TapDance()
 tapdance.tap_time = 150
+
+sticky_keys = StickyKeys(release_after=500)
+
 
 combos = Combos()
 
@@ -62,6 +67,7 @@ keyboard.modules = [
     combos,
     tapdance,
     capsword,
+    sticky_keys
 ]
 
 # Cleaner key names
@@ -74,13 +80,14 @@ I_CTL = KC.HT(KC.I, KC.RCTRL, prefer_hold=False)
 S_ALT = KC.HT(KC.S, KC.LALT, prefer_hold=False)
 E_ALT = KC.HT(KC.E, KC.LALT, prefer_hold=False)
 
-ALT = lambda k: KC.HT(k, KC.LALT, prefer_hold=False)
-RCTL = lambda k: KC.HT(k, KC.RCTL, prefer_hold=False)
-LCTL = lambda k: KC.HT(k, KC.LCTL, prefer_hold=False)
-RGUI = lambda k: KC.HT(k, KC.RGUI, prefer_hold=False)
-LGUI = lambda k: KC.HT(k, KC.LGUI, prefer_hold=False)
-
 mod_time = 200
+
+ALT = lambda k: KC.HT(k, KC.LALT, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
+RCTL = lambda k: KC.HT(k, KC.RCTL, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
+LCTL = lambda k: KC.HT(k, KC.LCTL, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
+RGUI = lambda k: KC.HT(k, KC.RGUI, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
+LGUI = lambda k: KC.HT(k, KC.LGUI, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
+
 
 X_CTL = KC.HT(KC.X, KC.LCTRL, prefer_hold=False, tap_time=mod_time)
 C_GUI = KC.HT(KC.C, KC.LGUI, prefer_hold=False, tap_time=mod_time)
@@ -100,6 +107,7 @@ ESC_LSYM = KC.LT(3, KC.ESC, tap_time=300, prefer_hold=True)
 KITTY_MOD = KC.LSHIFT(KC.LCTRL)
 # SHFT_CW = KC.TD(KC.OS(KC.LSFT), KC.CW)  # SHIFT when held, CapsWord when double tapped
 # SHFT_OS = KC.OS(KC.LSFT)
+SK_LSFT = KC.SK(KC.LSFT)
 # VIM_SAVE = simple_key_sequence((KC.ESC, KC.COLN, KC.W, KC.ENTER))
 DC_MUTE = KC.LALT(KC.LCTL(KC.LSFT(KC.M)))
 DC_DEAF = KC.LALT(KC.LCTL(KC.LSFT(KC.D)))
@@ -126,7 +134,7 @@ keyboard.keymap = [
         # ALT(KC.Z),  LCTL(KC.X), LGUI(KC.C), KC.D,       KC.V,       KC.K,       KC.H,       COM_GUI,    DOT_CTL,    SLASH_ALT,
         # Z_ALT,      X_CTL,      C_GUI,      KC.D,       KC.V,       KC.K,       KC.H,       COM_GUI,    DOT_CTL,    SLASH_ALT,
         KC.Z,       KC.X,       KC.C,       KC.D,       KC.V,       KC.K,       KC.H,       KC.COMM,    KC.DOT,    KC.SLASH,
-                                            ESC_LSYM,   KC.LSFT,    SPC_LNAV,   ENT_LNUM,
+                                            ESC_LSYM,   SK_LSFT,    SPC_LNAV,   ENT_LNUM,
     ],
     [ # NAV/VIM (1)
         _______,    _______,   DC_DEAF,    DC_MUTE,    _______,    _______,    _______,    CTL_BSPC,   KC.BSPC,     KC.DEL,
