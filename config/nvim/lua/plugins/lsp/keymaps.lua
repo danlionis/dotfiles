@@ -31,6 +31,8 @@ function M.setup()
             self:map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
             self:map("<leader>dn", vim.diagnostic.goto_next, { desc = "[D]iagnostic [N]ext" })
             self:map("<leader>dp", vim.diagnostic.goto_prev, { desc = "[D]iagnostic [P]revious" })
+            self:map("]d", vim.diagnostic.goto_next, { desc = "[D]iagnostic [N]ext" })
+            self:map("[d", vim.diagnostic.goto_prev, { desc = "[D]iagnostic [P]revious" })
 
             local format = require("plugins.lsp.format").format
             self:map("<leader>f", format, { desc = "Format Document", has = "documentFormatting" })
