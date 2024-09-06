@@ -1,7 +1,5 @@
 set -gx EDITOR /usr/bin/env nvim
-
-
-source /home/dan/.config/fish/fish_greeting.fish
+set fish_greeting
 
 if type -q starship
     starship init fish | source
