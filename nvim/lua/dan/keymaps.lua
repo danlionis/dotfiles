@@ -96,7 +96,7 @@ vim.keymap.set("i", "<C-l>", "<Right>", { silent = true, desc = "Move right" })
 vim.keymap.set("i", "<C-b>", "<ESC>^i", { silent = true, desc = "Beginning of line" })
 vim.keymap.set("i", "<C-e>", "<End>", { silent = true, desc = "End of line" })
 
-local conceal_on = true;
+local conceal_on = false;
 vim.keymap.set("n", "<C-e>", function()
     if conceal_on then
         vim.o.conceallevel = 0;

@@ -1,5 +1,6 @@
 return {
-    nil_ls = {},
+    -- nil_ls = {},
+    nixd = {},
     htmx = {},
     html = {
         filetypes = { "html", "templ" },
@@ -19,7 +20,13 @@ return {
     templ = {},
     tailwindcss = {
         filetypes = { "templ", "html", "css", "javascript" },
-        init_options = { userLanguages = { templ = "html" } },
+        settings = {
+            tailwindCSS = {
+                includeLanguages = {
+                    templ = "html"
+                }
+            }
+        },
     },
     ltex = {
         settings = {
@@ -32,7 +39,7 @@ return {
     },
     clangd = {},
     pyright = {},
-    tsserver = {},
+    ts_ls = {},
     texlab = {},
     gopls = {
         settings = {

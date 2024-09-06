@@ -45,6 +45,6 @@ vim.o.termguicolors = true
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
-vim.o.conceallevel = 1
+vim.o.conceallevel = 0
 
 vim.filetype.add({ extension = { templ = "templ" } })
