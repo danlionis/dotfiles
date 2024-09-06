@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   imports = [
     ./direnv.nix
     ./git.nix
@@ -11,7 +11,6 @@
       btop
       comma
       dig
-      distrobox
       eza
       fd
       file
@@ -33,7 +32,7 @@
       yt-dlp
       zip
       zoxide
-    ];
+    ] ++ lib.optionals pkgs.stdenv.isLinux [ distrobox ];
 
   programs.neovim = {
     enable = true;
