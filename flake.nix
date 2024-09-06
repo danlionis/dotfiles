@@ -45,7 +45,9 @@
               nixd
               nixpkgs-fmt
               nodePackages.typescript-language-server
+
               pyright
+              mypy
             ];
         };
 

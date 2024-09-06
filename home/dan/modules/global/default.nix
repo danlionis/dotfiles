@@ -1,4 +1,4 @@
-{ ... }: {
+{ config, pkgs, lib, ... }: {
   nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
@@ -12,10 +12,11 @@
   };
 
   home = {
-    username = "dan";
-    homeDirectory = "/home/dan";
+    username = lib.mkDefault "dan";
+    homeDirectory =
+      if pkgs.stdenv.isDarwin then "/Users/${config.home.username}" else "/home/${config.home.username}";
     sessionVariables = {
-      FLAKE = "$HOME/Documents/NixConfig";
+      FLAKE = "$HOME/dotfiles";
     };
     packages = [ ];
   };
