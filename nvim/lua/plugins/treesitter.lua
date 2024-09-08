@@ -11,25 +11,27 @@ return {
             indent = { enable = true },
             context_commentstring = { enable = true, enable_autocmd = false },
             ensure_installed = {
-                'c',
-                'go',
-                'lua',
-                'python',
-                'rust',
-                'javascript',
-                'typescript',
-                'vimdoc',
-                'fish',
                 "bash",
+                "c",
+                "fish",
+                "go",
                 "html",
                 "javascript",
+                "javascript",
                 "json",
+                "latex",
+                "lua",
                 "markdown",
                 "markdown_inline",
+                "nix",
+                "python",
                 "query",
                 "regex",
+                "rust",
+                "typescript",
                 "typescript",
                 "vim",
+                "vimdoc",
                 "yaml",
             },
             playground = {
@@ -58,9 +60,9 @@ return {
                     -- and should return the mode ('v', 'V', or '<c-v>') or a table
                     -- mapping query_strings to modes.
                     selection_modes = {
-                        ['@parameter.outer'] = 'v', -- charwise
-                        ['@function.outer'] = 'v',  -- charwise
-                        ['@class.outer'] = '<c-v>', -- blockwise
+                        ["@parameter.outer"] = "v", -- charwise
+                        ["@function.outer"] = "v", -- charwise
+                        ["@class.outer"] = "<c-v>", -- blockwise
                     },
                     -- If you set this to `true` (default is `false`) then any textobject is
                     -- extended to include preceding or succeeding whitespace. Succeeding
@@ -97,5 +99,5 @@ return {
 
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
-    }
+    },
 }
