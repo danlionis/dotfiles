@@ -7,5 +7,7 @@
       ".envrc"
       "result"
     ];
+
+    delta.enable = true;
   };
 }

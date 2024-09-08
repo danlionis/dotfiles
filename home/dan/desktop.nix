@@ -11,6 +11,8 @@
     ./modules/terminal
 
     ./modules/dotpersist-service.nix
+
+    ./modules/development/nix.nix
   ];
 
   # This value determines the Home Manager release that your configuration is
