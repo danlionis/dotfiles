@@ -4,7 +4,10 @@
 
   imports = [
     ./modules/global
+
     ./modules/desktop/gnome.nix
+    ./modules/desktop/prismlauncher.nix
+
     ./modules/terminal
   ];
 
