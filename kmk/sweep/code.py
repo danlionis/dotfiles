@@ -3,21 +3,20 @@ import digitalio
 import supervisor
 
 # import neopixel
-
 from kb import KMKKeyboard
 from storage import getmount
+
 from kmk.keys import KC
 from kmk.modules.capsword import CapsWord
+from kmk.modules.combos import Combos
 from kmk.modules.holdtap import HoldTap
 from kmk.modules.layers import Layers
-from kmk.modules.combos import Combos, Chord
 from kmk.modules.mouse_keys import MouseKeys
 from kmk.modules.split import Split, SplitSide
-from kmk.modules.tapdance import TapDance
 from kmk.modules.sticky_keys import StickyKeys
+from kmk.modules.tapdance import TapDance
 
-
-supervisor.set_next_code_file(filename='code.py', reload_on_error=True)
+supervisor.set_next_code_file(filename="code.py", reload_on_error=True)
 
 left = str(getmount("/").label)[-1] == "L"
 split_side = SplitSide.LEFT if left else SplitSide.RIGHT
@@ -56,7 +55,6 @@ tapdance.tap_time = 150
 
 sticky_keys = StickyKeys(release_after=500)
 
-
 combos = Combos()
 
 keyboard.modules = [
@@ -67,7 +65,7 @@ keyboard.modules = [
     combos,
     tapdance,
     capsword,
-    sticky_keys
+    sticky_keys,
 ]
 
 # Cleaner key names
@@ -80,13 +78,28 @@ I_CTL = KC.HT(KC.I, KC.RCTRL, prefer_hold=False)
 S_ALT = KC.HT(KC.S, KC.LALT, prefer_hold=False)
 E_ALT = KC.HT(KC.E, KC.LALT, prefer_hold=False)
 
+
 mod_time = 200
 
-ALT = lambda k: KC.HT(k, KC.LALT, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
-RCTL = lambda k: KC.HT(k, KC.RCTL, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
-LCTL = lambda k: KC.HT(k, KC.LCTL, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
-RGUI = lambda k: KC.HT(k, KC.RGUI, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
-LGUI = lambda k: KC.HT(k, KC.LGUI, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
+
+def ALT(k):
+    return KC.HT(k, KC.LALT, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
+
+
+def RCTL(k):
+    return KC.HT(k, KC.RCTL, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
+
+
+def LCTL(k):
+    return KC.HT(k, KC.LCTL, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
+
+
+def RGUI(k):
+    return KC.HT(k, KC.RGUI, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
+
+
+def LGUI(k):
+    return KC.HT(k, KC.LGUI, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
 
 
 X_CTL = KC.HT(KC.X, KC.LCTRL, prefer_hold=False, tap_time=mod_time)
@@ -125,14 +138,10 @@ UML = {
 }
 
 # fmt: off
-# flake8: noqa
 keyboard.keymap = [
     [  # Colemak-DH (0)
         KC.Q,       KC.W,       KC.F,       KC.P,       KC.B,       KC.J,       KC.L,       KC.U,       KC.Y,       KC.SCLN,
-        # KC.A,       KC.R,       KC.S,       KC.T,       KC.G,       KC.M,       KC.N,        KC.E,       KC.I,      KC.O,
         ALT(KC.A),  LCTL(KC.R), LGUI(KC.S), KC.T,       KC.G,       KC.M,       KC.N,       RGUI(KC.E), RCTL(KC.I), ALT(KC.O),
-        # ALT(KC.Z),  LCTL(KC.X), LGUI(KC.C), KC.D,       KC.V,       KC.K,       KC.H,       COM_GUI,    DOT_CTL,    SLASH_ALT,
-        # Z_ALT,      X_CTL,      C_GUI,      KC.D,       KC.V,       KC.K,       KC.H,       COM_GUI,    DOT_CTL,    SLASH_ALT,
         KC.Z,       KC.X,       KC.C,       KC.D,       KC.V,       KC.K,       KC.H,       KC.COMM,    KC.DOT,    KC.SLASH,
                                             ESC_LSYM,   SK_LSFT,    SPC_LNAV,   ENT_LNUM,
     ],
@@ -180,10 +189,7 @@ keyboard.keymap = [
                                             _______,    _______,    _______,    _______,
     ],
 ]
-
-# combos.combos = [
-#     Chord((KC.EQL, KC.EXLM), simple_key_sequence((KC.EXLM, KC.EQL))),
-# ]
+# fmt: on
 
 
 if __name__ == "__main__":
