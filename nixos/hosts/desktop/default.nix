@@ -2,32 +2,41 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, outputs, inputs, meta, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  outputs,
+  inputs,
+  meta,
+  ...
+}:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./impermanence.nix
-      ./disko.nix
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./impermanence.nix
+    ./disko.nix
 
-      inputs.disko.nixosModules.default
-      inputs.impermanence.nixosModules.impermanence
+    inputs.disko.nixosModules.default
+    inputs.impermanence.nixosModules.impermanence
 
-      ../../modules/users/dan.nix
+    ../../modules/users/dan.nix
 
-      # ../../modules/hyprland.nix
-      ../../modules/gaming
-      ../../modules/gnome.nix
-      ../../modules/libvirt.nix
-      ../../modules/podman.nix
-      ../../modules/printing.nix
-      ../../modules/sound.nix
-      ../../modules/tailscale.nix
-      ../../modules/terminal.nix
-      ../../modules/yubikey.nix
-    ];
+    # ../../modules/hyprland.nix
+    ../../modules/fonts.nix
+    ../../modules/gaming
+    ../../modules/gnome.nix
+    ../../modules/libvirt.nix
+    ../../modules/openrgb.nix
+    ../../modules/podman.nix
+    ../../modules/printing.nix
+    ../../modules/sound.nix
+    ../../modules/tailscale.nix
+    ../../modules/terminal.nix
+    ../../modules/yubikey.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -170,7 +179,10 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   nix.gc = {
     automatic = true;
@@ -178,12 +190,6 @@
     dates = "weekly";
     options = "--delete-older-than 14d";
   };
-
-  # fonts
-  fonts.packages = with pkgs; [
-    noto-fonts
-    (nerdfonts.override { fonts = [ "JetBrainsMono" "Meslo" ]; })
-  ];
 
   security.polkit.enable = true;
 
@@ -205,7 +211,6 @@
     enableFishIntegration = true;
   };
 
-
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
@@ -219,10 +224,5 @@
   hardware.nvidia = {
     # Modesetting is required.
     modesetting.enable = true;
-  };
-
-
-  services.hardware.openrgb = {
-    enable = true;
   };
 }
