@@ -11,26 +11,26 @@ end
 
 return {
     {
-        'j-hui/fidget.nvim',
+        "j-hui/fidget.nvim",
         lazy = true,
         config = true,
         tag = "legacy",
     },
     {
         -- LSP Configuration & Plugins
-        'neovim/nvim-lspconfig',
+        "neovim/nvim-lspconfig",
         -- event = "BufReadPre",
         dependencies = {
             -- Automatically install LSPs to stdpath for neovim
-            'williamboman/mason.nvim',
-            'williamboman/mason-lspconfig.nvim',
+            -- 'williamboman/mason.nvim',
+            -- 'williamboman/mason-lspconfig.nvim',
 
             -- -- Useful status updates for LSP
-            'fidget.nvim',
+            "fidget.nvim",
         },
         opts = {
             servers = require("plugins.lsp.servers"),
-            setup = {}
+            setup = {},
         },
         config = function(_, opts)
             require("plugins.lsp.keymaps").setup()
@@ -43,8 +43,8 @@ return {
             vim.diagnostic.config(opts.diagnostics)
 
             local servers = opts.servers
-            local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-
+            local capabilities =
+                require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
             -- TODO: make this and mason-lspconfig nicer
 
@@ -62,23 +62,22 @@ return {
                 pcall(require("lspconfig")[server].setup, server_opts)
             end
 
-
-            require("mason-lspconfig").setup_handlers({
-                function(server)
-                    local server_opts = servers[server] or {}
-                    server_opts.capabilities = capabilities
-                    if opts.setup[server] then
-                        if opts.setup[server](server, server_opts) then
-                            return
-                        end
-                    elseif opts.setup["*"] then
-                        if opts.setup["*"](server, server_opts) then
-                            return
-                        end
-                    end
-                    require("lspconfig")[server].setup(server_opts)
-                end,
-            })
-        end
+            -- require("mason-lspconfig").setup_handlers({
+            --     function(server)
+            --         local server_opts = servers[server] or {}
+            --         server_opts.capabilities = capabilities
+            --         if opts.setup[server] then
+            --             if opts.setup[server](server, server_opts) then
+            --                 return
+            --             end
+            --         elseif opts.setup["*"] then
+            --             if opts.setup["*"](server, server_opts) then
+            --                 return
+            --             end
+            --         end
+            --         require("lspconfig")[server].setup(server_opts)
+            --     end,
+            -- })
+        end,
     },
 }

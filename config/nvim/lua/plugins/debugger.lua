@@ -2,57 +2,63 @@ return {
     {
         "mfussenegger/nvim-dap",
         enabled = false,
-        dependencies = {
-            "jay-babu/mason-nvim-dap.nvim",
-        },
+        dependencies = {},
         keys = {
             {
                 "<leader>b",
-                function() require("dap").toggle_breakpoint() end,
-                desc =
-                "[B]reakpoint [T]oggle"
+                function()
+                    require("dap").toggle_breakpoint()
+                end,
+                desc = "[B]reakpoint [T]oggle",
             },
             {
                 "<leader>B",
-                function() require("dap").set_breakpoint(vim.fn.input("[Condition] > ")) end,
-                desc =
-                "[B]reakpoint [T]oggle Conditional"
+                function()
+                    require("dap").set_breakpoint(vim.fn.input("[Condition] > "))
+                end,
+                desc = "[B]reakpoint [T]oggle Conditional",
             },
             {
                 "<leader>dr",
-                function() require("dap").repl.toggle() end,
-                desc =
-                "[D]rebugger [R]EPL"
+                function()
+                    require("dap").repl.toggle()
+                end,
+                desc = "[D]rebugger [R]EPL",
             },
             {
                 "<leader>dq",
-                function() require("dap").close() end,
-                desc =
-                "[D]rebugger [Q]uit"
+                function()
+                    require("dap").close()
+                end,
+                desc = "[D]rebugger [Q]uit",
             },
             {
                 "<F5>",
-                function() require("dap").continue() end,
-                desc =
-                "Debugger Continue"
+                function()
+                    require("dap").continue()
+                end,
+                desc = "Debugger Continue",
             },
             {
                 "<F10>",
-                function() require("dap").step_over() end,
-                desc =
-                "Debugger Step Over"
+                function()
+                    require("dap").step_over()
+                end,
+                desc = "Debugger Step Over",
             },
             {
                 "<F11>",
-                function() require("dap").step_into() end,
-                desc =
-                "Debugger Step Into"
+                function()
+                    require("dap").step_into()
+                end,
+                desc = "Debugger Step Into",
             },
             {
                 "<F12>",
-                function() require("dap").step_out() end,
-                desc =
-                "Debugger Step Out"
+                function()
+                    require("dap").step_out()
+                end,
+                desc = "Debugger Step Out",
             },
         },
         config = function(_, opts)
@@ -68,17 +74,18 @@ return {
                 dapui.close()
             end
 
-            vim.fn.sign_define("DapBreakpoint",
-                { text = "🔴", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" })
-            vim.fn.sign_define("DapBreakpointCondition",
-                {
-                    text = "🟠",
-                    texthl = "DapBreakpointCondition",
-                    linehl = "DapBreakpointCondition",
-                    numhl = "DapBreakpointCondition"
-                })
+            vim.fn.sign_define(
+                "DapBreakpoint",
+                { text = "🔴", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+            )
+            vim.fn.sign_define("DapBreakpointCondition", {
+                text = "🟠",
+                texthl = "DapBreakpointCondition",
+                linehl = "DapBreakpointCondition",
+                numhl = "DapBreakpointCondition",
+            })
             -- vim.fn.sign_define("DapBreakpointCondition", { text = "" })
-        end
+        end,
     },
     {
         "theHamsta/nvim-dap-virtual-text",
@@ -86,7 +93,7 @@ return {
             "mfussenegger/nvim-dap",
         },
         lazy = true,
-        config = true
+        config = true,
     },
     {
         "rcarriga/nvim-dap-ui",
@@ -94,45 +101,17 @@ return {
             "mfussenegger/nvim-dap",
         },
         keys = {
-            { "<leader>du", function() require("dapui").toggle() end, { desc = "[D]rebugger [U]I" } },
+            {
+                "<leader>du",
+                function()
+                    require("dapui").toggle()
+                end,
+                { desc = "[D]rebugger [U]I" },
+            },
         },
         -- dependencies = { "mfussenegger/nvim-dap" },
         config = function(_, _)
             require("dapui").setup()
-        end
+        end,
     },
-    {
-        "jay-babu/mason-nvim-dap.nvim",
-        dependencies = {
-            "williamboman/mason.nvim",
-        },
-        lazy = true,
-        -- setup = true
-        opts = {
-            enure_installed = { "python", "codelldb", "gopls" },
-            -- handlers = {}
-            handlers = {
-                function(config)
-                    require("mason-nvim-dap").default_setup(config)
-                end,
-
-                -- c = function(config)
-                --     config.configurations = {
-                --         {
-                --             name = 'C: Launch',
-                --             type = 'codelldb',
-                --             request = 'launch',
-                --             program = function()
-                --                 return vim.fn.input('Path to executable: ', vim.fn.getcwd(), 'file')
-                --             end,
-                --             cwd = '${workspaceFolder}',
-                --             stopOnEntry = false,
-                --             args = {},
-                --         },
-                --     }
-                -- end
-            }
-        },
-        config = true,
-    }
 }
