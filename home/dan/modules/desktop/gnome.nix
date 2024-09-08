@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 let
   binds = {
     kitty = {
@@ -11,9 +12,26 @@ let
       name = "brave";
     };
   };
-  bindsWithPrefix = builtins.listToAttrs (builtins.map (k: { name = "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/${k}"; value = binds.${k}; }) (builtins.attrNames binds));
+  bindsWithPrefix = builtins.listToAttrs (
+    builtins.map (k: {
+      name = "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/${k}";
+      value = binds.${k};
+    }) (builtins.attrNames binds)
+  );
+  extensions = with pkgs; [
+    # gnomeExtensions.gsconnect.extensionUuid
+
+    gnomeExtensions.blur-my-shell
+    gnomeExtensions.dash-to-dock
+
+    unstable.gnomeExtensions.focus-follows-workspace
+  ];
 in
 {
+
+  home.packages = extensions;
+
+  dconf.enable = true;
   dconf.settings = {
     "org/gnome/mutter" = {
       dynamic-workspaces = false;
@@ -58,16 +76,18 @@ in
       move-to-workspace-8 = [ "<Shift><Super>8" ];
       move-to-workspace-9 = [ "<Shift><Super>9" ];
 
-      close = [
-        "<Super>q"
-      ];
+      close = [ "<Super>q" ];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
-      search = [
-        "<Super>space"
-      ];
+      search = [ "<Super>space" ];
       custom-keybindings = builtins.map (name: "/${name}/") (builtins.attrNames bindsWithPrefix);
+      screensaver = [ "<Super>Escape" ];
+    };
+
+    "org/gnome/shell" = {
+      disable-user-extensions = false;
+      enabled-extensions = map (e: e.extensionUuid) extensions;
     };
 
   } // bindsWithPrefix;

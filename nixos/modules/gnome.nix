@@ -7,12 +7,7 @@
   };
   services.displayManager.defaultSession = "gnome";
 
-  environment.systemPackages = with pkgs; [
-    gnome.gnome-tweaks
-
-    gnomeExtensions.dash-to-dock
-    unstable.gnomeExtensions.focus-follows-workspace
-  ];
+  environment.systemPackages = with pkgs; [ gnome.gnome-tweaks ];
 
   environment.gnome.excludePackages =
     (with pkgs; [
