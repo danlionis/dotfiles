@@ -1,19 +1,8 @@
 return {
     {
-        'williamboman/mason.nvim',
+        "williamboman/mason.nvim",
         -- cmd    = "Mason",
-        config = true
+        config = true,
+        enabled = false,
     },
-    -- {
-    --     "jay-babu/mason-null-ls.nvim",
-    --     event = { "BufReadPre", "BufNewFile" },
-    --     dependencies = {
-    --         "williamboman/mason.nvim",
-    --         "nvimtools/none-ls.nvim",
-    --     },
-    --     opts = {
-    --         ensure_installed = nil,
-    --         automatic_installation = true
-    --     }
-    -- }
 }
