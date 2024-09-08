@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     mkdir /btrfs_tmp
     mount /dev/nvme0n1p2 /btrfs_tmp
@@ -50,7 +51,12 @@
       "/var/lib/flatpak" # maybe move to own module
       "/var/lib/systemd/coredump"
       "/etc/NetworkManager/system-connections"
-      { directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
+      {
+        directory = "/var/lib/colord";
+        user = "colord";
+        group = "colord";
+        mode = "u=rwx,g=rx,o=";
+      }
     ];
     files = [
       "/etc/machine-id"
@@ -58,18 +64,17 @@
     ];
     users.dan = {
       directories = [
+        ".persist"
+
         "dev"
         "Downloads"
         "dotfiles"
         "uni"
-        ".persist"
         "Music"
         "Pictures"
         "Documents"
         "Videos"
-        { directory = ".gnupg"; mode = "0700"; }
-        { directory = ".ssh"; mode = "0700"; }
-        { directory = ".local/share/keyrings"; mode = "0700"; }
+
         ".local/share/direnv"
         ".local/share/Steam"
         ".local/share/nvim"
@@ -84,9 +89,22 @@
         ".config"
 
         ".var/app" # flatpak data
+
+        {
+          directory = ".gnupg";
+          mode = "0700";
+        }
+        {
+          directory = ".ssh";
+          mode = "0700";
+        }
+        {
+          directory = ".local/share/keyrings";
+          mode = "0700";
+        }
+
       ];
-      files = [
-      ];
+      files = [ ];
     };
   };
 

@@ -9,6 +9,8 @@
     ./modules/desktop/prismlauncher.nix
 
     ./modules/terminal
+
+    ./modules/dotpersist-service.nix
   ];
 
   # This value determines the Home Manager release that your configuration is
