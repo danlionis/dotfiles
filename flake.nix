@@ -27,76 +27,85 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, nix-darwin, home-manager, ... }@inputs:
-    let inherit (self) outputs; in {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixos-hardware,
+      nix-darwin,
+      home-manager,
+      ...
+    }@inputs:
+    let
+      inherit (self) outputs;
+    in
+    {
 
-      overlays = import ./nixos/overlays {
-        inherit inputs outputs;
-      };
+      overlays = import ./nixos/overlays { inherit inputs outputs; };
 
       devShells.x86_64-linux.default =
         let
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
         in
         pkgs.mkShell {
-          buildInputs = with pkgs;
-            [
-              lua-language-server
-              nixd
-              nixpkgs-fmt
-              nodePackages.typescript-language-server
+          buildInputs = with pkgs; [
+            lua-language-server
+            nixd
+            nixfmt-rfc-style
+            nodePackages.typescript-language-server
 
-              pyright
-              mypy
-            ];
+            pyright
+          ];
         };
-
 
       nixosConfigurations =
         let
           mapHostname = builtins.mapAttrs (name: f: f name);
         in
         mapHostname {
-          dan-laptop = hostname: nixpkgs.lib.nixosSystem {
-            specialArgs = {
-              inherit inputs outputs;
-              meta = {
-                inherit hostname;
+          dan-laptop =
+            hostname:
+            nixpkgs.lib.nixosSystem {
+              specialArgs = {
+                inherit inputs outputs;
+                meta = {
+                  inherit hostname;
+                };
               };
+              modules = [
+                ./nixos/hosts/laptop
+                nixos-hardware.nixosModules.lenovo-thinkpad-t470s
+              ];
             };
-            modules = [
-              ./nixos/hosts/laptop
-              nixos-hardware.nixosModules.lenovo-thinkpad-t470s
-            ];
-          };
-          dan-pc = hostname: nixpkgs.lib.nixosSystem {
-            specialArgs = {
-              inherit inputs outputs;
-              meta = {
-                inherit hostname;
+          dan-pc =
+            hostname:
+            nixpkgs.lib.nixosSystem {
+              specialArgs = {
+                inherit inputs outputs;
+                meta = {
+                  inherit hostname;
+                };
               };
+              modules = [
+                ./nixos/hosts/desktop
+                home-manager.nixosModules.home-manager
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.users.dan = import ./home/dan/desktop.nix;
+                }
+              ];
             };
-            modules = [
-              ./nixos/hosts/desktop
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users.dan = import ./home/dan/desktop.nix;
-              }
-            ];
-          };
 
         };
 
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#dan-mbp
-      darwinConfigurations."dan-mbp" = nix-darwin.lib.darwinSystem
-        {
-          specialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [ ./darwin/mbp ];
+      darwinConfigurations."dan-mbp" = nix-darwin.lib.darwinSystem {
+        specialArgs = {
+          inherit inputs outputs;
         };
+        modules = [ ./darwin/mbp ];
+      };
     };
 }

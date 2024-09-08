@@ -34,8 +34,6 @@ function M.setup()
             self:map("]d", vim.diagnostic.goto_next, { desc = "[D]iagnostic [N]ext" })
             self:map("[d", vim.diagnostic.goto_prev, { desc = "[D]iagnostic [P]revious" })
 
-            local format = require("plugins.lsp.format").format
-            self:map("<leader>f", format, { desc = "Format Document", has = "documentFormatting" })
             self:map("<leader>rn", vim.lsp.buf.rename, { expr = true, desc = "Rename", has = "rename" })
             self:map("<F2>", vim.lsp.buf.rename, { expr = true, desc = "Rename", has = "rename" })
             -- self:map("<leader>cf", format, { desc = "Format Range", mode = "v", has = "documentRangeFormatting" })
