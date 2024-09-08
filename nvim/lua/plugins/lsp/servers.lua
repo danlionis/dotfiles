@@ -1,7 +1,9 @@
 return {
     -- nil_ls = {},
     nixd = {},
-    htmx = {},
+    htmx = {
+        filetypes = { "html", "templ" },
+    },
     html = {
         filetypes = { "html", "templ" },
         settings = {
@@ -23,9 +25,9 @@ return {
         settings = {
             tailwindCSS = {
                 includeLanguages = {
-                    templ = "html"
-                }
-            }
+                    templ = "html",
+                },
+            },
         },
     },
     ltex = {
@@ -34,8 +36,8 @@ return {
                 disabledRules = {
                     ["en-US"] = { "ARROWS" },
                 },
-            }
-        }
+            },
+        },
     },
     clangd = {},
     pyright = {},
@@ -52,7 +54,7 @@ return {
                     parameterNames = true,
                 },
             },
-        }
+        },
     },
     svelte = {},
     lua_ls = {
@@ -60,7 +62,7 @@ return {
             Lua = {
                 runtime = {
                     -- Tell the language server which version of Lua you're using (most likely LuaJIT)
-                    version = 'LuaJIT',
+                    version = "LuaJIT",
                     -- -- Setup your lua path
                     -- path = runtime_path,
                     --[[
@@ -70,10 +72,10 @@ return {
                                 --]]
                 },
                 diagnostics = {
-                    globals = { 'vim' },
+                    globals = { "vim" },
                 },
                 workspace = {
-                    library = vim.api.nvim_get_runtime_file('', true),
+                    library = vim.api.nvim_get_runtime_file("", true),
                     checkThirdParty = false,
                 },
                 -- Do not send telemetry data containing a randomized but unique identifier
