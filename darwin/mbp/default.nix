@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, outputs, ... }:
 let self = inputs.self; in {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -6,8 +6,16 @@ let self = inputs.self; in {
     with pkgs; [
       neovim
       obsidian
+      eza
+      starship
       lazygit
+      fish
     ];
+
+  environment.variables = {
+  };
+
+  nixpkgs.overlays = builtins.attrValues outputs.overlays;
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
@@ -20,7 +28,6 @@ let self = inputs.self; in {
 
   # Create /etc/zshrc that loads the nix-darwin environment.
   programs.zsh.enable = true; # default shell on catalina
-  programs.fish.enable = true;
 
   # Set Git commit hash for darwin-version.
   system.configurationRevision = self.rev or self.dirtyRev or null;
@@ -31,4 +38,11 @@ let self = inputs.self; in {
 
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
+
+  users.users.dan = {
+    shell = pkgs.fish;
+    home = "/Users/dan";
+  };
+  programs.fish.enable = true;
+  environment.shells = [ pkgs.fish ];
 }
