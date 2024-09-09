@@ -25,6 +25,8 @@
 
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
+    systems.url = "github:nix-systems/default";
   };
 
   outputs =
@@ -34,20 +36,20 @@
       nixos-hardware,
       nix-darwin,
       home-manager,
+      systems,
       ...
     }@inputs:
     let
       inherit (self) outputs;
+      forAllSystems =
+        function: nixpkgs.lib.genAttrs (import systems) (system: function nixpkgs.legacyPackages.${system});
     in
     {
 
       overlays = import ./nixos/overlays { inherit inputs outputs; };
 
-      devShells.x86_64-linux.default =
-        let
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        in
-        pkgs.mkShell {
+      devShells = forAllSystems (pkgs: {
+        default = pkgs.mkShell {
           buildInputs = with pkgs; [
             lua-language-server
             stylua
@@ -59,6 +61,7 @@
             pyright
           ];
         };
+      });
 
       nixosConfigurations =
         let
@@ -107,7 +110,16 @@
         specialArgs = {
           inherit inputs outputs;
         };
-        modules = [ ./darwin/mbp ];
+        modules = [
+          ./darwin/mbp
+
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.dan = import ./home/dan/mbp.nix;
+          }
+        ];
       };
     };
 }
