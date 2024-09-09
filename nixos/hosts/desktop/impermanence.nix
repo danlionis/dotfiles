@@ -82,6 +82,8 @@
         ".local/share/zoxide"
         ".local/share/fish"
         ".local/share/bottles"
+        ".local/share/PrismLauncher"
+
         ".local/state/lazygit"
 
         ".cache/nix-index"
