@@ -6,8 +6,10 @@ return {
         -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
         -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
         -- refer to `:h file-pattern` for more examples
-        "BufReadPre " .. vim.fn.expand "~" .. "/Documents/obsidian-vault/*.md",
-        "BufNewFile " .. vim.fn.expand "~" .. "/Documents/obsidian-vault/*.md",
+        "BufReadPre "
+            .. vim.fn.expand("~")
+            .. "/Documents/notes/*.md",
+        "BufNewFile " .. vim.fn.expand("~") .. "/Documents/notes/*.md",
         -- TODO: load when entering vault
     },
 
@@ -21,7 +23,7 @@ return {
         workspaces = {
             {
                 name = "notes",
-                path = "~/Documents/obsidian-vault/",
+                path = "~/Documents/notes/",
             },
         },
 
@@ -50,13 +52,10 @@ return {
             },
             -- Smart action depending on context, either follow link or toggle checkbox.
             ["<cr>"] = {
-                action = function()
-                    return require("obsidian").util.smart_action()
-                end,
-                opts = { buffer = true, expr = true },
-            }
+                action = ":ObsidianFollowLink<cr>",
+                opts = { buffer = true },
+            },
         },
-
 
         -- Optional, customize how note IDs are generated given an optional title.
         ---@param title string|?
