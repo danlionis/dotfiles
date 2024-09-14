@@ -4,22 +4,21 @@ vim.g.mapleader = " "
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- unmap space
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
-
-vim.keymap.set('n', 'Q', '<Nop>', { silent = true })
-vim.keymap.set('n', 'q:', '<Nop>', { silent = true })
+vim.keymap.set("n", "Q", "<Nop>", { silent = true })
+vim.keymap.set("n", "q:", "<Nop>", { silent = true })
 
 -- clear search highlight with ESC
-vim.keymap.set({ 'n', 'i' }, '<Esc>', '<cmd>noh<CR><esc>', { silent = true })
+vim.keymap.set({ "n", "i" }, "<Esc>", "<cmd>noh<CR><esc>", { silent = true })
 
 -- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Move to window using the <ctrl> hjkl keys
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
@@ -48,8 +47,8 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- copy to system clipboard
-vim.keymap.set("n", "<leader>y", "\"+y")
-vim.keymap.set("v", "<leader>y", "\"+y")
+vim.keymap.set("n", "<leader>y", '"+y')
+vim.keymap.set("v", "<leader>y", '"+y')
 
 -- increment and decrement numbers
 vim.keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number under cursor" })
@@ -84,7 +83,6 @@ vim.keymap.set("n", "<leader>tp", ":tabp<CR>", { silent = true, desc = "Previous
 -- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
-
 -- open netrw
 -- vim.keymap.set("n", "<leader>e", vim.cmd.Lexplore, { desc = "Open file browser" })
 
@@ -96,14 +94,13 @@ vim.keymap.set("i", "<C-l>", "<Right>", { silent = true, desc = "Move right" })
 vim.keymap.set("i", "<C-b>", "<ESC>^i", { silent = true, desc = "Beginning of line" })
 vim.keymap.set("i", "<C-e>", "<End>", { silent = true, desc = "End of line" })
 
-local conceal_on = false;
+local conceal_on = false
 vim.keymap.set("n", "<C-e>", function()
     if conceal_on then
-        vim.o.conceallevel = 0;
+        vim.o.conceallevel = 0
     else
-        vim.o.conceallevel = 1;
+        vim.o.conceallevel = 2
     end
     conceal_on = not conceal_on
 end
-
 )
