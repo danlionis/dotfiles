@@ -24,6 +24,7 @@
         man-pages-posix
         navi
         nushell
+        prettierd
         ripgrep
         tldr
         unzip
