@@ -16,7 +16,7 @@ vim.o.expandtab = true
 vim.o.smartindent = true
 
 -- Enable mouse mode
-vim.o.mouse = 'a'
+vim.o.mouse = "a"
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -35,7 +35,7 @@ vim.o.scrolloff = 8
 
 -- Decrease update time
 vim.o.updatetime = 50
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = "yes"
 
 -- Set colorscheme
 vim.o.termguicolors = true
@@ -43,8 +43,10 @@ vim.o.termguicolors = true
 -- vim.cmd [[colorscheme ghdark]]
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = "menuone,noselect"
 
 vim.o.conceallevel = 0
 
 vim.filetype.add({ extension = { templ = "templ" } })
+
+vim.g.editorconfig = true
