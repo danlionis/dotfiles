@@ -11,6 +11,7 @@
     ./modules/terminal
 
     ./modules/dotpersist-service.nix
+    ./modules/openrgb-service.nix
 
     ./modules/development/nix.nix
   ];

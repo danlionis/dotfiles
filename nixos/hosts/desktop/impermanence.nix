@@ -50,6 +50,7 @@
       "/var/lib/docker" # maybe move to own module
       "/var/lib/flatpak" # maybe move to own module
       "/var/lib/systemd/coredump"
+      "/var/lib/OpenRGB"
       "/etc/NetworkManager/system-connections"
       {
         directory = "/var/lib/colord";
