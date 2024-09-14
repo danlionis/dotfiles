@@ -15,6 +15,8 @@ return {
             sql = { "sql_formatter" },
 
             lua = { "stylua" },
+
+            markdown = { "prettierd", "prettier", stop_after_first = true },
         },
         formatters = {
             sql_formatter = {
