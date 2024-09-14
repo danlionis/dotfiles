@@ -101,6 +101,11 @@ return {
             return require("obsidian.util").markdown_link(opts)
         end,
 
+        ---@param url string
+        follow_url_func = function(url)
+            vim.ui.open(url) -- need Neovim 0.10.0+
+        end,
+
         picker = {
             name = "telescope.nvim",
             mappings = {
