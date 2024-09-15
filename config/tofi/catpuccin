@@ -1,0 +1,20 @@
+text-color = #cad3f5
+prompt-color = #ed8796
+selection-color = #eed49f
+background-color = #24273a
+border-color = #24273a
+
+
+outline-width = 0
+
+# Border outline color
+outline-color = #080800
+
+# Width of the border in pixels.
+border-width = 0
+
+# Border color
+border-color = #F92672
+
+# Radius of window corners in pixels.
+corner-radius = 32

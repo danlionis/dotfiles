@@ -17,6 +17,7 @@
       };
     });
     # sway-audio-idle-inhibit = prev.callPackage ./../packages/sway-audio-idle-inhibit { };
+    rose-pine-hyprcursor = prev.callPackage ./../packages/rose-pine-hyprcursor { };
   };
 
   # https://discourse.nixos.org/t/use-unstable-version-for-some-packages/32880

@@ -1,7 +1,6 @@
 {
   "layer": "top",
   "position": "top",
-  "output": "DP-1",
   "mod": "dock",
   "exclusive": true,
   "passthrough": false,
@@ -24,7 +23,7 @@
   ],
   "hyprland/window": {
     "separate-outputs": true,
-    "format": "[{class}] {title}"
+    "format": "{class}"
   },
   "hyprland/workspaces": {
     "format": "{icon}",
