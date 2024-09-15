@@ -24,10 +24,10 @@
 
     ../../modules/users/dan.nix
 
-    # ../../modules/hyprland.nix
+    ../../modules/hyprland.nix
     ../../modules/fonts.nix
     ../../modules/gaming
-    ../../modules/gnome.nix
+    # ../../modules/gnome.nix
     ../../modules/libvirt.nix
     ../../modules/openrgb.nix
     ../../modules/podman.nix
@@ -212,10 +212,9 @@
   };
 
   # Enable OpenGL
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
 
   hardware.cpu.amd.updateMicrocode = true;

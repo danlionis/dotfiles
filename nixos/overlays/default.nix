@@ -1,4 +1,5 @@
-{ outputs, inputs }: {
+{ outputs, inputs }:
+{
   modifications = final: prev: {
     libfprint = prev.libfprint.overrideAttrs (old: {
       src = prev.fetchFromGitHub {
@@ -15,7 +16,7 @@
         hash = "sha256-HaLNHEumpj0fgsiYFDs+vktWzbfdbHv5ejQcBpMHMfk=";
       };
     });
-    sway-audio-idle-inhibit = prev.callPackage ./../packages/sway-audio-idle-inhibit { };
+    # sway-audio-idle-inhibit = prev.callPackage ./../packages/sway-audio-idle-inhibit { };
   };
 
   # https://discourse.nixos.org/t/use-unstable-version-for-some-packages/32880

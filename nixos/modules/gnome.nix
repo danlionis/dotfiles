@@ -7,28 +7,28 @@
   };
   services.displayManager.defaultSession = "gnome";
 
-  environment.systemPackages = with pkgs; [ gnome.gnome-tweaks ];
+  environment.systemPackages = with pkgs; [ gnome-tweaks ];
 
-  environment.gnome.excludePackages =
-    (with pkgs; [
-      gnome-photos
-      gnome-tour
-      gedit # text editor
-    ])
-    ++ (with pkgs.gnome; [
-      cheese # webcam tool
-      gnome-music
-      gnome-terminal
-      epiphany # web browser
-      geary # email reader
-      evince # document viewer
-      gnome-characters
-      totem # video player
-      tali # poker game
-      iagno # go game
-      hitori # sudoku game
+  environment.gnome.excludePackages = (
+    with pkgs;
+    [
       atomix # puzzle game
-    ]);
+      cheese # webcam tool
+      epiphany # web browser
+      evince # document viewer
+      geary # email reader
+      gedit # text editor
+      gnome-characters
+      gnome-music
+      gnome-photos
+      gnome-terminal
+      gnome-tour
+      hitori # sudoku game
+      iagno # go game
+      tali # poker game
+      totem # video player
+    ]
+  );
 
   programs.dconf.enable = true;
 }
