@@ -21,7 +21,6 @@ abbr -a e "nvim"
 abbr -a vi "nvim"
 abbr -a vim "nvim"
 abbr -a eixt "exit"
-abbr -a cat "bat"
 abbr -a o "xdg-open"
 
 if command -v lazygit > /dev/null
