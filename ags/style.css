@@ -6,7 +6,8 @@
 
 .bar .cbox {
   padding: 5px 10px;
-  background-color: #18181b;
+  /* background-color: #18181b; */
+  background-color: #09090b;
   color: white;
 }
 
@@ -28,34 +29,42 @@
 
 .bar .workspaces {
   border-radius: 24px;
-  background-color: #09090b;
+  /* background-color: #09090b; */
+  background-color: #18181b;
 }
 
-.bar .workspaces button {
+.bar .workspaces box {
+  padding: 8px;
+}
+
+.bar .workspaces label {
   border-radius: 24px;
-  min-width: 8px;
-  min-height: 8px;
-  background: transparent;
+  min-width: 10px;
+  min-height: 10px;
+  /* background: #3f3f46; */
+  background: #52525b;
   border: none;
   box-shadow: none;
   color: white;
-  font-weight: bold;
+  /* font-weight: bold; */
+  font-size: 0;
+  margin: 0 2px;
+  transition: all 0.2s ease-in-out;
 }
 
 .bar .workspaces button label {
-  /* font-size: 0.9rem; */
+  font-size: 0;
 }
 
-.bar .workspaces button:hover {
-  background-color: #52525b;
+/* has to come before .active, because otherwise it will override .active*/
+.bar .workspaces label.occupied {
+  background-color: #d4d4d8;
+  /* background-color: #ffee58; */
 }
 
-.bar .workspaces button.active {
-  background-color: #3f3f46;
-  min-width: 24px;
-}
-.bar .workspaces button.active:hover {
-  background-color: #52525b;
+.bar .workspaces label.active {
+  background-color: #ffee58;
+  min-width: 28px;
 }
 
 .bar .tray button {
