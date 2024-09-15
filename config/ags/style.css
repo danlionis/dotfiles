@@ -1,40 +1,84 @@
-window.bar {
-    background-color: @theme_bg_color;
-    color: @theme_fg_color;
+.bar * {
+  all: unset;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 1rem;
 }
 
-button {
-    min-width: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    background-color: transparent;
+.bar .cbox {
+  padding: 5px 10px;
+  background-color: #18181b;
+  color: white;
 }
 
-button:active {
-    background-color: @theme_selected_bg_color;
+.bar .title {
+  font-weight: 600;
+  padding: 0 10px;
 }
 
-button:hover {
-    border-bottom: 3px solid @theme_fg_color;
+.bar button {
+  border: none;
+  box-shadow: none;
+  padding: 2px 0.8rem;
+  background: #000000;
+  transition: all 0.2s ease-in-out;
+}
+.bar button:hover {
+  background: #0c1012;
 }
 
-label {
-    font-weight: bold;
+.bar .workspaces {
+  border-radius: 24px;
+  background-color: #09090b;
 }
 
-.workspaces button.focused {
-    border-bottom: 3px solid @theme_selected_bg_color;
+.bar .workspaces button {
+  border-radius: 24px;
+  min-width: 8px;
+  min-height: 8px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: white;
+  font-weight: bold;
 }
 
-.client-title {
-    color: @theme_selected_bg_color;
+.bar .workspaces button label {
+  /* font-size: 0.9rem; */
 }
 
-.notification {
-    color: yellow;
+.bar .workspaces button:hover {
+  background-color: #52525b;
 }
 
-levelbar block,
-highlight {
-    min-height: 8px;
+.bar .workspaces button.active {
+  background-color: #3f3f46;
+  min-width: 24px;
+}
+.bar .workspaces button.active:hover {
+  background-color: #52525b;
+}
+
+.bar .tray button {
+  border-radius: 4px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: white;
+  font-weight: bold;
+  /* padding: 0 5px; */
+}
+
+.bar .tray button:hover {
+  background-color: #3f3f46;
+}
+
+.bar .tray button.active {
+  background-color: #27272a;
+}
+.bar .tray button.active:hover {
+  background-color: #3f3f46;
+}
+
+.bar .clock {
+  font-weight: bold;
 }
