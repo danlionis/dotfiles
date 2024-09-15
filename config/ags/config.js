@@ -19,15 +19,21 @@ const dispatch = (ws) => hyprland.messageAsync(`dispatch workspace ${ws}`);
 
 /**
  * @param {number} i
- * @param {import("./types/service").Binding<import("./types/service/hyprland").ActiveID, "id", number>} activeId
  * @param {number} label
  */
-export function WorkspaceButton(i, activeId, label) {
-  return Widget.Button({
+export function WorkspaceButton(i, label) {
+  return Widget.Label({
     attribute: i,
-    class_name: activeId.as((id) => `${i === id ? "active" : ""}`),
-    child: Widget.Label(`${label}`),
-    onClicked: () => dispatch(i),
+    vpack: "center",
+    label: `${label}`,
+    setup: (self) =>
+      self.hook(hyprland, () => {
+        self.toggleClassName("active", hyprland.active.workspace.id === i);
+        self.toggleClassName(
+          "occupied",
+          (hyprland.getWorkspace(i)?.windows || 0) > 0,
+        );
+      }),
   });
 }
 
@@ -41,18 +47,18 @@ export function Workspaces() {
     child: Widget.Box({
       spacing: 4,
       children: Array.from({ length: 10 }, (_, i) => i + 1).map((i) =>
-        WorkspaceButton(i, activeId, i),
+        WorkspaceButton(i, i),
       ),
 
       // remove this setup hook if you want fixed number of buttons
-      setup: (self) =>
-        self.hook(hyprland, () =>
-          self.children.forEach((btn) => {
-            btn.visible = hyprland.workspaces.some(
-              (ws) => ws.id === btn.attribute,
-            );
-          }),
-        ),
+      // setup: (self) =>
+      //   self.hook(hyprland, () =>
+      //     self.children.forEach((btn) => {
+      //       btn.visible = hyprland.workspaces.some(
+      //         (ws) => ws.id === btn.attribute,
+      //       );
+      //     }),
+      //   ),
     }),
   });
 }
