@@ -12,7 +12,6 @@ return {
         "BufNewFile " .. vim.fn.expand("~") .. "/Documents/notes/*.md",
         -- TODO: load when entering vault
     },
-
     dependencies = {
         -- Required.
         "nvim-lua/plenary.nvim",
@@ -56,8 +55,32 @@ return {
                 opts = { buffer = true },
             },
             -- Smart action depending on context, either follow link or toggle checkbox.
-            ["<cr>"] = {
+            ["<C-cr>"] = {
                 action = ":ObsidianFollowLink<cr>",
+                opts = { buffer = true },
+            },
+            ["<leader>on"] = {
+                action = ":ObsidianNew<cr>",
+                opts = { buffer = true },
+            },
+            ["<leader>ob"] = {
+                action = ":ObsidianBacklinks<cr>",
+                opts = { buffer = true },
+            },
+            ["<leader>ol"] = {
+                action = ":ObsidianLinks<cr>",
+                opts = { buffer = true },
+            },
+            ["<leader>or"] = {
+                action = ":ObsidianRename<cr>",
+                opts = { buffer = true },
+            },
+            ["<leader>od"] = {
+                action = ":ObsidianToday<cr>",
+                opts = { buffer = true },
+            },
+            ["<leader>ot"] = {
+                action = ":ObsidianTemplate<cr>",
                 opts = { buffer = true },
             },
         },
@@ -134,4 +157,21 @@ return {
             substitutions = {},
         },
     },
+    config = function(_, opts)
+        -- FOLDING:
+        -- Use <CR> to fold when in normal mode
+        -- To see help about folds use `:help fold`
+        vim.keymap.set("n", "<CR>", function()
+            -- Get the current line number
+            local line = vim.fn.line(".")
+            -- Get the fold level of the current line
+            local foldlevel = vim.fn.foldlevel(line)
+            if foldlevel == 0 then
+                vim.notify("No fold found", vim.log.levels.INFO)
+            else
+                vim.cmd("normal! za")
+            end
+        end, { desc = "[P]Toggle fold" })
+        require("obsidian").setup(opts)
+    end,
 }
