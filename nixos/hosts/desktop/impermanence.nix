@@ -84,6 +84,7 @@
         ".local/share/fish"
         ".local/share/bottles"
         ".local/share/PrismLauncher"
+        ".local/share/containers"
 
         ".local/state/lazygit"
 
