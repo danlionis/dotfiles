@@ -50,3 +50,8 @@ vim.o.conceallevel = 0
 vim.filetype.add({ extension = { templ = "templ" } })
 
 vim.g.editorconfig = true
+
+vim.opt.foldlevel = 99
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldtext = ""

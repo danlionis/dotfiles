@@ -102,5 +102,4 @@ vim.keymap.set("n", "<C-e>", function()
         vim.o.conceallevel = 2
     end
     conceal_on = not conceal_on
-end
-)
+end)
