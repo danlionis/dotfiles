@@ -30,6 +30,11 @@ return {
         notes_subdir = "zettelkasten",
         new_notes_location = "notes_subdir",
 
+        daily_notes = {
+            -- Optional, if you keep daily notes in a separate directory.
+            folder = "journal",
+        },
+
         -- way then set 'mappings = {}'.
         mappings = {
             -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
