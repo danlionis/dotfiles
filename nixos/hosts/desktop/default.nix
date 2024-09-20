@@ -141,6 +141,8 @@
     # other
     openssl
     pkg-config
+
+    rocmPackages.rocm-smi
   ];
 
   programs.chromium = {
@@ -218,4 +220,9 @@
   };
 
   hardware.cpu.amd.updateMicrocode = true;
+  hardware.graphics.extraPackages = with pkgs; [
+    rocmPackages.clr.icd
+  ];
+
+  nixpkgs.config.rocmSupport = true;
 }
