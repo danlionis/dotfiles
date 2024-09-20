@@ -76,15 +76,16 @@
         "Documents"
         "Videos"
 
-        ".local/share/direnv"
-        ".local/share/Steam"
-        ".local/share/nvim"
-        ".local/share/atuin"
-        ".local/share/zoxide"
-        ".local/share/fish"
-        ".local/share/bottles"
         ".local/share/PrismLauncher"
+        ".local/share/Steam"
+        ".local/share/atuin"
+        ".local/share/bottles"
         ".local/share/containers"
+        ".local/share/direnv"
+        ".local/share/fish"
+        ".local/share/flatpak"
+        ".local/share/nvim"
+        ".local/share/zoxide"
 
         ".local/state/lazygit"
 
