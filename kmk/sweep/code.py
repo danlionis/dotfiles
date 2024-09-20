@@ -82,8 +82,12 @@ E_ALT = KC.HT(KC.E, KC.LALT, prefer_hold=False)
 mod_time = 200
 
 
-def ALT(k):
+def LALT(k):
     return KC.HT(k, KC.LALT, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
+
+
+def RALT(k):
+    return KC.HT(k, KC.RALT, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
 
 
 def RCTL(k):
@@ -141,7 +145,7 @@ UML = {
 keyboard.keymap = [
     [  # Colemak-DH (0)
         KC.Q,       KC.W,       KC.F,       KC.P,       KC.B,       KC.J,       KC.L,       KC.U,       KC.Y,       KC.SCLN,
-        ALT(KC.A),  LCTL(KC.R), LGUI(KC.S), KC.T,       KC.G,       KC.M,       KC.N,       RGUI(KC.E), RCTL(KC.I), ALT(KC.O),
+        LALT(KC.A),  LCTL(KC.R), LGUI(KC.S), KC.T,       KC.G,       KC.M,       KC.N,       RGUI(KC.E), RCTL(KC.I), RALT(KC.O),
         KC.Z,       KC.X,       KC.C,       KC.D,       KC.V,       KC.K,       KC.H,       KC.COMM,    KC.DOT,    KC.SLASH,
                                             ESC_LSYM,   SK_LSFT,    SPC_LNAV,   ENT_LNUM,
     ],
