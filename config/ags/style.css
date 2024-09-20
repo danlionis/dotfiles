@@ -4,8 +4,12 @@
   font-size: 1rem;
 }
 
+.bar {
+}
+
 .bar .cbox {
   padding: 5px 10px;
+  min-height: 28px;
   /* background-color: #18181b; */
   background-color: #09090b;
   color: white;
@@ -34,13 +38,13 @@
 }
 
 .bar .workspaces box {
-  padding: 8px;
+  padding: 0 8px;
 }
 
 .bar .workspaces label {
   border-radius: 24px;
-  min-width: 10px;
-  min-height: 10px;
+  min-width: 6px;
+  min-height: 6px;
   /* background: #3f3f46; */
   background: #52525b;
   border: none;
@@ -48,7 +52,7 @@
   color: white;
   /* font-weight: bold; */
   font-size: 0;
-  margin: 0 2px;
+  margin: 0 3px;
   transition: all 0.2s ease-in-out;
 }
 
@@ -65,6 +69,7 @@
 .bar .workspaces label.active {
   background-color: #ffee58;
   min-width: 28px;
+  min-height: 10px;
 }
 
 .bar .tray {
@@ -95,4 +100,43 @@
 
 .bar .clock {
   font-weight: bold;
+}
+
+window.notification-popups box.notifications {
+  padding: 0.5em;
+}
+
+.notification {
+  min-width: 350px;
+  border-radius: 11px;
+  padding: 1em;
+  margin: 0.5em;
+  border: 1px solid @wm_borders_edge;
+  background-color: @theme_bg_color;
+}
+
+.notification.critical {
+  border: 1px solid lightcoral;
+}
+
+.title {
+  color: @theme_fg_color;
+  font-size: 1.4em;
+}
+
+.body {
+  color: @theme_unfocused_fg_color;
+}
+
+.actions .action-button {
+  margin: 0 0.4em;
+  margin-top: 0.8em;
+}
+
+.actions .action-button:first-child {
+  margin-left: 0;
+}
+
+.actions .action-button:last-child {
+  margin-right: 0;
 }
