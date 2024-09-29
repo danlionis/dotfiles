@@ -44,7 +44,7 @@
   boot.loader.systemd-boot.configurationLimit = 30;
 
   # kernel version
-  boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = meta.hostname; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -88,16 +88,16 @@
   #   xkbVariant = "";
   # };
 
-  # xdg = {
-  #   autostart.enable = true;
-  #   portal = {
-  #     enable = true;
-  #     extraPortals = [
-  #       pkgs.xdg-desktop-portal
-  #       pkgs.xdg-desktop-portal-gtk
-  #     ];
-  #   };
-  # };
+  xdg = {
+    autostart.enable = true;
+    portal = {
+      enable = true;
+      extraPortals = [
+        pkgs.xdg-desktop-portal
+        pkgs.xdg-desktop-portal-gtk
+      ];
+    };
+  };
 
   # Configure console keymap
   console.keyMap = "us";
