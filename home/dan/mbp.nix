@@ -35,4 +35,6 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
+
+  home.packages = with pkgs; [ pyright ];
 }

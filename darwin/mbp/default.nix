@@ -1,19 +1,30 @@
-{ pkgs, inputs, outputs, ... }:
-let self = inputs.self; in {
+{
+  pkgs,
+  inputs,
+  outputs,
+  ...
+}:
+let
+  self = inputs.self;
+in
+{
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages =
-    with pkgs; [
-      neovim
-      obsidian
-      eza
-      starship
-      lazygit
-      fish
-    ];
+  environment.systemPackages = with pkgs; [
+    clang-tools
+    eza
+    fish
+    lazygit
+    neovim
+    obsidian
+    sourcekit-lsp
+    starship
+    swiftlint
+  ];
 
-  environment.variables = {
-  };
+  environment.variables =
+    {
+    };
 
   nixpkgs.overlays = builtins.attrValues outputs.overlays;
 
