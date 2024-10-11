@@ -1,4 +1,21 @@
 { pkgs, ... }:
+let
+  my-google-fonts = (
+    pkgs.google-fonts.overrideAttrs # TODO: check back if SUSE is available
+      (
+        finalAttrs: previousAttrs: {
+          version = "unstable-2024-10-11";
+
+          src = pkgs.fetchFromGitHub {
+            owner = "google";
+            repo = "fonts";
+            rev = "d5ee1e8889c47de07a13a8101e734abcfb368676";
+            hash = "sha256-xcocMFAcus/csQkOluwahp4Rxl5iz49su00rOQbx+uY=";
+          };
+        }
+      )
+  );
+in
 {
 
   fonts.fontDir.enable = true; # https://wiki.nixos.org/wiki/Fonts#Flatpak_applications_can't_find_system_fonts
@@ -12,9 +29,9 @@
         "Meslo"
       ];
     })
-    (google-fonts.override {
+    (my-google-fonts.override {
       fonts = [
-        "SUSE" # looks cool, but google-fonts in nixpkgs is out of date
+        "SUSE"
         "Inter"
         "Oswald"
         "Roboto"
