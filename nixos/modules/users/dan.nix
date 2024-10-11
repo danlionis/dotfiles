@@ -10,8 +10,13 @@ in
   users.users.dan = {
     isNormalUser = true;
     initialPassword = "dan";
-    shell = pkgs.fish;
-    extraGroups = ifTheyExist [ "networkmanager" "wheel" "docker" "libvirtd" "wireshark" ];
+    extraGroups = ifTheyExist [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "libvirtd"
+      "wireshark"
+    ];
     openssh.authorizedKeys.keys = keys;
   };
 
