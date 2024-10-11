@@ -106,6 +106,19 @@ def LGUI(k):
     return KC.HT(k, KC.LGUI, prefer_hold=False, tap_interrupted=True, tap_time=mod_time)
 
 
+def KTY(k):
+    """
+    kitty mod
+    """
+    return KC.HT(
+        k,
+        KC.LCTRL(KC.LSHIFT),
+        prefer_hold=False,
+        tap_interrupted=True,
+        tap_time=mod_time,
+    )
+
+
 X_CTL = KC.HT(KC.X, KC.LCTRL, prefer_hold=False, tap_time=mod_time)
 C_GUI = KC.HT(KC.C, KC.LGUI, prefer_hold=False, tap_time=mod_time)
 DOT_CTL = KC.HT(KC.DOT, KC.RCTRL, prefer_hold=False, tap_time=mod_time)
@@ -145,8 +158,8 @@ UML = {
 keyboard.keymap = [
     [  # Colemak-DH (0)
         KC.Q,       KC.W,       KC.F,       KC.P,       KC.B,       KC.J,       KC.L,       KC.U,       KC.Y,       KC.SCLN,
-        LALT(KC.A),  LCTL(KC.R), LGUI(KC.S), KC.T,       KC.G,       KC.M,       KC.N,       RGUI(KC.E), RCTL(KC.I), RALT(KC.O),
-        KC.Z,       KC.X,       KC.C,       KC.D,       KC.V,       KC.K,       KC.H,       KC.COMM,    KC.DOT,    KC.SLASH,
+        LALT(KC.A), LCTL(KC.R), LGUI(KC.S), KTY(KC.T),  KC.G,       KC.M,       KTY(KC.N),  RGUI(KC.E), RCTL(KC.I), RALT(KC.O),
+        KC.Z,       KC.X,       KC.C,       KC.D,       KC.V,       KC.K,       KC.H,       KC.COMM,    KC.DOT,     KC.SLASH,
                                             ESC_LSYM,   SK_LSFT,    SPC_LNAV,   ENT_LNUM,
     ],
     [ # NAV/VIM (1)
