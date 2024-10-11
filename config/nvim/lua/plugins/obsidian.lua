@@ -83,6 +83,10 @@ return {
                 action = ":ObsidianTemplate<cr>",
                 opts = { buffer = true },
             },
+            ["<leader>oo"] = {
+                action = ":ObsidianOpen<cr>",
+                opts = { buffer = true },
+            },
         },
 
         -- Optional, customize how note IDs are generated given an optional title.
