@@ -18,6 +18,10 @@ if type -q atuin
     atuin init fish | source
 end
 
+if test -e /opt/homebrew/bin/brew
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+end
+
 
 # https://github.com/gokcehan/lf/blob/master/etc/lfcd.fish
 # 
