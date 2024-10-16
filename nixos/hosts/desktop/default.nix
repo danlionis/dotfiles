@@ -35,6 +35,7 @@
     ../../modules/sound.nix
     ../../modules/tailscale.nix
     ../../modules/terminal.nix
+    ../../modules/wireshark.nix
     ../../modules/yubikey.nix
   ];
 
