@@ -1,5 +1,6 @@
 return {
     -- nil_ls = {},
+    bashls = {},
     nixd = {},
     htmx = {
         filetypes = { "html", "templ" },

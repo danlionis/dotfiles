@@ -21,6 +21,8 @@ return {
             json = { "prettierd", "prettier", stop_after_first = true },
 
             css = { "prettierd", "prettier", stop_after_first = true },
+
+            bash = { "shellcheck", "shfmt" },
         },
         formatters = {
             sql_formatter = {
