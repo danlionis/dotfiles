@@ -1,4 +1,3 @@
-import { NotificationPopups } from "./notifications.js";
 import { Bar } from "./bar.js";
 import Gdk from "gi://Gdk";
 

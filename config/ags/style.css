@@ -10,9 +10,7 @@
 .bar .cbox {
   padding: 0px 10px;
   min-height: 24px;
-  /* background-color: #18181b; */
   background-color: #09090b;
-  opacity: 0.95;
   color: white;
 }
 
