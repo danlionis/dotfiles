@@ -1,0 +1,24 @@
+text-color = #c9d1d9
+prompt-color = #ffee58
+selection-color = #ffee58
+background-color = #0d1117
+border-color = #24273a
+
+
+outline-width = 0
+
+# Border outline color
+outline-color = #080800
+
+# Width of the border in pixels.
+border-width = 1
+
+# Border color
+border-color = #ffee58
+
+# Radius of window corners in pixels.
+corner-radius = 8
+
+font = Noto Sans
+
+prompt-text = "yeet: "
