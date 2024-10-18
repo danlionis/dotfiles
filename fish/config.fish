@@ -38,21 +38,6 @@ end
 #
 # You may put this in a function called fish_user_key_bindings.
 
-function lf
-    set tmp (mktemp)
-    # `command` is needed in case `lfcd` is aliased to `lf`
-    command lf -last-dir-path=$tmp $argv
-    if test -f "$tmp"
-        set dir (cat $tmp)
-        rm -f $tmp
-        if test -d "$dir"
-            if test "$dir" != (pwd)
-                cd $dir
-            end
-        end
-    end
-end
-
 if type -q yazi
     function ya
         set tmp (mktemp -t "yazi-cwd.XXXXXX")
