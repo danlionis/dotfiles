@@ -38,7 +38,6 @@ split = Split(
 )
 
 combo_layers = {
-    (1, 3): 4,
     (2, 3): 4,
 }
 layers = Layers(combo_layers)
@@ -163,9 +162,9 @@ keyboard.keymap = [
                                             ESC_LSYM,   SK_LSFT,    SPC_LNAV,   ENT_LNUM,
     ],
     [ # NAV/VIM (1)
-        _______,    _______,   DC_DEAF,    DC_MUTE,    _______,    _______,    _______,    CTL_BSPC,   KC.BSPC,     KC.DEL,
+        _______,    _______,    DC_MUTE,    DC_DEAF,    _______,    _______,    _______,    CTL_BSPC,   KC.BSPC,     KC.DEL,
         _______,    _______,    _______,    KC.TAB,     _______,    KC.LEFT,    KC.DOWN,    KC.UP,      KC.RIGHT,    _______,
-        _______,    KC.LCTRL,   KC.LGUI,    KITTY_MOD,  KC.CW,      KC.HOME,    KC.PGDOWN,  KC.PGUP,    KC.END,      _______,
+        _______,    _______,    _______,    _______,    KC.CW,      KC.HOME,    KC.PGDOWN,  KC.PGUP,    KC.END,      _______,
                                             _______,    _______,    _______,    _______,
     ],
     [  # NUMBERS (2)
@@ -181,7 +180,7 @@ keyboard.keymap = [
                                             _______,    _______,    _______,    _______,
     ],
     [  # FN (4)
-        _______,    KC.F7,      KC.F8,      KC.F9,      KC.F10,     _______,    KC.TG(6),   KC.TG(5),   _______,    KC.RESET,
+        _______,    KC.F7,      KC.F8,      KC.F9,      KC.F10,     _______,    KC.TG(6),   KC.TG(5),   KC.TG(8),   KC.RESET,
         _______,    KC.F1,      KC.F2,      KC.F3,      KC.F11,     KC.MS_LT,   KC.MS_DN,   KC.MS_UP,   KC.MS_RT,   _______,
         _______,    KC.F4,      KC.F5,      KC.F6,      KC.F12,     _______,    KC.MB_LMB,  KC.MB_RMB,  _______,    _______,
                                             _______,    _______,    _______,    _______,
@@ -204,6 +203,12 @@ keyboard.keymap = [
         Z_ALT,      X_CTL,      KC.C,       KC.D,       KC.V,       KC.K,       KC.H,       KC.COMM,    KC.DOT,    KC.SLASH,
                                             # KC.HT(KC.TAB, KC.TG(7)),   SHFT_CW,    KC.SPACE,   ENT_LNUM,
                                             _______,    _______,    _______,    _______,
+    ],
+    [  # GRAPHITE (8)
+        KC.B,       KC.L,       KC.D,       KC.W,       KC.Z,       KC.MINS,    KC.F,       KC.O,       KC.U,       KC.J,
+        LALT(KC.N), LCTL(KC.R), LGUI(KC.T), KC.S,       KC.G,       KC.Y,       KC.H,       RGUI(KC.A), RCTL(KC.E), RALT(KC.I),
+        KC.Q,       KC.X,       KC.M,       KC.C,       KC.V,       KC.K,       KC.P,       KC.COMM,    KC.DOT,    KC.SLASH,
+                                            ESC_LSYM,   KC.LSFT,    SPC_LNAV,   ENT_LNUM,
     ],
 ]
 # fmt: on
