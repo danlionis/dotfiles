@@ -23,6 +23,8 @@ return {
             css = { "prettierd", "prettier", stop_after_first = true },
 
             bash = { "shellcheck", "shfmt" },
+
+            c = { "clang_format" },
         },
         formatters = {
             sql_formatter = {
