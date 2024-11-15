@@ -17,9 +17,11 @@ in
     lazygit
     neovim
     obsidian
-    sourcekit-lsp
+    shellcheck
+    shfmt
     starship
-    swiftlint
+
+    nodePackages.bash-language-server
   ];
 
   environment.variables =
