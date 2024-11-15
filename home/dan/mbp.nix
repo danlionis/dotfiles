@@ -5,6 +5,7 @@
   imports = [
     ./modules/global
     ./modules/terminal
+    ./modules/development/nix.nix
   ];
 
   # This value determines the Home Manager release that your configuration is
@@ -36,5 +37,8 @@
     # EDITOR = "emacs";
   };
 
-  home.packages = with pkgs; [ pyright ];
+  home.packages = with pkgs; [
+    pyright
+    ruff
+  ];
 }
