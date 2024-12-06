@@ -29,6 +29,8 @@ return {
             bash = { "shellcheck", "shfmt" },
 
             c = { "clang_format" },
+
+            tex = { "tex-fmt" },
         },
         formatters = {
             sql_formatter = {

@@ -15,6 +15,7 @@
     ./modules/openrgb-service.nix
 
     ./modules/development/nix.nix
+    ./modules/development/latex.nix
   ];
 
   # This value determines the Home Manager release that your configuration is
