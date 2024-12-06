@@ -5,7 +5,7 @@
   imports = [
     ./modules/global
 
-    ./modules/desktop/bambustudio.nix
+    ./modules/desktop/orcaslicer.nix
     ./modules/desktop/gnome.nix
     ./modules/desktop/prismlauncher.nix
 
