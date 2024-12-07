@@ -15,27 +15,28 @@ let
         }
       )
   );
+  nerdfonts = with pkgs.nerd-fonts; [
+    jetbrains-mono
+    meslo-lg
+  ];
 in
 {
 
   fonts.fontDir.enable = true; # https://wiki.nixos.org/wiki/Fonts#Flatpak_applications_can't_find_system_fonts
 
   # fonts
-  fonts.packages = with pkgs; [
-    noto-fonts
-    (nerdfonts.override {
-      fonts = [
-        "JetBrainsMono"
-        "Meslo"
-      ];
-    })
-    (my-google-fonts.override {
-      fonts = [
-        "SUSE"
-        "Inter"
-        "Oswald"
-        "Roboto"
-      ];
-    })
-  ];
+  fonts.packages =
+    with pkgs;
+    [
+      noto-fonts
+      (my-google-fonts.override {
+        fonts = [
+          "SUSE"
+          "Inter"
+          "Oswald"
+          "Roboto"
+        ];
+      })
+    ]
+    ++ nerdfonts;
 }

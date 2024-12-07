@@ -9,7 +9,7 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    ags.url = "github:Aylur/ags";
+    ags.url = "github:Aylur/ags/v1"; # WARNING: migrate to v2, please do so soon...
     ags.inputs.nixpkgs.follows = "nixpkgs";
 
     impermanence.url = "github:nix-community/impermanence";
@@ -20,7 +20,7 @@
 
     # # Home manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

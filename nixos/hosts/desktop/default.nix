@@ -56,6 +56,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  systemd.services.NetworkManager-wait-online.enable = false; # https://discourse.nixos.org/t/nixos-rebuild-switch-upgrade-networkmanager-wait-online-service-failure/30746
   # networking.networkmanager.dns = "none";
   # networking.nameservers = [ "127.0.0.1" "::1" ];
   # networking.dhcpcd.extraConfig = "nohook resolv.conf";
