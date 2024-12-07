@@ -157,7 +157,7 @@ UML = {
 keyboard.keymap = [
     [  # Colemak-DH (0)
         KC.Q,       KC.W,       KC.F,       KC.P,       KC.B,       KC.J,       KC.L,       KC.U,       KC.Y,       KC.SCLN,
-        LALT(KC.A), LCTL(KC.R), LGUI(KC.S), KTY(KC.T),  KC.G,       KC.M,       KTY(KC.N),  RGUI(KC.E), RCTL(KC.I), RALT(KC.O),
+        RALT(KC.A), LALT(KC.R), LGUI(KC.S), LCTL(KC.T), KC.G,       KC.M,       RCTL(KC.N), RGUI(KC.E), LALT(KC.I), RALT(KC.O),
         KC.Z,       KC.X,       KC.C,       KC.D,       KC.V,       KC.K,       KC.H,       KC.COMM,    KC.DOT,     KC.SLASH,
                                             ESC_LSYM,   SK_LSFT,    SPC_LNAV,   ENT_LNUM,
     ],
@@ -174,9 +174,9 @@ keyboard.keymap = [
                                             _______,    _______,    _______,    _______,
     ],
     [  # SYMBOLS (3)
-        _______,    KC.AMPR,    KC.ASTR,    _______,    KC.TILDE,   KC.GRAVE,   KC.LCBR,    KC.RCBR,    _______,    KC.COLN,
-        _______,    KC.EXLM,    KC.AT,      KC.HASH,    KC.UNDS,    KC.QUOTE,   KC.LPRN,    KC.RPRN,    _______,    _______,
-        KC.PIPE,    KC.DOLLAR,  KC.PERC,    KC.CIRC,    _______,    KC.DQUO,    KC.LBRC,    KC.RBRC,    _______,    KC.BSLASH,
+        _______,    _______,    _______,    _______,    KC.TILDE,   KC.GRAVE,   KC.LCBR,    KC.RCBR,    _______,    KC.COLN,
+        _______,    _______,    _______,    _______,    KC.UNDS,    KC.QUOTE,   KC.LPRN,    KC.RPRN,    _______,    _______,
+        KC.PIPE,    _______,    _______,    _______,    _______,    KC.DQUO,    KC.LBRC,    KC.RBRC,    _______,    KC.BSLASH,
                                             _______,    _______,    _______,    _______,
     ],
     [  # FN (4)
@@ -195,7 +195,7 @@ keyboard.keymap = [
         KC.TAB,     KC.Q,       KC.W,       KC.E,       KC.R,       KC.Y,       KC.U,       KC.I,       KC.O,       KC.P,
         KC.LSHIFT,  KC.A,       KC.S,       KC.D,       KC.F,       KC.H,       KC.J,       KC.K,       KC.L,       KC.SCLN,
         KC.LCTRL,   KC.Z,       KC.X,       KC.C,       KC.V,       KC.N,       KC.M,       KC.COMM,    KC.DOT,    KC.SLSH,
-                                            ESC_LSYM,   KC.SPACE,   SPC_LNAV,   KC.ENT,
+                                            ESC_LSYM,   KC.SPACE,   SPC_LNAV,   ENT_LNUM,
     ], 
     [  # SPEEDTYPING (7)
         KC.Q,       KC.W,       KC.F,       KC.P,       KC.B,       KC.J,       KC.L,       KC.U,       KC.Y,       KC.SCLN,
