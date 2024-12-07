@@ -54,9 +54,6 @@ vim.keymap.set("v", "<leader>y", '"+y')
 vim.keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number under cursor" })
 vim.keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number under cursor" })
 
--- open netrw
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open explorer" })
-
 -- edit and reload init.lua (not possible with lazy)
 -- vim.keymap.set("n", "<leader>ve", function(_) vim.api.nvim_command("edit $MYVIMRC") end,
 --   { desc = 'Open init.lua file' })
