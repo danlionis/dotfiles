@@ -180,7 +180,7 @@ keyboard.keymap = [
                                             _______,    _______,    _______,    _______,
     ],
     [  # FN (4)
-        _______,    KC.F7,      KC.F8,      KC.F9,      KC.F10,     _______,    KC.TG(6),   KC.TG(5),   KC.TG(8),   KC.RESET,
+        KC.PSCR,    KC.F7,      KC.F8,      KC.F9,      KC.F10,     _______,    KC.TG(6),   KC.TG(5),   KC.TG(8),   KC.RESET,
         _______,    KC.F1,      KC.F2,      KC.F3,      KC.F11,     KC.MS_LT,   KC.MS_DN,   KC.MS_UP,   KC.MS_RT,   _______,
         _______,    KC.F4,      KC.F5,      KC.F6,      KC.F12,     _______,    KC.MB_LMB,  KC.MB_RMB,  _______,    _______,
                                             _______,    _______,    _______,    _______,
