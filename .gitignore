@@ -4,3 +4,4 @@ config/lazygit/state.yml
 config/ags/types
 .direnv
 .DS_Store
+config/nushell/history.txt

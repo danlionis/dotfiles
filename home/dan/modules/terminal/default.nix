@@ -34,6 +34,7 @@
         yt-dlp
         zip
         zoxide
+        starship
       ];
       linuxPackages = with pkgs; [ distrobox ];
       darwinPackages = [ ];
@@ -47,4 +48,5 @@
     defaultEditor = true;
     package = pkgs.unstable.neovim-unwrapped;
   };
+
 }
