@@ -24,10 +24,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-darwin.url = "github:LnL7/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     systems.url = "github:nix-systems/default";
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
@@ -38,31 +46,40 @@
       nix-darwin,
       home-manager,
       systems,
+      agenix,
       ...
     }@inputs:
     let
       inherit (self) outputs;
-      forAllSystems =
-        function: nixpkgs.lib.genAttrs (import systems) (system: function nixpkgs.legacyPackages.${system});
+      forAllSystems = function: nixpkgs.lib.genAttrs (import systems) (system: function system);
     in
     {
 
       overlays = import ./nixos/overlays { inherit inputs outputs; };
 
-      devShells = forAllSystems (pkgs: {
-        default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            lua-language-server
-            stylua
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default = pkgs.mkShell {
+            buildInputs =
+              with pkgs;
+              [
+                lua-language-server
+                stylua
 
-            nixd
-            nixfmt-rfc-style
-            nodePackages.typescript-language-server
+                nixd
+                nixfmt-rfc-style
+                nodePackages.typescript-language-server
 
-            pyright
-          ];
-        };
-      });
+                pyright
+              ]
+              ++ [ agenix.packages.${system}.default ];
+          };
+        }
+      );
 
       nixosConfigurations =
         let
@@ -100,6 +117,8 @@
                   home-manager.useUserPackages = true;
                   home-manager.users.dan = import ./home/dan/desktop.nix;
                 }
+
+                agenix.nixosModules.default
               ];
             };
 
