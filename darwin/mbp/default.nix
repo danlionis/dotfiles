@@ -64,13 +64,15 @@ in
     # updates homebrew packages on activation,
     # can make darwin-rebuild much slower (otherwise i'd forget to do it ever though)
     casks = [
-      "nikitabobko/tap/aerospace"
       "brave-browser"
+      "kitty"
+      "nikitabobko/tap/aerospace"
       "raycast"
     ];
     brews = [
       "xcodegen"
       "swiftlint"
+      "swiftformat"
     ];
   };
 }

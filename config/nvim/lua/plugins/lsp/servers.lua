@@ -1,4 +1,7 @@
 return {
+    sourcekit = {
+        filetypes = { "swift" },
+    },
     -- nil_ls = {},
     bashls = {},
     nixd = {},
