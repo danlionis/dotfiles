@@ -24,9 +24,8 @@ in
     nodePackages.bash-language-server
   ];
 
-  environment.variables =
-    {
-    };
+  environment.variables = {
+  };
 
   nixpkgs.overlays = builtins.attrValues outputs.overlays;
 
@@ -53,11 +52,11 @@ in
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   users.users.dan = {
-    shell = pkgs.fish;
+    # shell = pkgs.fish;
     home = "/Users/dan";
   };
-  programs.fish.enable = true;
-  environment.shells = [ pkgs.fish ];
+  # programs.fish.enable = true;
+  # environment.shells = [ pkgs.fish ];
 
   homebrew = {
     enable = true;
