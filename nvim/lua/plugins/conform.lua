@@ -30,7 +30,7 @@ return {
 
             c = { "clang_format" },
 
-            tex = { "tex-fmt" },
+            tex = { lsp_format = "fallback" },
         },
         formatters = {
             sql_formatter = {

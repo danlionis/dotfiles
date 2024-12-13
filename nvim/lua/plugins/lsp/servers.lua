@@ -34,15 +34,15 @@ return {
             },
         },
     },
-    ltex = {
-        settings = {
-            ltex = {
-                disabledRules = {
-                    ["en-US"] = { "ARROWS" },
-                },
-            },
-        },
-    },
+    -- ltex = {
+    --     settings = {
+    --         ltex = {
+    --             disabledRules = {
+    --                 ["en-US"] = { "ARROWS" },
+    --             },
+    --         },
+    --     },
+    -- },
     clangd = {},
     pyright = {},
     ts_ls = {},
