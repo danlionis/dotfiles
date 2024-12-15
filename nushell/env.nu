@@ -113,3 +113,5 @@ def --env y [...args] {
 	}
 	rm -fp $tmp
 }
+
+$env.EDITOR = "nvim"
