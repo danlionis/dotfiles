@@ -87,7 +87,7 @@
           mapHostname = builtins.mapAttrs (name: f: f name);
         in
         mapHostname {
-          zeus =
+          kronos =
             hostname:
             nixpkgs.lib.nixosSystem {
               specialArgs = {
@@ -98,7 +98,7 @@
               };
               system = "aarch64-linux";
               modules = [
-                ./nixos/hosts/zeus
+                ./nixos/hosts/kronos
                 disko.nixosModules.default
               ];
             };

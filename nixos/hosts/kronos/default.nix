@@ -26,11 +26,16 @@
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
 
+  services.qemuGuest.enable = true;
+
   networking.hostName = meta.hostname; # Define your hostname.
 
   environment.systemPackages = with pkgs; [
     git
     neovim
+    starship
+    zoxide
+    atuin
   ];
 
   nix.settings.experimental-features = [
@@ -44,4 +49,6 @@
     dates = "weekly";
     options = "--delete-older-than 14d";
   };
+
+  system.stateVersion = "24.11";
 }
