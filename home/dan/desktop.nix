@@ -49,6 +49,8 @@
 
   home.packages = with pkgs; [
     rose-pine-hyprcursor
+    vlc
+    mpv
   ];
 
   home.pointerCursor = {
