@@ -912,3 +912,7 @@ source /tmp/.zoxide.nu
 use /tmp/.starship.nu
 
 alias lg = lazygit
+
+if ((tty) == "/dev/tty1") {
+    exec Hyprland
+}

@@ -15,7 +15,6 @@ in
       "wireshark"
     ];
     openssh.authorizedKeys.keys = keys;
+    shell = pkgs.nushell;
   };
-
-  programs.fish.enable = true;
 }
