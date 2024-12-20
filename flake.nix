@@ -42,7 +42,8 @@
     {
       self,
       nixpkgs,
-      nixos-hardware,
+      nixpkgs-unstable,
+      disko,
       nix-darwin,
       home-manager,
       systems,
@@ -86,7 +87,7 @@
           mapHostname = builtins.mapAttrs (name: f: f name);
         in
         mapHostname {
-          dan-laptop =
+          zeus =
             hostname:
             nixpkgs.lib.nixosSystem {
               specialArgs = {
@@ -95,14 +96,15 @@
                   inherit hostname;
                 };
               };
+              system = "aarch64-linux";
               modules = [
-                ./nixos/hosts/laptop
-                nixos-hardware.nixosModules.lenovo-thinkpad-t470s
+                ./nixos/hosts/zeus
+                disko.nixosModules.default
               ];
             };
           dan-pc =
             hostname:
-            nixpkgs.lib.nixosSystem {
+            nixpkgs-unstable.lib.nixosSystem {
               specialArgs = {
                 inherit inputs outputs;
                 meta = {
