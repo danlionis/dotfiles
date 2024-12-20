@@ -31,11 +31,17 @@
                     mountpoint = "/";
                   };
                   "/persist" = {
-                    mountOptions = [ "subvol=persist" "noatime" ];
+                    mountOptions = [
+                      "subvol=persist"
+                      "noatime"
+                    ];
                     mountpoint = "/persist";
                   };
                   "/nix" = {
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
                     mountpoint = "/nix";
                   };
                   "/swap" = {

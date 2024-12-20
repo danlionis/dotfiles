@@ -1,12 +1,8 @@
 let
-  dan-desktop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJx4XvyBnsone/e2O6oGxuRQQNzZwlobeOWGAtSO3EN9";
-  users = [
-    dan-desktop
-  ];
-
-  systems = [
-  ];
+  keys = import ../keys.nix;
 in
 {
-  "test.age".publicKeys = [ dan-desktop ];
+  "restic/password".publicKeys = keys.dan ++ [ keys.server-zeus ];
+
+  "test.age".publicKeys = keys.dan ++ [ ];
 }

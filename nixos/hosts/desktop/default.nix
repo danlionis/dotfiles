@@ -18,6 +18,7 @@
     ./hardware-configuration.nix
     ./impermanence.nix
     ./disko.nix
+    ./backup.nix
 
     inputs.disko.nixosModules.default
     inputs.impermanence.nixosModules.impermanence
@@ -162,7 +163,7 @@
   # programs.nix-ld.enable = true;
 
   # steam
-  gaming.enable = true;
+  modules.gaming.enable = true;
 
   environment.variables = {
     # NIX_LD = lib.fileContents "${pkgs.stdenv.cc}/nix-support/dynamic-linker";
@@ -227,4 +228,6 @@
   ];
 
   nixpkgs.config.rocmSupport = true;
+
+  age.identityPaths = [ "/persist/${config.users.users.dan.home}/.ssh/id_ed25519" ]; # https://github.com/ryantm/agenix/issues/45
 }

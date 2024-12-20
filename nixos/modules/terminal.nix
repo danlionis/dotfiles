@@ -1,7 +1,4 @@
-{ pkgs, ... }: {
-  programs.starship.enable = true;
-
-  programs.fish.enable = true;
-
+{ pkgs, ... }:
+{
   programs.git.enable = true;
 }

@@ -5,11 +5,11 @@
   ...
 }:
 {
-  options = {
-    gaming.enable = lib.mkEnableOption "enable gaming";
+  options.modules.gaming = {
+    enable = lib.mkEnableOption "enable gaming";
   };
 
-  config = lib.mkIf config.gaming.enable {
+  config = lib.mkIf config.modules.gaming.enable {
     environment.systemPackages = with pkgs; [
       bottles
       mangohud
