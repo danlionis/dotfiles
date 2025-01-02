@@ -114,7 +114,7 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs-stable}" ];
 
   nixpkgs.overlays = builtins.attrValues outputs.overlays;
 
@@ -146,6 +146,8 @@
     pkg-config
 
     rocmPackages.rocm-smi
+
+    inputs.ghostty.packages.x86_64-linux.default
   ];
 
   programs.chromium = {

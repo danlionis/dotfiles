@@ -3,25 +3,23 @@
 
   inputs = {
     # Nixpkgs
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     ags.url = "github:Aylur/ags/v1"; # WARNING: migrate to v2, please do so soon...
-    ags.inputs.nixpkgs.follows = "nixpkgs";
 
     impermanence.url = "github:nix-community/impermanence";
     disko = {
       url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # # Home manager
     home-manager = {
       url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     nix-darwin = {
@@ -33,7 +31,12 @@
 
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+      # inputs.nixpkgs-stable.follows = "nixpkgs";
+      # inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
     };
 
   };
@@ -41,18 +44,19 @@
   outputs =
     {
       self,
-      nixpkgs,
+      nixpkgs-stable,
       nixpkgs-unstable,
       disko,
       nix-darwin,
       home-manager,
       systems,
       agenix,
+      ghostty,
       ...
     }@inputs:
     let
       inherit (self) outputs;
-      forAllSystems = function: nixpkgs.lib.genAttrs (import systems) (system: function system);
+      forAllSystems = function: nixpkgs-stable.lib.genAttrs (import systems) (system: function system);
     in
     {
 
@@ -61,7 +65,7 @@
       devShells = forAllSystems (
         system:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
+          pkgs = nixpkgs-stable.legacyPackages.${system};
         in
         {
           default = pkgs.mkShell {
@@ -89,7 +93,7 @@
         mapHostname {
           kronos =
             hostname:
-            nixpkgs.lib.nixosSystem {
+            nixpkgs-stable.lib.nixosSystem {
               specialArgs = {
                 inherit inputs outputs;
                 meta = {
@@ -100,17 +104,23 @@
               modules = [
                 ./nixos/hosts/kronos
                 disko.nixosModules.default
+                agenix.nixosModules.default
               ];
             };
           dan-pc =
             hostname:
-            nixpkgs-unstable.lib.nixosSystem {
+            nixpkgs-stable.lib.nixosSystem rec {
               specialArgs = {
                 inherit inputs outputs;
                 meta = {
                   inherit hostname;
                 };
+                pkgs-unstable = import nixpkgs-unstable {
+                  inherit system;
+                  config.allowUnfree = true;
+                };
               };
+              system = "x86_64-linux";
               modules = [
                 ./nixos/hosts/desktop
                 home-manager.nixosModules.home-manager

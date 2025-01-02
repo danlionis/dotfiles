@@ -51,6 +51,8 @@
       "/var/lib/flatpak" # maybe move to own module
       "/var/lib/systemd/coredump"
       "/var/lib/OpenRGB"
+      "/var/lib/systemd/timers"
+
       "/etc/NetworkManager/system-connections"
       {
         directory = "/var/lib/colord";
@@ -118,4 +120,5 @@
     Defaults lecture = never
   '';
 
+  systemd.targets.timers.after = [ "var-lib-systemd-timers.mount" ]; # https://www.reddit.com/r/NixOS/comments/ryexzy/comment/kdc3ah0/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
 }
