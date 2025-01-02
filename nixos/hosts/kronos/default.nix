@@ -17,7 +17,15 @@
     ./hardware-configuration.nix
 
     ../../modules/users/dan.nix
+
+    ../../modules/tailscale.nix
+    ../../modules/paperless.nix
+    ../../modules/caddy.nix
+
   ];
+
+  modules.paperless.enable = true;
+
   boot.loader.grub = {
     efiSupport = true;
     efiInstallAsRemovable = true;
