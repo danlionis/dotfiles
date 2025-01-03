@@ -29,6 +29,7 @@ in
     with pkgs;
     [
       noto-fonts
+      comic-relief
       (my-google-fonts.override {
         fonts = [
           "SUSE"
