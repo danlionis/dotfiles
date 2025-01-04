@@ -8,7 +8,9 @@
   modulesPath,
   ...
 }:
-
+let
+  keys = (import ../../../keys.nix).dan;
+in
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -45,6 +47,10 @@
     zoxide
     atuin
   ];
+
+  users.users.root = {
+    openssh.authorizedKeys.keys = keys;
+  };
 
   nix.settings.experimental-features = [
     "nix-command"

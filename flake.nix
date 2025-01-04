@@ -39,6 +39,10 @@
       # inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
     };
 
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+    };
+
   };
 
   outputs =
@@ -51,6 +55,7 @@
       home-manager,
       systems,
       agenix,
+      deploy-rs,
       ghostty,
       ...
     }@inputs:
@@ -81,7 +86,10 @@
 
                 pyright
               ]
-              ++ [ agenix.packages.${system}.default ];
+              ++ [
+                agenix.packages.${system}.default
+                deploy-rs.packages.${system}.default
+              ];
           };
         }
       );
@@ -93,11 +101,15 @@
         mapHostname {
           kronos =
             hostname:
-            nixpkgs-stable.lib.nixosSystem {
+            nixpkgs-stable.lib.nixosSystem rec {
               specialArgs = {
                 inherit inputs outputs;
                 meta = {
                   inherit hostname;
+                };
+                pkgs-unstable = import nixpkgs-unstable {
+                  inherit system;
+                  config.allowUnfree = true;
                 };
               };
               system = "aarch64-linux";
@@ -153,5 +165,23 @@
           }
         ];
       };
+
+      deploy.nodes = {
+
+        kronos = {
+          hostname = "kronos";
+          profiles = {
+            system = {
+              remoteBuild = true;
+              path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.kronos;
+              user = "root";
+              interactiveSudo = true;
+            };
+          };
+        };
+      };
+
+      # checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+
     };
 }
