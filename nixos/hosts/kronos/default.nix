@@ -8,9 +8,6 @@
   modulesPath,
   ...
 }:
-let
-  keys = (import ../../../keys.nix).dan;
-in
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -21,22 +18,30 @@ in
     ../../modules/users/dan.nix
 
     ../../modules/tailscale.nix
-    ../../modules/paperless.nix
-    ../../modules/caddy.nix
-
+    ../../modules
   ];
 
-  modules.paperless.enable = true;
+  modules = {
+    paperless.enable = true;
+    caddy.enable = true;
+  };
 
   boot.loader.grub = {
     efiSupport = true;
     efiInstallAsRemovable = true;
   };
 
-  services.openssh.enable = true;
-  services.openssh.settings.PasswordAuthentication = false;
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
 
   services.qemuGuest.enable = true;
+
+  services.fail2ban.enable = true;
 
   networking.hostName = meta.hostname; # Define your hostname.
 
@@ -47,10 +52,6 @@ in
     zoxide
     atuin
   ];
-
-  users.users.root = {
-    openssh.authorizedKeys.keys = keys;
-  };
 
   nix.settings.experimental-features = [
     "nix-command"
