@@ -4,9 +4,11 @@ let
   keys = (import ../../../keys.nix).dan;
 in
 {
+  age.secrets."password-hash".file = ../../../secrets/password-hash;
+
   users.users.dan = {
     isNormalUser = true;
-    initialPassword = "dan";
+    hashedPasswordFile = config.age.secrets."password-hash".path;
     extraGroups = ifTheyExist [
       "networkmanager"
       "wheel"

@@ -8,4 +8,6 @@ in
   "test.age".publicKeys = keys.dan ++ [ ];
 
   "CF_API_KEY".publicKeys = keys.dan ++ [ keys.kronos ];
+
+  "password-hash".publicKeys = keys.dan ++ [ keys.kronos ];
 }
