@@ -3,6 +3,7 @@ let
 in
 {
   "restic/password".publicKeys = keys.dan ++ [ keys.kronos ];
+  "restic/paperless-b2-env".publicKeys = keys.dan ++ [ keys.kronos ];
 
   "test.age".publicKeys = keys.dan ++ [ ];
 

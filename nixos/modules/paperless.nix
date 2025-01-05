@@ -5,6 +5,7 @@ let
   containerAddress = "10.0.0.2";
   hostAddress = "10.0.0.1";
   url = "paper.lionis.net";
+  exportDir = "/tmp/paperless-export";
 in
 {
 
@@ -87,5 +88,34 @@ in
         reverse_proxy http://${containerAddress}:${toString config.services.paperless.port}
       '';
     };
+
+    age.secrets."restic/password".file = ../../secrets/restic/password;
+    age.secrets."restic/paperless-b2-env".file = ../../secrets/restic/paperless-b2-env;
+
+    services.restic.backups = {
+      paperless-b2-daily = {
+        initialize = true;
+
+        repository = "s3:s3.eu-central-003.backblazeb2.com/danlionis-restic-paperless";
+        environmentFile = config.age.secrets."restic/paperless-b2-env".path;
+        passwordFile = config.age.secrets."restic/password".path;
+
+        backupPrepareCommand = ''
+          mkdir -p ${exportDir} 
+          ${paperlessDir}/paperless-manage document_exporter -d ${exportDir}
+        '';
+
+        paths = [
+          exportDir
+        ];
+
+        pruneOpts = [
+          "--keep-daily 7"
+          "--keep-weekly 5"
+          "--keep-monthly 12"
+        ];
+      };
+    };
   };
+
 }
