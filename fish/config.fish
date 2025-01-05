@@ -3,7 +3,7 @@ set fish_greeting
 
 if type -q starship
     starship init fish | source
-    enable_transience
+    # enable_transience
 end
 
 if type -q zoxide
@@ -39,7 +39,7 @@ end
 # You may put this in a function called fish_user_key_bindings.
 
 if type -q yazi
-    function ya
+    function y
         set tmp (mktemp -t "yazi-cwd.XXXXXX")
         yazi $argv --cwd-file="$tmp"
         if set cwd (cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
