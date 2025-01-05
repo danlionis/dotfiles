@@ -5,7 +5,8 @@ return {
             accept_suggestion = "<C-a>",
         },
     },
-    lazy = false,
+    enabled = false,
+    lazy = true,
     keys = {
         { "<leader>smt", "<cmd>SupermavenToggle<cr>", desc = "[S]uper[M]aven [T]oggle" },
     },
