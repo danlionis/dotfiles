@@ -4,7 +4,6 @@
   lib,
   outputs,
   inputs,
-  meta,
   modulesPath,
   ...
 }:
@@ -12,7 +11,10 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
+
+    inputs.disko.nixosModules.default
     ./disko.nix
+
     ./hardware-configuration.nix
 
     ../../modules/users/dan.nix
@@ -43,8 +45,6 @@
 
   services.fail2ban.enable = true;
 
-  networking.hostName = meta.hostname; # Define your hostname.
-
   environment.systemPackages = with pkgs; [
     git
     neovim
@@ -66,4 +66,6 @@
   };
 
   system.stateVersion = "24.11";
+
+  nixpkgs.overlays = builtins.attrValues outputs.overlays;
 }

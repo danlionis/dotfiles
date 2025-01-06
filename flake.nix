@@ -19,7 +19,7 @@
     # # Home manager
     home-manager = {
       url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     nix-darwin = {
@@ -96,56 +96,19 @@
 
       nixosConfigurations =
         let
-          mapHostname = builtins.mapAttrs (name: f: f name);
+          mksystem = import ./lib/mksystem.nix {
+            inherit inputs outputs;
+            nixpkgs = nixpkgs-stable;
+          };
         in
-        mapHostname {
-          kronos =
-            hostname:
-            nixpkgs-stable.lib.nixosSystem rec {
-              specialArgs = {
-                inherit inputs outputs;
-                meta = {
-                  inherit hostname;
-                };
-                pkgs-unstable = import nixpkgs-unstable {
-                  inherit system;
-                  config.allowUnfree = true;
-                };
-              };
-              system = "aarch64-linux";
-              modules = [
-                ./nixos/hosts/kronos
-                disko.nixosModules.default
-                agenix.nixosModules.default
-              ];
-            };
-          dan-pc =
-            hostname:
-            nixpkgs-stable.lib.nixosSystem rec {
-              specialArgs = {
-                inherit inputs outputs;
-                meta = {
-                  inherit hostname;
-                };
-                pkgs-unstable = import nixpkgs-unstable {
-                  inherit system;
-                  config.allowUnfree = true;
-                };
-              };
-              system = "x86_64-linux";
-              modules = [
-                ./nixos/hosts/desktop
-                home-manager.nixosModules.home-manager
-                {
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.users.dan = import ./home/dan/desktop.nix;
-                }
-
-                agenix.nixosModules.default
-              ];
-            };
-
+        builtins.mapAttrs (name: props: mksystem props name) {
+          kronos = {
+            user = "dan";
+          };
+          dan-pc = {
+            user = "dan";
+            home-manager = true;
+          };
         };
 
       # Build darwin flake using:

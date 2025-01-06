@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 let
   my-google-fonts = (
     pkgs.google-fonts.overrideAttrs # TODO: check back if SUSE is available
@@ -15,7 +15,7 @@ let
         }
       )
   );
-  nerdfonts = with pkgs-unstable.nerd-fonts; [
+  nerdfonts = with pkgs.unstable.nerd-fonts; [
     jetbrains-mono
     meslo-lg
   ];

@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  pkgs-unstable,
+  pkgs,
   ...
 }:
 let
@@ -18,7 +18,7 @@ in
 
     services.caddy = {
       enable = true;
-      package = pkgs-unstable.caddy.withPlugins {
+      package = pkgs.unstable.caddy.withPlugins {
         plugins = [
           "github.com/caddy-dns/cloudflare@v0.0.0-20240703190432-89f16b99c18e"
         ];
