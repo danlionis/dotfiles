@@ -26,7 +26,7 @@
 
     ../../modules/hyprland.nix
     ../../modules/fonts.nix
-    ../../modules/gaming
+    ../../modules/gaming.nix
     # ../../modules/gnome.nix
     ../../modules/libvirt.nix
     ../../modules/openrgb.nix

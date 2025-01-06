@@ -5,9 +5,7 @@
   imports = [
     ./modules/global
 
-    ./modules/desktop/orcaslicer.nix
     ./modules/desktop/gnome.nix
-    ./modules/desktop/prismlauncher.nix
 
     ./modules/terminal
 
@@ -51,6 +49,8 @@
     rose-pine-hyprcursor
     vlc
     mpv
+    orca-slicer
+    prismlauncher
   ];
 
   home.pointerCursor = {
