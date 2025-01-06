@@ -17,16 +17,12 @@
 
     ./hardware-configuration.nix
 
-    ../../modules/users/dan.nix
+    ../../users/dan.nix
 
     ../../modules/tailscale.nix
-    ../../modules
+    ../../modules/caddy.nix
+    ../../modules/paperless.nix
   ];
-
-  modules = {
-    paperless.enable = true;
-    caddy.enable = true;
-  };
 
   boot.loader.grub = {
     efiSupport = true;

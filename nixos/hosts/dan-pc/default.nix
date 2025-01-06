@@ -22,7 +22,7 @@
     inputs.disko.nixosModules.default
     inputs.impermanence.nixosModules.impermanence
 
-    ../../modules/users/dan.nix
+    ../../users/dan.nix
 
     ../../modules/hyprland.nix
     ../../modules/fonts.nix
