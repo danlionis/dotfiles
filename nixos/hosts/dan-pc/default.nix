@@ -44,6 +44,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 30;
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   # kernel version
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
