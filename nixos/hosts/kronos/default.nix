@@ -22,6 +22,7 @@
     ../../modules/tailscale.nix
     ../../modules/caddy.nix
     ../../modules/paperless.nix
+    ../../modules/authelia.nix
   ];
 
   boot.loader.grub = {
