@@ -11,6 +11,7 @@
         atuin
         bat
         btop
+        carapace
         comma
         dig
         eza

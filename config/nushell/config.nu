@@ -911,6 +911,9 @@ source /tmp/.atuin.nu
 source /tmp/.zoxide.nu
 use /tmp/.starship.nu
 
+# https://carapace-sh.github.io/carapace-bin/setup.html#nushell
+source ~/.cache/carapace/init.nu
+
 alias lg = lazygit
 alias ":q" = exit
 
