@@ -7,7 +7,7 @@ in
 
   "test.age".publicKeys = keys.dan ++ [ ];
 
-  "CF_API_KEY".publicKeys = keys.dan ++ [ keys.kronos ];
+  "CLOUDFLARE_DNS_API_TOKEN".publicKeys = keys.dan ++ [ keys.kronos ];
 
   "password-hash".publicKeys = keys.dan ++ [ keys.kronos ];
 }

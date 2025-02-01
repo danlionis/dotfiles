@@ -4,7 +4,7 @@
   ...
 }:
 {
-  age.secrets."CF_API_KEY".file = ../../secrets/CF_API_KEY;
+  age.secrets."CLOUDFLARE_DNS_API_TOKEN".file = ../../secrets/CLOUDFLARE_DNS_API_TOKEN;
 
   services.caddy = {
     enable = true;
@@ -15,11 +15,11 @@
       hash = "sha256-WGV/Ve7hbVry5ugSmTYWDihoC9i+D3Ct15UKgdpYc9U=";
     };
     globalConfig = ''
-      acme_dns cloudflare {env.CF_API_KEY}
+      acme_dns cloudflare {env.CLOUDFLARE_DNS_API_TOKEN}
     '';
   };
 
   systemd.services.caddy.serviceConfig = {
-    EnvironmentFile = config.age.secrets."CF_API_KEY".path;
+    EnvironmentFile = config.age.secrets."CLOUDFLARE_DNS_API_TOKEN".path;
   };
 }

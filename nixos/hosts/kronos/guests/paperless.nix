@@ -49,6 +49,7 @@ in
             useHostResolvConf = lib.mkForce false;
           };
 
+          system.stateVersion = "24.11";
         };
     };
   };
