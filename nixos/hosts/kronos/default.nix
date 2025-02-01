@@ -23,6 +23,7 @@
     ../../modules/caddy.nix
 
     ./guests/paperless.nix
+    ./guests/kanidm.nix
   ];
 
   boot.loader.grub = {

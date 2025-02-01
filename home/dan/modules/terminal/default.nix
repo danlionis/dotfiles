@@ -19,6 +19,7 @@
         fzf
         gdu
         jq
+        kanidm
         lazygit
         man-pages
         man-pages-posix
@@ -26,6 +27,7 @@
         nushell
         prettierd
         ripgrep
+        starship
         tldr
         unzip
         wget
@@ -34,7 +36,6 @@
         yt-dlp
         zip
         zoxide
-        starship
       ];
       linuxPackages = with pkgs; [ distrobox ];
       darwinPackages = [ ];
