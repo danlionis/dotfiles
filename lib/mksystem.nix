@@ -32,6 +32,9 @@ systemFunc rec {
   };
   modules =
     [
+      ../modules/globals.nix
+      ../globals.nix
+
       {
         nixpkgs.overlays = builtins.attrValues outputs.overlays; # apply overlays
         nixpkgs.config.allowUnfree = true; # allow unfree packages.
