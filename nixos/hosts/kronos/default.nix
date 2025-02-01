@@ -24,6 +24,7 @@
 
     ./guests/paperless.nix
     ./guests/kanidm.nix
+    ./guests/forgejo.nix
   ];
 
   boot.loader.grub = {
@@ -44,11 +45,12 @@
   services.fail2ban.enable = true;
 
   environment.systemPackages = with pkgs; [
+    atuin
+    fd
     git
     neovim
     starship
     zoxide
-    atuin
   ];
 
   nix.settings.experimental-features = [

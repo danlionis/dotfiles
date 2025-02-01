@@ -13,4 +13,6 @@ in
 
   "kanidm/key.pem".publicKeys = keys.dan ++ [ keys.kronos ];
   "kanidm/cert.pem".publicKeys = keys.dan ++ [ keys.kronos ];
+
+  "forgejo/oauth_secret".publicKeys = keys.dan ++ [ keys.kronos ];
 }
