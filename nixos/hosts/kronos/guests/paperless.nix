@@ -1,9 +1,7 @@
 { config, lib, ... }:
 let
   paperlessDir = "/var/lib/paperless";
-  containerAddress = "10.0.0.2";
-  hostAddress = "10.0.0.1";
-  url = "paper.lionis.net";
+  url = config.globals.domains.paperless;
   exportDir = "/tmp/paperless-export";
 in
 {
@@ -14,21 +12,13 @@ in
     '';
   };
 
-  networking.nat = {
-    enable = true;
-    internalInterfaces = [ "ve-+" ];
-    externalInterface = "enp6s0";
-    # Lazy IPv6 connectivity for the container
-    enableIPv6 = true;
-  };
-
   containers = {
     paperless = {
       privateNetwork = true;
       ephemeral = true;
       autoStart = true;
-      localAddress = containerAddress;
-      hostAddress = hostAddress;
+      localAddress = "10.0.0.2";
+      hostAddress = "10.0.0.1";
       bindMounts = {
         "/var/lib/paperless" = {
           hostPath = paperlessDir;
@@ -38,17 +28,13 @@ in
       config =
         {
           config,
-          pkgs,
-          lib,
           ...
         }:
         {
-          # environment.etc."paperless-admin-pass".text = "admin";
-
           # $ sudo /var/lib/paperless/paperless-manage createsuperuser
           services.paperless = {
             enable = true;
-            address = containerAddress;
+            address = "0.0.0.0";
             settings = {
               PAPERLESS_OCR_LANGUAGE = "deu+eng";
               PAPERLESS_URL = "https://${url}";
@@ -60,7 +46,7 @@ in
 
             # Use systemd-resolved inside the container
             # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
-            # useHostResolvConf = lib.mkForce false;
+            useHostResolvConf = lib.mkForce false;
           };
 
         };
@@ -69,12 +55,12 @@ in
 
   services.caddy = {
     virtualHosts."${url}".extraConfig = ''
-      reverse_proxy http://${containerAddress}:${toString config.services.paperless.port}
+      reverse_proxy http://${config.containers.paperless.localAddress}:${toString config.services.paperless.port}
     '';
   };
 
-  age.secrets."restic/password".file = ../../secrets/restic/password;
-  age.secrets."restic/paperless-b2-env".file = ../../secrets/restic/paperless-b2-env;
+  age.secrets."restic/password".file = ../../../../secrets/restic/password;
+  age.secrets."restic/paperless-b2-env".file = ../../../../secrets/restic/paperless-b2-env;
 
   services.restic.backups = {
     paperless-b2-daily = {

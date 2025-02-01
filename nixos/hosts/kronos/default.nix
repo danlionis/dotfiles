@@ -21,8 +21,8 @@
 
     ../../modules/tailscale.nix
     ../../modules/caddy.nix
-    ../../modules/paperless.nix
-    ../../modules/authelia.nix
+
+    ./guests/paperless.nix
   ];
 
   boot.loader.grub = {
