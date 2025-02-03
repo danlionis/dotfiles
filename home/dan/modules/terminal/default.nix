@@ -20,7 +20,6 @@
         fzf
         gdu
         jq
-        kanidm
         lazygit
         man-pages
         man-pages-posix
@@ -38,7 +37,10 @@
         zip
         zoxide
       ];
-      linuxPackages = with pkgs; [ distrobox ];
+      linuxPackages = with pkgs; [
+        distrobox
+        kanidm
+      ];
       darwinPackages = [ ];
     in
     commonPackages
