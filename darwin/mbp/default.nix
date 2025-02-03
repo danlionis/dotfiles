@@ -60,7 +60,7 @@ in
 
   homebrew = {
     enable = true;
-    autoUpdate = true;
+    onActivation.upgrade = true;
     # updates homebrew packages on activation,
     # can make darwin-rebuild much slower (otherwise i'd forget to do it ever though)
     casks = [
