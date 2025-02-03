@@ -10,6 +10,8 @@ in
 {
   services.forgejo = {
     enable = true;
+    user = "git";
+    group = "git";
     # Enable support for Git Large File Storage
     lfs.enable = true;
     settings = {
@@ -22,6 +24,8 @@ in
       };
       # You can temporarily allow registration to create an admin user.
       service.DISABLE_REGISTRATION = true;
+
+      session.COOKIE_SECURE = true;
       # Add support for actions, based on act: https://github.com/nektos/act
       actions = {
         ENABLED = true;
