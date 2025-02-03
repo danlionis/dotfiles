@@ -46,10 +46,13 @@
 
   environment.systemPackages = with pkgs; [
     atuin
+    carapace
     fd
     git
     neovim
+    nushell
     starship
+    yazi
     zoxide
   ];
 
