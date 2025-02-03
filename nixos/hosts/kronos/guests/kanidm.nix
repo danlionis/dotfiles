@@ -23,6 +23,10 @@ in
       domain = domain;
       origin = "https://${domain}";
       trust_x_forward_for = true;
+
+      online_backup = {
+        versions = 7;
+      };
     };
   };
 
