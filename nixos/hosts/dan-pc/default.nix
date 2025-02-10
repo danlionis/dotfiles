@@ -37,6 +37,8 @@
     ../../modules/terminal.nix
     ../../modules/wireshark.nix
     ../../modules/yubikey.nix
+
+    ./guests/ollama.nix
   ];
 
   # Bootloader.
