@@ -111,6 +111,7 @@
           };
           vm-aarch64 = {
             user = "dan";
+            home-manager = true;
           };
         };
 
