@@ -31,6 +31,7 @@
     ../../modules/libvirt.nix
     ../../modules/openrgb.nix
     ../../modules/podman.nix
+    ../../modules/docker.nix
     ../../modules/printing.nix
     ../../modules/sound.nix
     ../../modules/tailscale.nix

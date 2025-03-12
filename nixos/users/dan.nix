@@ -13,6 +13,7 @@ in
       "networkmanager"
       "wheel"
       "docker"
+      "podman"
       "libvirtd"
       "wireshark"
     ];
