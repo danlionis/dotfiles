@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
   keys = (import ../../keys.nix).dan;
@@ -20,4 +25,6 @@ in
     openssh.authorizedKeys.keys = keys;
     shell = pkgs.nushell;
   };
+
+  age.identityPaths = lib.mkDefault [ "${config.users.users.dan.home}/.ssh/id_ed25519" ]; # https://github.com/ryantm/agenix/issues/45
 }

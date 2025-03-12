@@ -109,6 +109,9 @@
             user = "dan";
             home-manager = true;
           };
+          vm-aarch64 = {
+            user = "dan";
+          };
         };
 
       # Build darwin flake using:
