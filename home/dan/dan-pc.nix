@@ -13,6 +13,7 @@
     ./modules/openrgb-service.nix
 
     ./modules/development/nix.nix
+    ./modules/development/python.nix
     ./modules/development/latex.nix
   ];
 

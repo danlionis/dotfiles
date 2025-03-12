@@ -8,6 +8,7 @@
     ./modules/terminal
 
     ./modules/development/nix.nix
+    ./modules/development/python.nix
   ];
 
   # This value determines the Home Manager release that your configuration is
