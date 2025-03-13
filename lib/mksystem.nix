@@ -45,6 +45,9 @@ systemFunc rec {
       machineConfig
       {
         networking.hostName = name;
+        environment.sessionVariables = {
+          NIX_SYSTEM_NAME = name;
+        };
       }
 
       # userOSConfig
