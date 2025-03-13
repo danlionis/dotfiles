@@ -25,6 +25,7 @@
     ./guests/paperless.nix
     ./guests/kanidm.nix
     ./guests/forgejo.nix
+    ./guests/glance
   ];
 
   boot.loader.grub = {

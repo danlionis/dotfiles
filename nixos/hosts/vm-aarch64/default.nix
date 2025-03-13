@@ -92,4 +92,5 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
 
+  age.identityPaths = lib.mkDefault [ "${config.users.users.dan.home}/.ssh/id_ed25519" ]; # https://github.com/ryantm/agenix/issues/45
 }
