@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   domain = config.globals.domains.kanidm;
 in
@@ -16,6 +16,7 @@ in
   };
 
   services.kanidm = {
+    package = pkgs.kanidm_1_5;
     enableServer = true;
     serverSettings = {
       tls_chain = config.age.secrets."kanidm_cert".path;

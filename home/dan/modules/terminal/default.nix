@@ -10,6 +10,7 @@
       commonPackages = with pkgs; [
         atuin
         bat
+        bitwarden-cli
         btop
         carapace
         comma
@@ -39,7 +40,7 @@
       ];
       linuxPackages = with pkgs; [
         distrobox
-        kanidm
+        kanidm_1_5
       ];
       darwinPackages = [ ];
     in
