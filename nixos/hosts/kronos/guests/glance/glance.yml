@@ -15,7 +15,7 @@ pages:
             sites:
               - title: Git
                 url: https://git.lionis.net
-                icon: http://git.lionis.net:3000/assets/img/logo.svg
+                icon: http://git.lionis.net/assets/img/logo.svg
               - title: Kanidm
                 url: https://auth.lionis.net
                 icon: https://auth.lionis.net/pkg/img/logo.svg
@@ -166,6 +166,7 @@ pages:
               - UCvSXMi2LebwJEM1s4bz5IBA # New Money
               - UCV6KDgJskWaEckne5aPA0aQ # Graham Stephan
               - UCAzhpt9DmG6PnHXjmJTvRGQ # Federal Reserve
+              - UCkCGANrihzExmu9QiqZpPlQ # How Money Works
 
       - size: small
         widgets:
