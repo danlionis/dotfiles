@@ -10,13 +10,14 @@
   user,
   darwin ? false,
   home-manager ? false,
+  config ? null,
 }:
 name:
 
 let
   enableHomeManager = home-manager;
 
-  machineConfig = ../nixos/hosts/${name}/default.nix;
+  machineConfig = if config == null then ../nixos/hosts/${name}/default.nix else config;
   # userOSConfig = ../home/${user}/${if darwin then "darwin" else "nixos"}.nix;
   userHMConfig = ../home/${user}/${name}.nix;
 
