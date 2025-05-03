@@ -134,15 +134,18 @@
     ruff
 
     # gui / desktop
+    anki
     brave
     brightnessctl
-    ungoogled-chromium
+    darktable
     firefox
     kitty
     libreoffice
     obsidian
     piper
     spotify
+    ungoogled-chromium
+    zotero
 
     # other
     openssl
