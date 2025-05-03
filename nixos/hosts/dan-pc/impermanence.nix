@@ -52,6 +52,7 @@
       "/var/lib/systemd/coredump"
       "/var/lib/OpenRGB"
       "/var/lib/systemd/timers"
+      "/var/lib/private" # ollama
 
       "/etc/NetworkManager/system-connections"
       {
@@ -60,6 +61,7 @@
         group = "colord";
         mode = "u=rwx,g=rx,o=";
       }
+
     ];
     files = [
       "/etc/machine-id"
@@ -88,7 +90,9 @@
         ".local/share/flatpak"
         ".local/share/nvim"
         ".local/share/zoxide"
+        ".local/share/Anki2"
 
+        ".local/state/wireplumber"
         ".local/state/lazygit"
 
         ".cache/nix-index"
