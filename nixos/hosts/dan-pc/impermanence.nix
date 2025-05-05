@@ -96,6 +96,7 @@
         ".local/state/lazygit"
 
         ".cache/nix-index"
+        ".cache/zotero"
 
         ".config"
 
