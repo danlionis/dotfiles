@@ -2,23 +2,30 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, outputs, inputs, meta, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  outputs,
+  inputs,
+  meta,
+  ...
+}:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./power.nix
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./power.nix
 
-      ../../modules/gaming
-      ../../modules/hyprland.nix
-      ../../modules/libvirt.nix
-      ../../modules/podman.nix
-      ../../modules/terminal.nix
-      ../../modules/users/dan.nix
-      ../../modules/yubikey.nix
-    ];
+    ../../modules/gaming
+    ../../modules/hyprland.nix
+    ../../modules/libvirt.nix
+    ../../modules/podman.nix
+    ../../modules/terminal.nix
+    ../../modules/users/dan.nix
+    ../../modules/yubikey.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -31,11 +38,9 @@
   networking.hostName = meta.hostname; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  networking.extraHosts =
-    ''
-      100.91.107.48 athena
-    '';
-
+  networking.extraHosts = ''
+    100.91.107.48 athena
+  '';
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -100,7 +105,7 @@
 
   # Enable sound with pipewire.
   sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -115,7 +120,6 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-
 
   # services.https-dns-proxy.enable = true;
   # services.https-dns-proxy.port = 53;
@@ -165,7 +169,6 @@
   # Docker
   # virtualisation.docker.enable = true;
 
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -180,7 +183,6 @@
   # services.openssh.enable = true;
 
   services.flatpak.enable = true;
-
 
   # programs.nix-ld.enable = true;
 
@@ -206,7 +208,10 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   nix.gc = {
     automatic = true;

@@ -3,7 +3,7 @@
 # version = "0.100.0"
 
 def create_left_prompt [] {
-    let dir = match (do --ignore-shell-errors { $env.PWD | path relative-to $nu.home-path }) {
+    let dir = match (do { $env.PWD | path relative-to $nu.home-path }) {
         null => $env.PWD
         '' => '~'
         $relative_pwd => ([~ $relative_pwd] | path join)
@@ -117,6 +117,11 @@ def --env y [...args] {
 $env.EDITOR = "nvim"
 
 # https://carapace-sh.github.io/carapace-bin/setup.html#nushell
-$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
+# $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 mkdir ~/.cache/carapace
 carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+
+def --env notes [] {
+    cd ~/Documents/notes/vault/
+    nvim index.md
+}

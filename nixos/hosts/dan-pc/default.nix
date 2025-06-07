@@ -137,13 +137,11 @@
     anki
     brave
     brightnessctl
-    darktable
     firefox
     kitty
     libreoffice
     obsidian
     piper
-    spotify
     ungoogled-chromium
     zotero
 
