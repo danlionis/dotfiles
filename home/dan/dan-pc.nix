@@ -6,6 +6,7 @@
     ./modules/global
 
     ./modules/desktop/gnome.nix
+    ./modules/desktop/media.nix
 
     ./modules/terminal
 
@@ -47,11 +48,10 @@
   };
 
   home.packages = with pkgs; [
-    rose-pine-hyprcursor
-    vlc
-    mpv
+    exiftool
     orca-slicer
     prismlauncher
+    rose-pine-hyprcursor
   ];
 
   home.pointerCursor = {
