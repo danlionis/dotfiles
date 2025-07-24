@@ -144,6 +144,7 @@
     piper
     ungoogled-chromium
     zotero
+    inkscape
 
     # other
     openssl
