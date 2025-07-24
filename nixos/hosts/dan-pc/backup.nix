@@ -23,6 +23,11 @@
         "--keep-weekly 5"
         "--keep-monthly 12"
       ];
+
+      exclude = [
+        ".venv"
+        "node_modules"
+      ];
     };
   };
 }
