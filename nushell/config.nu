@@ -141,9 +141,35 @@ let light_theme = {
 }
 
 # External completer example
-# let carapace_completer = {|spans|
-#     carapace $spans.0 nushell ...$spans | from json
-# }
+let carapace_completer = {|spans: list<string>|
+    carapace $spans.0 nushell ...$spans
+    | from json
+    | if ($in | default [] | where value =~ '^-.*ERR$' | is-empty) { $in } else { null }
+}
+
+let external_completer = {|spans|
+
+    # if the current command is an alias, get it's expansion
+    let expanded_alias = (scope aliases | where name == $spans.0 | get -i 0 | get -i expansion)
+
+    # overwrite
+    let spans = (if $expanded_alias != null  {
+        # put the first word of the expanded alias first in the span
+        $spans | skip 1 | prepend ($expanded_alias | split row " " | take 1)
+    } else { $spans })
+
+    
+    match $spans.0 {
+        # # carapace completions are incorrect for nu
+        # nu => $fish_completer
+        # # fish completes commits and branch names in a nicer way
+        # git => $fish_completer
+        # # carapace doesn't have completions for asdf
+        # asdf => $fish_completer
+        _ => $carapace_completer
+    } | do $in $spans
+
+}
 
 # The default config record. This is where much of your global configuration is setup.
 $env.config = {
@@ -219,7 +245,7 @@ $env.config = {
         external: {
             enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up may be very slow
             max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
-            completer: null # check 'carapace_completer' above as an example
+            completer: $external_completer # check 'carapace_completer' above as an example
         }
         use_ls_colors: true # set this to true to enable file/path/directory completions using LS_COLORS
     }
@@ -902,12 +928,12 @@ $env.config = {
     ]
 }
 
-source /tmp/.atuin.nu
-source /tmp/.zoxide.nu
-use /tmp/.starship.nu
+source ~/.cache/.atuin.nu
+source ~/.cache/.zoxide.nu
+use ~/.cache/.starship.nu
 
 # https://carapace-sh.github.io/carapace-bin/setup.html#nushell
-source ~/.cache/carapace/init.nu
+# source ~/.cache/carapace/init.nu
 
 alias lg = lazygit
 alias ":q" = exit
