@@ -100,9 +100,9 @@ $env.NU_PLUGIN_DIRS = [
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
 
-zoxide init nushell | save -f /tmp/.zoxide.nu
-starship init nu| save -f /tmp/.starship.nu
-atuin init nu | save -f /tmp/.atuin.nu
+zoxide init nushell | save -f ~/.cache/.zoxide.nu
+starship init nu| save -f ~/.cache/.starship.nu
+atuin init nu | save -f ~/.cache/.atuin.nu
 
 def --env y [...args] {
 	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
@@ -117,9 +117,12 @@ def --env y [...args] {
 $env.EDITOR = "nvim"
 
 # https://carapace-sh.github.io/carapace-bin/setup.html#nushell
-# $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 mkdir ~/.cache/carapace
 carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+
+$env.CARAPACE_MATCH = 1
+$env.CARAPACE_LENIENT = 1
+$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 
 def --env notes [] {
     cd ~/Documents/notes/vault/
