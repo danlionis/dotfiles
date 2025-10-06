@@ -52,6 +52,7 @@
     orca-slicer
     prismlauncher
     rose-pine-hyprcursor
+    darktable
   ];
 
   home.pointerCursor = {

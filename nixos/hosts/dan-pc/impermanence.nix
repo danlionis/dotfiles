@@ -97,6 +97,7 @@
 
         ".cache/nix-index"
         ".cache/zotero"
+        ".cache/darktable"
 
         ".config"
 
