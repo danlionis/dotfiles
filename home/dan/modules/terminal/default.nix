@@ -20,6 +20,7 @@
         file
         fzf
         gdu
+        gemini-cli
         jq
         lazygit
         man-pages
