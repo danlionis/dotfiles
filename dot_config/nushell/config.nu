@@ -940,6 +940,6 @@ alias ":q" = exit
 
 alias s = kitten ssh
 
-if ((tty) == "/dev/tty1") {
-    exec Hyprland
-}
+# if ((tty) == "/dev/tty1") {
+#     exec uswm start default
+# }

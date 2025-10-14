@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Default to showing the prompt
+show_prompt=true
+if [[ "$1" == "--no-wait" ]]; then
+    show_prompt=false
+    shift
+fi
+
+cmd="$*"
+
+# Base command to run inside the terminal
+inner_cmd="echo \> '$cmd'; $cmd"
+
+# If prompting is enabled, add the "Done" message and the wait.
+if $show_prompt; then
+    inner_cmd+="; echo; echo 'Done! Press any key to close...'; read -n 1 -s"
+fi
+
+# Execute using setsid for "fire-and-forget"
+exec setsid uwsm app -- "$TERMINAL_CLEAN" --class=System -e bash -c "$inner_cmd"

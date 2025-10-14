@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+
+BACK_TO_EXIT=false
+
+back_to() {
+    local parent_menu="$1"
+
+    if [[ "$BACK_TO_EXIT" == "true" ]]; then
+        exit 0
+    elif [[ -n "$parent_menu" ]]; then
+        "$parent_menu"
+    else
+        show_main_menu
+    fi
+}
+
+menu() {
+    local prompt="$1"
+    local options="$2"
+    local extra="$3"
+    local preselect="$4"
+
+    read -r -a args <<<"$extra"
+
+    if [[ -n "$preselect" ]]; then
+        local index
+        index=$(echo -e "$options" | grep -nxF "$preselect" | cut -d: -f1)
+        if [[ -n "$index" ]]; then
+            args+=("-a" "$index")
+        fi
+    fi
+
+    # echo -e "$options" | walker --dmenu --theme dmenu_250 -p "$prompt…" "${args[@]}"
+    echo -e "$options" | walker --dmenu -p "$prompt" "${args[@]}"
+    # echo -e "$options" | tofi --prompt-text "$prompt" "${args[@]}"
+}
+
+show_screenshot_menu() {
+    case $(menu "Screenshot" "  Region\n  Window\n  Display") in
+    *Region*) lio-cmd-screenshot ;;
+    *Window*) lio-cmd-screenshot window ;;
+    *Display*) lio-cmd-screenshot output ;;
+    *) show_system_menu ;;
+    esac
+}
+
+show_system_menu() {
+    declare -A actions=(
+        ["  Lock"]="lio-lock-screen"
+        ["󰤄  Suspend"]="lio-launch-floating-terminal --no-wait 'gum confirm && systemctl suspend'"
+        ["  Relaunch"]="lio-launch-floating-terminal --no-wait 'gum confirm && uwsm stop'"
+        ["󰜉  Reboot"]="lio-launch-floating-terminal --no-wait 'gum confirm && systemctl reboot'"
+        ["󰐥  Shutdown"]="lio-launch-floating-terminal --no-wait 'gum confirm && systemctl poweroff'"
+        ["  Toggle Nightlight"]="lio-toggle-nightlight"
+        ["󰓦  Sync Dotfiles"]="lio-launch-floating-terminal 'chezmoi apply && notify-send reload successful'"
+        ["  Screenshot"]="show_screenshot_menu"
+        ["  Audio"]="$TERMINAL --class=Wiremix -e wiremix"
+        ["  YubiKey 2fa"]="lio-cmd-yubikey"
+        ["Test"]="lio-launch-floating-terminal --no-wait 'gum confirm && notify-send testing'"
+    )
+
+    local choice
+    choice=$(menu "> " "$(printf "%s\n" "${!actions[@]}")")
+
+    for key in "${!actions[@]}"; do
+        if [[ $choice == *"$key"* ]]; then
+            eval "${actions[$key]}"
+            return
+        fi
+    done
+
+    # back_to show_main_menu
+}
+
+if [[ -n "$1" ]]; then
+    BACK_TO_EXIT=true
+    go_to_menu "$1"
+else
+    show_system_menu
+fi

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+COMMAND="$1"
+PROMPT="$2"
+
+if [[ -z "$COMMAND" ]]; then
+    echo "Usage: lio-confirm"
+
+gum confirm
