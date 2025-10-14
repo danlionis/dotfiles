@@ -31,32 +31,46 @@ menu() {
     fi
 
     # echo -e "$options" | walker --dmenu --theme dmenu_250 -p "$prompt…" "${args[@]}"
-    echo -e "$options" | walker --dmenu -p "$prompt" "${args[@]}"
-    # echo -e "$options" | tofi --prompt-text "$prompt" "${args[@]}"
+    # echo -e "$options  | walker --dmenu -p "$prompt" "${args[@]}"
+    echo -e "$options" | tofi --prompt-text "$prompt" "${args[@]}"
 }
 
 show_screenshot_menu() {
-    case $(menu "Screenshot" "  Region\n  Window\n  Display") in
-    *Region*) lio-cmd-screenshot ;;
+    case $(menu "Screenshot" "     Selection\n     Window\n     Display") in
+    *Selection*) lio-cmd-screenshot ;;
     *Window*) lio-cmd-screenshot window ;;
     *Display*) lio-cmd-screenshot output ;;
     *) show_system_menu ;;
     esac
 }
 
+show_yubikey_codes() {
+    options=$(ykman oath accounts list)
+    local choice
+    choice=$(menu "2FA Codes" "$options")
+
+    if [ -n "$choice" ]; then
+        code=$(ykman oath accounts code --single "$choice")
+        echo "$code" | wl-copy
+        notify-send "Code for $choice copied to clipboard: $code"
+    else
+        show_system_menu
+    fi
+}
+
 show_system_menu() {
     declare -A actions=(
-        ["  Lock"]="lio-lock-screen"
-        ["󰤄  Suspend"]="lio-launch-floating-terminal --no-wait 'gum confirm && systemctl suspend'"
-        ["  Relaunch"]="lio-launch-floating-terminal --no-wait 'gum confirm && uwsm stop'"
-        ["󰜉  Reboot"]="lio-launch-floating-terminal --no-wait 'gum confirm && systemctl reboot'"
-        ["󰐥  Shutdown"]="lio-launch-floating-terminal --no-wait 'gum confirm && systemctl poweroff'"
-        ["  Toggle Nightlight"]="lio-toggle-nightlight"
-        ["󰓦  Sync Dotfiles"]="lio-launch-floating-terminal 'chezmoi apply && notify-send reload successful'"
-        ["  Screenshot"]="show_screenshot_menu"
-        ["  Audio"]="$TERMINAL --class=Wiremix -e wiremix"
-        ["  YubiKey 2fa"]="lio-cmd-yubikey"
-        ["Test"]="lio-launch-floating-terminal --no-wait 'gum confirm && notify-send testing'"
+        ["     Lock"]="lio-lock-screen"
+        ["󰤄     Suspend"]="lio-launch-floating-terminal --silent 'gum confirm --timeout=60s --affirmative Suspend --negative Cancel Suspend? && systemctl suspend'"
+        ["     Relaunch"]="lio-launch-floating-terminal --silent 'gum confirm --timeout=60s --affirmative Relaunch --negative Cancel Relaunch? && uwsm stop'"
+        ["󰜉     Reboot"]="lio-launch-floating-terminal --silent 'gum confirm --timeout=60s --affirmative Reboot --negative Cancel Reboot? && systemctl reboot'"
+        ["󰐥     Shutdown"]="lio-launch-floating-terminal --silent 'gum confirm --timeout=60s --affirmative Shutdown --negative Cancel Shutdown? && systemctl poweroff'"
+        ["     Toggle Nightlight"]="lio-toggle-nightlight"
+        ["󰓦     Sync Dotfiles"]="lio-launch-floating-terminal chezmoi apply"
+        ["     Screenshot"]="show_screenshot_menu"
+        ["     Audio"]="$TERMINAL --class=Wiremix -e wiremix"
+        ["     YubiKey 2fa"]="show_yubikey_codes"
+        ["       Test"]="lio-launch-floating-terminal --silent 'gum confirm --timeout=5s && notify-send testing'"
     )
 
     local choice
