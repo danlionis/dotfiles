@@ -6,6 +6,9 @@ return {
             win_options = {
                 conceallevel = { rendered = 2 },
             },
+            pipe_table = {
+                enabled = false,
+            },
             file_types = { "markdown", "Avante" },
         },
         ft = { "markdown", "Avante" },
