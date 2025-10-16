@@ -33,6 +33,18 @@ menu() {
     echo -e "$options" | walker --dmenu -p "$prompt" "${args[@]}"
 }
 
+show_ssh_menu() {
+    options=$(jc --ssh-conf <~/.ssh/config | jq -r .[].host)
+    local choice
+    choice=$(menu "Host" "$options")
+
+    if [ -n "$choice" ]; then
+        uwsm app -- kitty kitten ssh "$choice"
+    else
+        show_system_menu
+    fi
+}
+
 show_screenshot_menu() {
     case $(menu "Screenshot" "     Selection\n     Window\n     Display") in
     *Selection*) lio-cmd-screenshot ;;
@@ -69,6 +81,8 @@ show_system_menu() {
         ["     Audio"]="$TERMINAL --class=Wiremix -e wiremix"
         ["     YubiKey 2fa"]="show_yubikey_codes"
         ["     Clipboard"]="lio-launch-floating-terminal --silent clipse"
+        ["     SSH"]="show_ssh_menu"
+        # ["       Test"]="lio-launch-floating-terminal --silent 'gum confirm --default --timeout=5s && notify-send testing'"
     )
 
     local choice
