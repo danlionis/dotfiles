@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # cmd='rofi -i -dmenu -p "2FA Codes"'
-cmd='tofi --prompt-text="2FA Codes"'
+cmd='walker --dmenu -p "2FA Codes"'
 
 selected=$(ykman oath accounts list | eval "$cmd")
 

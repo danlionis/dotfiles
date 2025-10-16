@@ -30,9 +30,7 @@ menu() {
         fi
     fi
 
-    # echo -e "$options" | walker --dmenu --theme dmenu_250 -p "$prompt…" "${args[@]}"
-    # echo -e "$options  | walker --dmenu -p "$prompt" "${args[@]}"
-    echo -e "$options" | tofi --prompt-text "$prompt" "${args[@]}"
+    echo -e "$options" | walker --dmenu -p "$prompt" "${args[@]}"
 }
 
 show_screenshot_menu() {
@@ -62,7 +60,7 @@ show_system_menu() {
     declare -A actions=(
         ["     Lock"]="lio-lock-screen"
         ["󰤄     Suspend"]="lio-launch-floating-terminal --silent 'gum confirm --timeout=60s --affirmative Suspend --negative Cancel Suspend? && systemctl suspend'"
-        ["     Relaunch"]="lio-launch-floating-terminal --silent 'gum confirm --timeout=60s --affirmative Relaunch --negative Cancel Relaunch? && uwsm stop'"
+        ["     Logout"]="lio-launch-floating-terminal --silent 'gum confirm --timeout=60s --affirmative Logout --negative Cancel Logout? && uwsm stop'"
         ["󰜉     Reboot"]="lio-launch-floating-terminal --silent 'gum confirm --timeout=60s --affirmative Reboot --negative Cancel Reboot? && systemctl reboot'"
         ["󰐥     Shutdown"]="lio-launch-floating-terminal --silent 'gum confirm --timeout=5s --affirmative Shutdown --negative Cancel Shutdown? && systemctl poweroff'"
         ["     Toggle Nightlight"]="lio-toggle-nightlight"
@@ -71,7 +69,6 @@ show_system_menu() {
         ["     Audio"]="$TERMINAL --class=Wiremix -e wiremix"
         ["     YubiKey 2fa"]="show_yubikey_codes"
         ["     Clipboard"]="lio-launch-floating-terminal --silent clipse"
-        ["       Test"]="lio-launch-floating-terminal --silent 'gum confirm --default --timeout=5s && notify-send testing'"
     )
 
     local choice
