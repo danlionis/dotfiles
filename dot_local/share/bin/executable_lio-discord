@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Usage: lio-discord [mute|deaf] [client]
+
+command=$1
+
+case $command in
+"mute")
+    hyprctl dispatch sendshortcut "CTRL SHIFT, M, class:^(discord|vesktop|com.discordapp.Discord|dev.vencord.Vesktop)\$"
+    ;;
+"deaf")
+    hyprctl dispatch sendshortcut "CTRL SHIFT, D, class:^(discord|vesktop|com.discordapp.Discord|dev.vencord.Vesktop)\$"
+    ;;
+esac
