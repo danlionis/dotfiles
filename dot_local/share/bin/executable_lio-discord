@@ -5,9 +5,9 @@ command=$1
 
 case $command in
 "mute")
-    hyprctl dispatch sendshortcut "CTRL SHIFT, M, class:^(discord|vesktop|com.discordapp.Discord|dev.vencord.Vesktop)\$"
+    hyprctl dispatch sendshortcut "CTRL SHIFT, M, class:^(discord)\$"
     ;;
 "deaf")
-    hyprctl dispatch sendshortcut "CTRL SHIFT, D, class:^(discord|vesktop|com.discordapp.Discord|dev.vencord.Vesktop)\$"
+    hyprctl dispatch sendshortcut "CTRL SHIFT, D, class:^(discord)\$"
     ;;
 esac
