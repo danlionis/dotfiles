@@ -59,7 +59,8 @@ return {
                         return
                     end
                 end
-                pcall(vim.lsp.config[server].setup, server_opts)
+                vim.lsp.enable(server)
+                vim.lsp.config(server, server_opts)
             end
 
             -- require("mason-lspconfig").setup_handlers({
