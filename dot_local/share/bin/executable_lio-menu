@@ -82,6 +82,7 @@ show_system_menu() {
         ["     YubiKey 2fa"]="show_yubikey_codes"
         ["     Clipboard"]="lio-launch-floating-terminal --silent clipse"
         ["     SSH"]="show_ssh_menu"
+        ["     Idle Inhibit"]="lio-idleinhibit"
         # ["       Test"]="lio-launch-floating-terminal --silent 'gum confirm --default --timeout=5s && notify-send testing'"
     )
 
