@@ -1,2 +1,5 @@
 gui:
   nerdFontsVersion: "2"
+
+git:
+  overrideGpg: true
