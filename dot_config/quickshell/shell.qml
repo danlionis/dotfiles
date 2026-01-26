@@ -1,3 +1,4 @@
+// @ pragma IconTheme Papirus-Dark
 import QtQuick
 import QtQuick.Layouts
 import QtQml
@@ -24,6 +25,10 @@ ShellRoot {
 
     function getIcon(appId) {
         if (!appId) return "application-x-executable";
+        
+        // Custom override for your "System" app
+        if (appId === "System") return "settings"; 
+
         var entry = DesktopEntries.heuristicLookup(appId);
         if (entry && entry.icon) return entry.icon;
         return appId;
@@ -35,10 +40,24 @@ ShellRoot {
 
     function registerWindow(win) {
         var app = win.appId || "unknown";
+        
         if (!root.windowGroups[app]) {
             root.windowGroups[app] = [];
-            groupedAppsModel.append({ "appId": app });
+            
+            // Sorting Logic
+            var inserted = false;
+            for (var i = 0; i < groupedAppsModel.count; i++) {
+                if (app.localeCompare(groupedAppsModel.get(i).appId) < 0) {
+                    groupedAppsModel.insert(i, { "appId": app });
+                    inserted = true;
+                    break;
+                }
+            }
+            if (!inserted) {
+                groupedAppsModel.append({ "appId": app });
+            }
         }
+        
         root.windowGroups[app].push(win);
         root.groupsChanged(); 
     }
@@ -144,7 +163,6 @@ ShellRoot {
                     opacity: 0.6
                     font.family: "JetBrainsMono Nerd Font"
                     font.pixelSize: 10
-                    // font.bold: true
                 }
             }
 
