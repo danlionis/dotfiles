@@ -1,26 +1,30 @@
 name = "power"
 name_pretty = "Power"
 icon = "system-shutdown"
-# global_search = false
+
+# ["󰤄     Suspend"]="lio-launch-floating-terminal --silent 'gum confirm --timeout=10s --affirmative Suspend --negative Cancel Suspend? && systemctl suspend'"
+# ["     Logout"]="lio-launch-floating-terminal --silent 'gum confirm --timeout=10s --affirmative Logout --negative Cancel Logout? && uwsm stop'"
+# ["󰜉     Reboot"]="lio-launch-floating-terminal --silent 'gum confirm --timeout=10 --affirmative Reboot --negative Cancel Reboot? && systemctl reboot'"
+# ["󰐥     Shutdown"]="lio-launch-floating-terminal --silent 'gum confirm --timeout=10s --affirmative Shutdown --negative Cancel Shutdown? && systemctl poweroff'"
 
 [[entries]]
 text = "Shutdown"
-actions = { "shutdown" = "systemctl poweroff" }
+actions = { "shutdown" = "lio-launch-floating-terminal --silent 'gum confirm --timeout=10s --affirmative Shutdown --negative Cancel Shutdown? && systemctl poweroff'" }
 icon = "system-shutdown"
 
 [[entries]]
 text = "Reboot"
-actions = { "reboot" = "systemctl reboot" }
+actions = { "reboot" = "lio-launch-floating-terminal --silent 'gum confirm --timeout=10 --affirmative Reboot --negative Cancel Reboot? && systemctl reboot'" }
 icon = "system-reboot"
 
 [[entries]]
 text = "Suspend"
-actions = { "suspend" = "systemctl suspend" }
+actions = { "suspend" = "lio-launch-floating-terminal --silent 'gum confirm --timeout=10s --affirmative Suspend --negative Cancel Suspend? && systemctl suspend'" }
 icon = "system-suspend"
 
 [[entries]]
 text = "Logout"
-actions = { "logout" = "niri msg action quit --skip-confirmation" }
+actions = { "logout" = "lio-launch-floating-terminal --silent 'gum confirm --timeout=10s --affirmative Logout --negative Cancel Logout? && uwsm stop'" }
 icon = "system-log-out"
 
 [[entries]]

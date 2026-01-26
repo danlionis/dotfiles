@@ -1,0 +1,15 @@
+name = "nixos"
+name_pretty = "NixOS"
+icon = "distributor-logo-nixos"
+
+[[entries]]
+text = "NixOS Rebuild Switch"
+keywords = ["nixos", "rebuild"]
+icon = "system-software-update"
+actions = { "switch" = "lio-launch-floating-terminal 'sudo nixos-rebuild switch --flake ~/nix-config#$(hostname)'" }
+
+[[entries]]
+text = "NixOS Rebuild Boot"
+keywords = ["nixos", "rebuild"]
+icon = "system-software-update"
+actions = { "boot" = "lio-launch-floating-terminal 'sudo nixos-rebuild boot --flake ~/nix-config#$(hostname)'" }

@@ -1,19 +1,6 @@
 name = "settings"
 name_pretty = "Settings"
 icon = "settings"
-# global_search = false
-
-        # ["     Toggle Nightlight"]="lio-toggle-nightlight"
-        # ["󰓦     Sync Dotfiles"]="lio-launch-floating-terminal chezmoi apply"
-        # ["     Screenshot"]="show_screenshot_menu"
-        # ["     Audio"]="lio-launch-floating-terminal --silent 'wiremix'"
-        # ["     YubiKey 2fa"]="show_yubikey_codes"
-        # ["     Clipboard"]="lio-launch-floating-terminal --silent clipse"
-        # ["     SSH"]="show_ssh_menu"
-        # ["     Idle Inhibit"]="lio-idleinhibit"
-        # ["     Bluetooth"]="lio-launch-floating-terminal --silent 'bluetui'"
-        # ["     WIFI"]="lio-launch-floating-terminal --silent 'impala'"
-
 
 [[entries]]
 text = "Toggle Nightlight"

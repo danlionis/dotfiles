@@ -432,7 +432,7 @@ binds {
     // This requires $EDITOR to be set in your environment
 
     // --- System ---
-    Super+Escape { spawn "hyprlock"; }
+    Super+Escape { spawn "lio-lock-screen"; }
 
     // --- Window Management ---
     // Niri does not have a "force kill" binding (Super+Shift+Q in hyprland).
