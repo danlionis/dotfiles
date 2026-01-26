@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+playerctl --all-players pause
+
 # Lock the screen
 pidof hyprlock || hyprlock &
 
