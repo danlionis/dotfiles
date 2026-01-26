@@ -78,11 +78,13 @@ show_system_menu() {
         ["     Toggle Nightlight"]="lio-toggle-nightlight"
         ["󰓦     Sync Dotfiles"]="lio-launch-floating-terminal chezmoi apply"
         ["     Screenshot"]="show_screenshot_menu"
-        ["     Audio"]="$TERMINAL --class=Wiremix -e wiremix"
+        ["     Audio"]="lio-launch-floating-terminal --silent 'wiremix'"
         ["     YubiKey 2fa"]="show_yubikey_codes"
         ["     Clipboard"]="lio-launch-floating-terminal --silent clipse"
         ["     SSH"]="show_ssh_menu"
         ["     Idle Inhibit"]="lio-idleinhibit"
+        ["     Bluetooth"]="lio-launch-floating-terminal --silent 'bluetui'"
+        ["     WIFI"]="lio-launch-floating-terminal --silent 'impala'"
         # ["       Test"]="lio-launch-floating-terminal --silent 'gum confirm --default --timeout=5s && notify-send testing'"
     )
 
