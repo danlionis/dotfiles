@@ -2,3 +2,4 @@ export PATH=$HOME/.local/share/bin/:$PATH
 
 export EDITOR=nvim
 export TERMINAL=kitty
+export TERMINAL_CLEAN="kitty -o tab_bar_style=hidden"
