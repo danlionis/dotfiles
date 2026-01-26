@@ -270,23 +270,19 @@ layout {
 // See the binds section below for more spawn examples.
 
 // Translated from hypr/autostart.conf and hyprland.conf
-// The `uwsm app --` prefix was removed.
-spawn-sh-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-spawn-at-startup "ags"
 spawn-at-startup "dunst"
 spawn-at-startup "sway-audio-idle-inhibit"
 spawn-sh-at-startup "hypridle --config ~/.config/niri/hypridle.conf"
 spawn-at-startup "hyprpaper"
 spawn-at-startup "quickshell"
-// spawn-at-startup "nm-applet"
-// spawn-at-startup "blueman-applet"
-// spawn-sh-at-startup "udiskie --appindicator -t"
+spawn-sh-at-startup "walker --gapplication-service"
 spawn-sh-at-startup "wlsunset -l 48.1 -L 11.5 -t 2500"
 spawn-sh-at-startup "clipse -listen"
 
 // GTK theme settings from hyprland.conf
-spawn-sh-at-startup "dconf write /org/gnome/desktop/interface/gtk-theme \"'Adwaita'\""
-spawn-sh-at-startup "dconf write /org/gnome/desktop/interface/icon-theme \"'Flat-Remix-Red-Dark'\""
+// spawn-sh-at-startup "dconf write /org/gnome/desktop/interface/gtk-theme \"'Adwaita'\"" // handled by nix config
+// spawn-sh-at-startup "dconf write /org/gnome/desktop/interface/icon-theme \"'Papirus-Dark'\"" // handled by nix config
+spawn-sh-at-startup "dconf write /org/gnome/desktop/interface/color-scheme \"'prefer-dark'\"" // dark theme
 spawn-sh-at-startup "dconf write /org/gnome/desktop/interface/document-font-name \"'Noto Sans Medium 11'\""
 spawn-sh-at-startup "dconf write /org/gnome/desktop/interface/font-name \"'Noto Sans Medium 11'\""
 spawn-sh-at-startup "dconf write /org/gnome/desktop/interface/monospace-font-name \"'Noto Sans Mono Medium 11'\""
@@ -423,7 +419,7 @@ binds {
     // --- Launchers ---
     Super+Return { spawn "kitty"; }
     Super+Shift+Return { spawn-sh "kitty --class floating"; }
-    Super+Space { spawn "walker"; } // Replaced fuzzel with walker from user config
+    Super+Space { spawn "walker"; } 
     Super+Shift+Space { spawn "lio-menu"; }
     Super+B { spawn "brave"; }
     Super+Shift+B { spawn-sh "brave --incognito"; }
