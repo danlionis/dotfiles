@@ -1,0 +1,27 @@
+name = "screenshot"
+name_pretty = "Screenshot"
+icon = "camera"
+
+# show_screenshot_menu() {
+#     case $(menu "Screenshot" "     Selection\n     Window\n     Display") in
+#     *Selection*) lio-cmd-screenshot ;;
+#     *Window*) lio-cmd-screenshot window ;;
+#     *Display*) lio-cmd-screenshot output ;;
+#     *) show_system_menu ;;
+#     esac
+# }
+
+[[entries]]
+text = "Selection"
+actions = { "selection" = "lio-cmd-screenshot" }
+icon = "selection"
+
+[[entries]]
+text = "Window"
+actions = { "window" = "lio-cmd-screenshot window" }
+icon = "window"
+
+[[entries]]
+text = "Display"
+actions = { "display" = "lio-cmd-screenshot output" }
+icon = "camera"

@@ -420,7 +420,7 @@ binds {
     Super+Return { spawn "kitty"; }
     Super+Shift+Return { spawn-sh "kitty --class floating"; }
     Super+Space { spawn "walker"; } 
-    Super+Shift+Space { spawn "lio-menu"; }
+    Mod+P { spawn-sh "walker --provider menus:power"; }
     Super+B { spawn "brave"; }
     Super+Shift+B { spawn-sh "brave --incognito"; }
     Super+N { spawn-sh "lio-launch-or-focus obsidian"; }

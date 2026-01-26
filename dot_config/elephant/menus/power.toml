@@ -1,0 +1,29 @@
+name = "power"
+name_pretty = "Power"
+icon = "system-shutdown"
+# global_search = false
+
+[[entries]]
+text = "Shutdown"
+actions = { "shutdown" = "systemctl poweroff" }
+icon = "system-shutdown"
+
+[[entries]]
+text = "Reboot"
+actions = { "reboot" = "systemctl reboot" }
+icon = "system-reboot"
+
+[[entries]]
+text = "Suspend"
+actions = { "suspend" = "systemctl suspend" }
+icon = "system-suspend"
+
+[[entries]]
+text = "Logout"
+actions = { "logout" = "niri msg action quit --skip-confirmation" }
+icon = "system-log-out"
+
+[[entries]]
+text = "Lock Screen"
+actions = { "lock" = "playerctl --all-players pause & hyprlock" }
+icon = "system-lock-screen"
