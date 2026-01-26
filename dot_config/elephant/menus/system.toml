@@ -13,7 +13,7 @@ actions = { "sync" = "lio-launch-floating-terminal chezmoi apply" }
 icon = "folder-sync"
 
 [[entries]]
-text = "Audio"
+text = "Audio/Volume"
 actions = { "launch" = "lio-launch-floating-terminal --silent wiremix" }
 icon = "audio-volume-high"
 
