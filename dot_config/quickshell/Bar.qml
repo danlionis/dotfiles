@@ -12,11 +12,19 @@ Scope {
     
     signal groupsChanged()
 
-    property var screen: 0;
+    required property var screen;
     // --- Configuration & Helpers ---
     property var targetScreen: {
         var screens = Quickshell.screens;
-        return screens[screen];
+        var res = screens[0];
+        for (var i = 0; i < screens.length; i++) {
+            var s = screens[i];
+            if (s.name == screen) {
+                res = s;
+                break;
+            }
+        }
+        return res;
     }
 
     function getIcon(appId) {

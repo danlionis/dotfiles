@@ -1,6 +1,6 @@
 import Quickshell
 
 Scope {
-    Bar { screen: 0 }
+    Bar { screen: "DP-3" }
     Notifications {}
 }
