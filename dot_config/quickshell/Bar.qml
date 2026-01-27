@@ -115,7 +115,7 @@ Scope {
         }
 
         implicitWidth: 48
-        color: "#121214"
+        color: "#142027"
 
         ColumnLayout {
             anchors.fill: parent
@@ -128,6 +128,17 @@ Scope {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.bottomMargin: 10
                 spacing: -2
+                
+                MouseArea {
+                    anchors.fill: parent
+                    readonly property var process: Process {
+                        command: ["brave", "--app=https://calendar.google.com"]
+                    }
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    // onClicked: root.activateGroup(currentAppId)
+                    onClicked: process.startDetached()
+                }
 
                 SystemClock {
                     id: clock
@@ -158,6 +169,7 @@ Scope {
                     color: "white"
                     opacity: 0.6
                     font.family: "JetBrainsMono Nerd Font"
+                    font.weight: 600
                     font.pixelSize: 10
                 }
             }
@@ -198,7 +210,7 @@ Scope {
                         visible: root.getGroupCount(currentAppId) > 1
                         width: 14; height: 14
                         radius: 7
-                        color: "#fab387"
+                        color: "#AD3822"
                         anchors.bottom: parent.bottom
                         anchors.right: parent.right
                         anchors.rightMargin: 8
@@ -216,7 +228,7 @@ Scope {
                             id: countText
                             anchors.centerIn: parent
                             text: root.getGroupCount(currentAppId)
-                            color: "#1e1e2e"
+                            color: "#BDDDD2"
                             font.pixelSize: 10
                             font.bold: true
                             font.family: "JetBrainsMono Nerd Font"
@@ -230,10 +242,44 @@ Scope {
 
 
             ColumnLayout {
+                spacing: 8
                 Item {
                     Layout.alignment: Qt.AlignHCenter
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 32
+                    Layout.preferredHeight: 24
+                    id: audio
+
+
+                    MouseArea {
+                        readonly property var process: Process {
+                            command: ["lio-launch-floating-terminal", "--silent", "wiremix"]
+                        }
+                        id: mouseAreaAudio
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        // onClicked: root.activateGroup(currentAppId)
+                        onClicked: process.startDetached()
+                    }
+                    Rectangle {
+                        width: 28; height: 28
+                        anchors.centerIn: parent
+                        radius: 5
+                        color: "white"
+                        opacity: mouseAreaAudio.containsMouse ? 0.1 : 0.0
+                        Behavior on opacity { NumberAnimation { duration: 150 } }
+                    }
+                    IconImage {
+                        anchors.centerIn: parent
+                        width: 16; height: 16
+                        source: Quickshell.iconPath("volume-level-high")
+                    }
+                }
+
+                Item {
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 24
                     id: power
 
 
@@ -266,7 +312,7 @@ Scope {
                 Item {
                     Layout.alignment: Qt.AlignHCenter
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 32
+                    Layout.preferredHeight: 24
                     id: notifications
 
 
