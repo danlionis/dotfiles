@@ -26,6 +26,8 @@ return {
 
 			css = { "prettierd", "prettier", stop_after_first = true },
 
+			yaml = { "prettierd", "prettier", stop_after_first = true },
+
 			bash = { "shellcheck", "shfmt" },
 
 			c = { "clang_format" },
