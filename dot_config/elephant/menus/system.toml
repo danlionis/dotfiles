@@ -31,3 +31,8 @@ icon = "bluetooth"
 text = "YubiKey 2FA"
 actions = { "launch" = "lio-cmd-yubikey" }
 icon = "gtk-authentication"
+
+[[entries]]
+text = "Color Picker"
+actions = { "launch" = "hyprpicker --autocopy" }
+icon = "color-picker"
