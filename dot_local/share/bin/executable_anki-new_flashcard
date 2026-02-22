@@ -11,6 +11,20 @@ if [[ "${DEBUG-}" =~ ^1|yes|true$ ]]; then
     set -x
 fi
 
+# --- Konfiguration ---
+# Trage hier Decks ein, die im Auswahlmenü versteckt werden sollen.
+# Sub-Decks (z.B. "Archiv::Vokabeln") werden automatisch mit ignoriert.
+IGNORED_DECKS=(
+    "Archiv"
+)
+
+# Regex bauen, der das Deck selbst oder seine Sub-Decks (::) matcht
+# Ergebnis sieht z.B. so aus: "^(Archiv|Standard)($|::)"
+BLACKLIST_REGEX="^($(
+    IFS=\|
+    echo "${IGNORED_DECKS[*]}"
+))($|::)"
+
 # --- Abhängigkeiten prüfen ---
 for cmd in curl jq gum; do
     if ! command -v "$cmd" &>/dev/null; then
@@ -21,7 +35,6 @@ done
 
 ANKI_URL="http://localhost:8765"
 
-# Cache-Verzeichnis nach XDG-Standard (meist ~/.cache/anki-cli)
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/anki-cli"
 CACHE_FILE="$CACHE_DIR/last_selection.txt"
 mkdir -p "$CACHE_DIR"
@@ -42,7 +55,7 @@ while true; do
     LAST_DECK=""
     LAST_MODEL=""
 
-    # Letzte Auswahl aus dem Cache laden, falls vorhanden
+    # Letzte Auswahl aus dem Cache laden
     if [[ -f "$CACHE_FILE" ]]; then
         mapfile -t CACHED_VALUES <"$CACHE_FILE"
         LAST_DECK="${CACHED_VALUES[0]:-}"
@@ -56,9 +69,15 @@ while true; do
         exit 1
     fi
 
-    RAW_DECKS=$(echo "$DECKS_JSON" | jq -r '.result[]')
+    # Holt alle Decks, wendet die Blacklist an (|| true verhindert Script-Abbruch durch set -e bei leerem Ergebnis)
+    RAW_DECKS=$(echo "$DECKS_JSON" | jq -r '.result[]' | grep -vE "$BLACKLIST_REGEX" || true)
 
-    # Letztes Deck an den Anfang der Liste setzen (falls es existiert)
+    if [[ -z "$RAW_DECKS" ]]; then
+        gum style --foreground 196 "Fehler: Keine Decks verfügbar (wurden alle durch die Blacklist gefiltert?)."
+        break
+    fi
+
+    # Letztes Deck an den Anfang setzen
     if [[ -n "$LAST_DECK" ]] && echo "$RAW_DECKS" | grep -Fxq "$LAST_DECK"; then
         DECK_LIST=$(printf "%s\n%s" "$LAST_DECK" "$(echo "$RAW_DECKS" | grep -Fxv "$LAST_DECK")")
     else
@@ -75,7 +94,7 @@ while true; do
     MODELS_JSON=$(anki_request "modelNames")
     RAW_MODELS=$(echo "$MODELS_JSON" | jq -r '.result[]')
 
-    # Letzten Notiztyp an den Anfang der Liste setzen
+    # Letzten Notiztyp an den Anfang setzen
     if [[ -n "$LAST_MODEL" ]] && echo "$RAW_MODELS" | grep -Fxq "$LAST_MODEL"; then
         MODEL_LIST=$(printf "%s\n%s" "$LAST_MODEL" "$(echo "$RAW_MODELS" | grep -Fxv "$LAST_MODEL")")
     else
@@ -88,7 +107,7 @@ while true; do
         break
     }
 
-    # Neue Auswahl in den Cache schreiben
+    # Auswahl in den Cache schreiben
     printf "%s\n%s\n" "$SELECTED_DECK" "$SELECTED_MODEL" >"$CACHE_FILE"
 
     # 3. Felder dynamisch auslesen und Input abfragen
