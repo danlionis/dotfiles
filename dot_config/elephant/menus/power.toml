@@ -14,7 +14,7 @@ icon = "system-shutdown"
 
 [[entries]]
 text = "Reboot"
-actions = { "reboot" = "lio-launch-floating-terminal --silent 'gum confirm --timeout=10 --affirmative Reboot --negative Cancel Reboot? && systemctl reboot'" }
+actions = { "reboot" = "lio-launch-floating-terminal --silent 'gum confirm --timeout=10s --affirmative Reboot --negative Cancel Reboot? && systemctl reboot'" }
 icon = "system-reboot"
 
 [[entries]]
