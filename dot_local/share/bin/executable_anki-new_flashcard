@@ -12,14 +12,19 @@ if [[ "${DEBUG-}" =~ ^1|yes|true$ ]]; then
 fi
 
 # --- Konfiguration ---
-# Trage hier Decks ein, die im Auswahlmenü versteckt werden sollen.
-# Sub-Decks (z.B. "Archiv::Vokabeln") werden automatisch mit ignoriert.
+# Decks, die ignoriert werden sollen (inkl. Sub-Decks)
 IGNORED_DECKS=(
     "Archiv"
+    "Standard"
 )
 
-# Regex bauen, der das Deck selbst oder seine Sub-Decks (::) matcht
-# Ergebnis sieht z.B. so aus: "^(Archiv|Standard)($|::)"
+# Felder, die in der CLI nicht abgefragt werden sollen (z.B. Media-Felder)
+IGNORED_FIELDS=(
+    "Audio"
+    "Picture"
+    "Image"
+)
+
 BLACKLIST_REGEX="^($(
     IFS=\|
     echo "${IGNORED_DECKS[*]}"
@@ -50,7 +55,7 @@ anki_request() {
 
 echo "Verbinde mit AnkiConnect..."
 
-# Hauptschleife für das Hinzufügen von Karten
+# Hauptschleife
 while true; do
     LAST_DECK=""
     LAST_MODEL=""
@@ -69,15 +74,13 @@ while true; do
         exit 1
     fi
 
-    # Holt alle Decks, wendet die Blacklist an (|| true verhindert Script-Abbruch durch set -e bei leerem Ergebnis)
     RAW_DECKS=$(echo "$DECKS_JSON" | jq -r '.result[]' | grep -vE "$BLACKLIST_REGEX" || true)
 
     if [[ -z "$RAW_DECKS" ]]; then
-        gum style --foreground 196 "Fehler: Keine Decks verfügbar (wurden alle durch die Blacklist gefiltert?)."
+        gum style --foreground 196 "Fehler: Keine Decks verfügbar."
         break
     fi
 
-    # Letztes Deck an den Anfang setzen
     if [[ -n "$LAST_DECK" ]] && echo "$RAW_DECKS" | grep -Fxq "$LAST_DECK"; then
         DECK_LIST=$(printf "%s\n%s" "$LAST_DECK" "$(echo "$RAW_DECKS" | grep -Fxv "$LAST_DECK")")
     else
@@ -94,7 +97,6 @@ while true; do
     MODELS_JSON=$(anki_request "modelNames")
     RAW_MODELS=$(echo "$MODELS_JSON" | jq -r '.result[]')
 
-    # Letzten Notiztyp an den Anfang setzen
     if [[ -n "$LAST_MODEL" ]] && echo "$RAW_MODELS" | grep -Fxq "$LAST_MODEL"; then
         MODEL_LIST=$(printf "%s\n%s" "$LAST_MODEL" "$(echo "$RAW_MODELS" | grep -Fxv "$LAST_MODEL")")
     else
@@ -107,10 +109,10 @@ while true; do
         break
     }
 
-    # Auswahl in den Cache schreiben
+    # Auswahl speichern
     printf "%s\n%s\n" "$SELECTED_DECK" "$SELECTED_MODEL" >"$CACHE_FILE"
 
-    # 3. Felder dynamisch auslesen und Input abfragen
+    # 3. Felder dynamisch auslesen
     FIELDS_JSON=$(anki_request "modelFieldNames" "{\"modelName\": \"$SELECTED_MODEL\"}")
     mapfile -t FIELDS < <(echo "$FIELDS_JSON" | jq -r '.result[]')
 
@@ -123,6 +125,13 @@ while true; do
     REVIEW_LINES=("Zusammenfassung:" "Deck: $SELECTED_DECK" "Typ:  $SELECTED_MODEL" "---")
 
     for FIELD in "${FIELDS[@]}"; do
+        # Prüfen, ob das Feld auf der Blacklist steht
+        if printf "%s\n" "${IGNORED_FIELDS[@]}" | grep -Fxq "$FIELD"; then
+            # Feld wird übersprungen, aber mit leerem Wert ins JSON geschrieben
+            FIELDS_PAYLOAD=$(echo "$FIELDS_PAYLOAD" | jq --arg k "$FIELD" --arg v "" '.[$k] = $v')
+            continue
+        fi
+
         VALUE=$(gum input --header="3. Wert für Feld: $FIELD" --placeholder="Leer lassen zum Überspringen...")
         FIELDS_PAYLOAD=$(echo "$FIELDS_PAYLOAD" | jq --arg k "$FIELD" --arg v "$VALUE" '.[$k] = $v')
         REVIEW_LINES+=("$FIELD: $VALUE")
