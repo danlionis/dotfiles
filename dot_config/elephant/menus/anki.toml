@@ -1,0 +1,8 @@
+name = "anki_settings"
+name_pretty = "Anki Extras"
+icon = "anki"
+
+[[entries]]
+text = "New Flashcard"
+actions = { "sync" = "lio-launch-floating-terminal --silent anki-new_flashcard" }
+icon = "add"

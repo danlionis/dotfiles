@@ -1,0 +1,159 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+IFS=$'\n\t'
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+readonly SCRIPT_DIR
+
+if [[ "${DEBUG-}" =~ ^1|yes|true$ ]]; then
+    set -x
+fi
+
+# --- Abhängigkeiten prüfen ---
+for cmd in curl jq gum; do
+    if ! command -v "$cmd" &>/dev/null; then
+        echo "Fehler: '$cmd' fehlt." >&2
+        exit 1
+    fi
+done
+
+ANKI_URL="http://localhost:8765"
+
+# Cache-Verzeichnis nach XDG-Standard (meist ~/.cache/anki-cli)
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/anki-cli"
+CACHE_FILE="$CACHE_DIR/last_selection.txt"
+mkdir -p "$CACHE_DIR"
+
+# Hilfsfunktion für API-Aufrufe
+anki_request() {
+    local action="$1"
+    local params="${2-"{}"}"
+    curl -s -X POST "$ANKI_URL" \
+        -H "Content-Type: application/json" \
+        -d "{\"action\": \"$action\", \"version\": 6, \"params\": $params}"
+}
+
+echo "Verbinde mit AnkiConnect..."
+
+# Hauptschleife für das Hinzufügen von Karten
+while true; do
+    LAST_DECK=""
+    LAST_MODEL=""
+
+    # Letzte Auswahl aus dem Cache laden, falls vorhanden
+    if [[ -f "$CACHE_FILE" ]]; then
+        mapfile -t CACHED_VALUES <"$CACHE_FILE"
+        LAST_DECK="${CACHED_VALUES[0]:-}"
+        LAST_MODEL="${CACHED_VALUES[1]:-}"
+    fi
+
+    # 1. Deck auswählen
+    DECKS_JSON=$(anki_request "deckNames")
+    if ! echo "$DECKS_JSON" | jq -e '.result' >/dev/null; then
+        echo "Fehler: Konnte keine Verbindung zu AnkiConnect herstellen. Läuft Anki?" >&2
+        exit 1
+    fi
+
+    RAW_DECKS=$(echo "$DECKS_JSON" | jq -r '.result[]')
+
+    # Letztes Deck an den Anfang der Liste setzen (falls es existiert)
+    if [[ -n "$LAST_DECK" ]] && echo "$RAW_DECKS" | grep -Fxq "$LAST_DECK"; then
+        DECK_LIST=$(printf "%s\n%s" "$LAST_DECK" "$(echo "$RAW_DECKS" | grep -Fxv "$LAST_DECK")")
+    else
+        DECK_LIST="$RAW_DECKS"
+    fi
+
+    SELECTED_DECK=$(echo "$DECK_LIST" | gum filter --header="1. Wähle ein Deck (Enter für letztes Deck):")
+    [[ -z "$SELECTED_DECK" ]] && {
+        echo "Abgebrochen."
+        break
+    }
+
+    # 2. Card Type (Model) auswählen
+    MODELS_JSON=$(anki_request "modelNames")
+    RAW_MODELS=$(echo "$MODELS_JSON" | jq -r '.result[]')
+
+    # Letzten Notiztyp an den Anfang der Liste setzen
+    if [[ -n "$LAST_MODEL" ]] && echo "$RAW_MODELS" | grep -Fxq "$LAST_MODEL"; then
+        MODEL_LIST=$(printf "%s\n%s" "$LAST_MODEL" "$(echo "$RAW_MODELS" | grep -Fxv "$LAST_MODEL")")
+    else
+        MODEL_LIST="$RAW_MODELS"
+    fi
+
+    SELECTED_MODEL=$(echo "$MODEL_LIST" | gum filter --header="2. Wähle einen Notiztyp (Enter für letzten Typ):")
+    [[ -z "$SELECTED_MODEL" ]] && {
+        echo "Abgebrochen."
+        break
+    }
+
+    # Neue Auswahl in den Cache schreiben
+    printf "%s\n%s\n" "$SELECTED_DECK" "$SELECTED_MODEL" >"$CACHE_FILE"
+
+    # 3. Felder dynamisch auslesen und Input abfragen
+    FIELDS_JSON=$(anki_request "modelFieldNames" "{\"modelName\": \"$SELECTED_MODEL\"}")
+    mapfile -t FIELDS < <(echo "$FIELDS_JSON" | jq -r '.result[]')
+
+    if [[ ${#FIELDS[@]} -eq 0 ]]; then
+        gum style --foreground 196 "Fehler: Konnte keine Felder für den Typ '$SELECTED_MODEL' finden."
+        exit 1
+    fi
+
+    FIELDS_PAYLOAD="{}"
+    REVIEW_LINES=("Zusammenfassung:" "Deck: $SELECTED_DECK" "Typ:  $SELECTED_MODEL" "---")
+
+    for FIELD in "${FIELDS[@]}"; do
+        VALUE=$(gum input --header="3. Wert für Feld: $FIELD" --placeholder="Leer lassen zum Überspringen...")
+        FIELDS_PAYLOAD=$(echo "$FIELDS_PAYLOAD" | jq --arg k "$FIELD" --arg v "$VALUE" '.[$k] = $v')
+        REVIEW_LINES+=("$FIELD: $VALUE")
+    done
+
+    # 4. Review
+    gum style \
+        --border double \
+        --margin "1" \
+        --padding "1 2" \
+        --border-foreground 212 \
+        -- \
+        "${REVIEW_LINES[@]}"
+
+    if gum confirm "Karte zu Anki hinzufügen?"; then
+        PAYLOAD=$(jq -n \
+            --arg deck "$SELECTED_DECK" \
+            --arg model "$SELECTED_MODEL" \
+            --argjson fields "$FIELDS_PAYLOAD" \
+            '{
+                note: {
+                    deckName: $deck,
+                    modelName: $model,
+                    fields: $fields,
+                    options: {
+                        allowDuplicate: false
+                    },
+                    tags: ["cli_added"]
+                }
+            }')
+
+        RESULT=$(anki_request "addNote" "$PAYLOAD")
+        ERROR=$(echo "$RESULT" | jq -r '.error')
+
+        if [[ "$ERROR" != "null" ]]; then
+            gum style --foreground 196 "Fehler beim Hinzufügen: $ERROR"
+        else
+            gum style --foreground 46 "Erfolgreich hinzugefügt!"
+        fi
+    else
+        echo "Karte verworfen."
+    fi
+
+    echo ""
+
+    # 5. Abfrage für den Loop
+    if ! gum confirm "Möchtest du eine weitere Karte hinzufügen?"; then
+        gum style --foreground 212 "Arrivederci! Viel Spaß beim Lernen."
+        break
+    fi
+
+    clear
+done
