@@ -385,6 +385,16 @@ window-rule {
     default-column-width {}
 }
 
+window-rule {
+    match app-id=r#"^org.gnome.Nautilus$"# is-floating=true
+    default-window-height { fixed 800; } // this does not work :(
+}
+
+window-rule {
+    match app-id=r#"^anki$"# title="(^Statistics$|Options for.*)" 
+    open-floating false
+    default-column-width { proportion 0.5; }
+}
 
 // --- Notes on untranslatable rules ---
 // - Per-window opacity is not supported in niri.
@@ -758,8 +768,8 @@ cursor {
 
 recent-windows {
     binds {
-        Alt+Tab         { next-window; }
-        Alt+Shift+Tab   { previous-window; }
+        Mod+Tab         { next-window; }
+        Mod+Shift+Tab   { previous-window; }
     }
 }
 
