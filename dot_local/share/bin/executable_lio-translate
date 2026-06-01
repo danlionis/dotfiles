@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+readonly SCRIPT_DIR
+
+if [[ "${DEBUG-}" =~ ^1|yes|true$ ]]; then
+    set -x
+fi
+
+if [[ $# -eq 0 ]]; then
+    echo "Usage: $(basename "$0") your sentence here"
+    exit 1
+fi
+
+INPUT_TEXT="$*"
+
+ENCODED_TEXT=$(python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))" "$INPUT_TEXT")
+
+FINAL_URL="https://translate.google.com/#auto|de|${ENCODED_TEXT}"
+
+brave --new-window "$FINAL_URL"

@@ -1,0 +1,18 @@
+name = "custom"
+name_pretty = "Custom"
+icon = "custom"
+
+[[entries]]
+text = "Get Subtitles"
+actions = { "sync" = "lio-launch-floating-terminal 'whispertube $(gum input)'" }
+icon = "download"
+
+[[entries]]
+text = "Subtitles from Clipboard"
+actions = { "sync" = "lio-launch-floating-terminal 'whispertube $(wl-paste)'" }
+icon = "download"
+
+[[entries]]
+text = "Translate"
+actions = { "sync" = "bash -c 'lio-translate $(wl-paste)'" }
+icon = "translate"

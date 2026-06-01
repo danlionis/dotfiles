@@ -334,7 +334,7 @@ animations {
 // Open discord on DP-3
 window-rule {
     match app-id=r#"(^discord$)|(^com.discordapp.Discord$)|(^vesktop$)|(^dev.vencord.Vesktop$)"#
-    default-column-width { proportion 0.66667; }
+    default-column-width { proportion 1.0; }
     open-on-output "DP-3"
 }
 
@@ -758,6 +758,10 @@ binds {
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
+
+    Mod+S { spawn-sh "sh -c \"lio-launch-floating-terminal 'whispertube $(wl-paste)'\""; }
+    Mod+T { spawn-sh "sh -c \"lio-translate $(wl-paste)\""; }
+    // Mod+9 { spawn-sh "sh -c \"niri msg action focus-monitor DP-3 && niri msg action focus-workspace 1\""; }
 }
 
 cursor {

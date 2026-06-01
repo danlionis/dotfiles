@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+IFS=$'\n\t'
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+readonly SCRIPT_DIR
+
+if [[ "${DEBUG-}" =~ ^1|yes|true$ ]]; then
+    set -x
+fi
+
+# 1. Get the default browser .desktop file
+desktop_id=$(xdg-settings get default-web-browser)
+
+# 2. Map the .desktop ID to the actual binary name
+#    (.desktop files use %U which quotes flags, breaking --app mode. We must use the binary.)
+case $desktop_id in
+brave-browser*) browser_bin="brave" ;;
+google-chrome*) browser_bin="google-chrome-stable" ;;
+chromium*) browser_bin="chromium" ;;
+microsoft-edge*) browser_bin="microsoft-edge" ;;
+vivaldi*) browser_bin="vivaldi" ;;
+*)
+    # Fallback: strip .desktop extension and hope the binary matches the name
+    browser_bin="${desktop_id%.desktop}"
+    ;;
+esac
+
+# 3. Launch
+#    usage: uwsm-app -- [BINARY] [ARGS]
+exec setsid uwsm-app -- "$browser_bin" --app="$1" "${@:2}"
