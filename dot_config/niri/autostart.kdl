@@ -1,0 +1,23 @@
+// Add lines like this to spawn processes at startup.
+// Note that running niri as a session supports xdg-desktop-autostart,
+// which may be more convenient to use.
+// See the binds section below for more spawn examples.
+
+spawn-at-startup "dunst"
+spawn-at-startup "sway-audio-idle-inhibit"
+spawn-sh-at-startup "hypridle --config ~/.config/niri/hypridle.conf"
+spawn-at-startup "hyprpaper"
+spawn-at-startup "quickshell"
+spawn-sh-at-startup "walker --gapplication-service"
+spawn-sh-at-startup "wlsunset -l 48.1 -L 11.5 -t 2500"
+spawn-sh-at-startup "clipse -listen"
+
+// GTK theme settings from hyprland.conf
+// spawn-sh-at-startup "dconf write /org/gnome/desktop/interface/gtk-theme \"'Adwaita'\"" // handled by nix config
+// spawn-sh-at-startup "dconf write /org/gnome/desktop/interface/icon-theme \"'Papirus-Dark'\"" // handled by nix config
+spawn-sh-at-startup "dconf write /org/gnome/desktop/interface/color-scheme \"'prefer-dark'\"" // dark theme
+spawn-sh-at-startup "dconf write /org/gnome/desktop/interface/document-font-name \"'Noto Sans Medium 11'\""
+spawn-sh-at-startup "dconf write /org/gnome/desktop/interface/font-name \"'Noto Sans Medium 11'\""
+spawn-sh-at-startup "dconf write /org/gnome/desktop/interface/monospace-font-name \"'Noto Sans Mono Medium 11'\""
+
+spawn-sh-at-startup "xrdb -merge /home/dan/.Xresources" // this is so that i have the correct cursor in steam for example

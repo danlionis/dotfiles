@@ -1,0 +1,6 @@
+{{- $email := promptStringOnce . "email" "What is your email address" -}}
+{{- $computer_type := promptStringOnce . "computer_type" "What type of machine is this (work, personal, headless)" "personal" -}}
+
+[data]
+    email = {{ $email | quote }}
+    type = {{ $computer_type | quote }}

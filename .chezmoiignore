@@ -1,1 +1,9 @@
 flake.*
+
+{{- if ne .chezmoi.hostname "dan-pc" }}
+.config/niri/dan-pc
+{{- end }}
+
+{{- if ne .chezmoi.hostname "work" }}
+.config/niri/work
+{{- end }}

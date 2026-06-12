@@ -1,0 +1,36 @@
+// Not all features have a one-to-one mapping. Please read the comments
+// throughout the file for details on what has changed.
+
+// Environment variables:
+// Environment variables from `envs.conf` (like XCURSOR_THEME) are not set here.
+// You should set them using your shell's profile (e.g. ~/.profile, ~/.zshenv)
+// or using systemd environment.d. For example:
+// `~/.config/environment.d/env.conf`
+// XCURSOR_THEME=rose-pine-hyprcursor
+// XCURSOR_SIZE=12
+
+// This config is in the KDL format: https://kdl.dev
+// "/-" comments out the following node.
+// Check the wiki for a full description of the configuration:
+// https://yalter.github.io/niri/Configuration:-Introduction
+
+
+{{ if eq .chezmoi.hostname "dan-pc" -}}
+include "./dan-pc/input.kdl"
+include "./dan-pc/monitors.kdl"
+{{- else -}}
+// no config for this host
+{{- end}}
+
+include "layout.kdl"
+include "autostart.kdl"
+include "appearance.kdl"
+include "window_rules.kdl"
+include "binds.kdl"
+
+recent-windows {
+    binds {
+        Mod+Tab         { next-window; }
+        Mod+Shift+Tab   { previous-window; }
+    }
+}

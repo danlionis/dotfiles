@@ -1,0 +1,93 @@
+// Window rules let you adjust behavior for individual windows.
+// Find more information on the wiki:
+// https://yalter.github.io/niri/Configuration:-Window-Rules
+
+// Open discord on DP-3
+window-rule {
+    match app-id=r#"(^discord$)|(^com.discordapp.Discord$)|(^vesktop$)|(^dev.vencord.Vesktop$)"#
+    default-column-width { proportion 1.0; }
+    open-on-output "DP-3"
+}
+
+// Open spotify on DP-3
+window-rule {
+    match app-id=r#"(^Spotify$)|(^com.spotify.Client$)"#
+    default-column-width { proportion 0.66667; }
+    open-on-output "DP-3"
+}
+
+// Brave Picture-in-picture like window should float
+window-rule {
+    match app-id="brave-nngceckbapebfimnlniiiahkandclblb-Default"
+    open-floating true
+}
+
+// Floating windows from system.conf
+window-rule {
+    match app-id=r#"^(System|floating|blueberry.py|Impala|Wiremix|org.gnome.NautilusPreviewer|com.gabm.satty|TUI.float|xdg-desktop-portal-gtk|sublime_text|DesktopEditors)$"#
+    open-floating true
+    open-focused true
+    default-column-width { proportion 0.5; }
+    default-window-height { fixed 800; }
+    open-on-output "DP-1"
+}
+
+window-rule {
+    match app-id=r#"^org.gnome.Nautilus$"# title=r#"^(Open.*Files?|Open [F|f]older.*|Save.*Files?|Save.*As|Save|All Files)$"#
+    open-floating true
+}
+
+// For steam games, find the app-id and use a rule like this:
+window-rule { 
+    match app-id=r#"^steam_app.*"#;
+    open-fullscreen true;
+    open-on-output "DP-1";
+}
+
+// The default niri rule for Firefox Picture-in-Picture
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+// Workaround for wezterm
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}
+
+window-rule {
+    match app-id=r#"^org.gnome.Nautilus$"# is-floating=true
+    default-window-height { fixed 800; } // this does not work :(
+}
+
+window-rule {
+    match app-id=r#"^anki$"# title="(^Statistics$|Options for.*)" 
+    open-floating false
+    default-column-width { proportion 0.5; }
+}
+
+// --- Notes on untranslatable rules ---
+// - Per-window opacity is not supported in niri.
+// - Idle inhibit rules are not supported. Apps should use the idle-inhibit protocol.
+// - The discord mute/deafen script will not work as it relies on hyprctl.
+
+// Example: block out two password managers from screen capture.
+// (This example rule is commented out with a "/-" in front.)
+window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    match app-id=r#"^org\.gnome\.World\.Secrets$"#
+    match title=r#"^Bitwarden$"#
+
+    block-out-from "screen-capture"
+
+    // Use this instead if you want them visible on third-party screenshot tools.
+    // block-out-from "screencast"
+}
+
+// Example: enable rounded corners for all windows.
+// (This example rule is commented out with a "/-" in front.)
+/-window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
