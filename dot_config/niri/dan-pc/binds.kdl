@@ -1,0 +1,8 @@
+binds {
+    Mod+7 { focus-monitor "Dell Inc. DELL S2721D 3WS9P43"; }
+    Mod+8 { focus-monitor "Dell Inc. Dell AW2721D #HDEYMxgwABQ3"; }
+    Mod+9 { focus-monitor "Acer Technologies CBA272 H C328050C03W01"; }
+    Mod+Shift+7 { move-column-to-monitor "Dell Inc. DELL S2721D 3WS9P43"; }
+    Mod+Shift+8 { move-column-to-monitor "Dell Inc. Dell AW2721D #HDEYMxgwABQ3"; }
+    Mod+Shift+9 { move-column-to-monitor "Acer Technologies CBA272 H C328050C03W01"; }
+}

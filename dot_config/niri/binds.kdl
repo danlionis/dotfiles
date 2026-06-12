@@ -17,16 +17,8 @@ binds {
     Mod+Y { spawn "lio-cmd-yubikey"; }
     Mod+C { spawn-sh "lio-launch-floating-terminal --silent clipse"; }
 
-    // This requires $EDITOR to be set in your environment
 
-    // --- System ---
     Mod+Escape { spawn "lio-lock-screen"; }
-
-    // --- Movement ---
-    Mod+Shift+Left  { move-column-left; }
-    Mod+Shift+Up    { move-window-up; }
-    Mod+Shift+Down  { move-window-down; }
-    Mod+Shift+Right { move-column-right; }
 
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
     // in the end. To find an XKB name for a particular key, you may use a program
@@ -76,10 +68,22 @@ binds {
 
     Mod+Q repeat=false { close-window; }
 
-    Mod+Left  { focus-column-left; }
-    Mod+Down  { focus-window-down; }
-    Mod+Up    { focus-window-up; }
-    Mod+Right { focus-column-right; }
+    // Mod+Left  { focus-column-left; }
+    // Mod+Right { focus-column-right; }
+    // Mod+Up    { focus-window-up; }
+    // Mod+Down  { focus-window-down; }
+    Mod+Left  { focus-column-or-monitor-left; }
+    Mod+Right  { focus-column-or-monitor-right; }
+    Mod+Up  { focus-window-or-workspace-up; }
+    Mod+Down  { focus-window-or-workspace-down; }
+
+    // --- Movement ---
+    Mod+Shift+Left  { move-column-left; }
+    Mod+Shift+Right { move-column-right; }
+    // Mod+Shift+Left  { move-column-left-or-to-monitor-left; }
+    // Mod+Shift+Right { move-column-right-or-to-monitor-right; }
+    Mod+Shift+Up    { move-window-up-or-to-workspace-up; }
+    Mod+Shift+Down  { move-window-down-or-to-workspace-down; }
 
     Mod+H     { focus-column-left; }
     Mod+J     { focus-window-down; }
@@ -197,13 +201,6 @@ binds {
     Mod+Ctrl+5 { move-column-to-workspace 5; }
     Mod+Ctrl+6 { move-column-to-workspace 6; }
 
-    Mod+7 { focus-monitor "DP-2"; }
-    Mod+8 { focus-monitor "DP-1"; }
-    Mod+9 { focus-monitor "DP-3"; }
-    Mod+Shift+7 { move-column-to-monitor "DP-2"; }
-    Mod+Shift+8 { move-column-to-monitor "DP-1"; }
-    Mod+Shift+9 { move-column-to-monitor "DP-3"; }
-
     // Mod+7 { spawn-sh "sh -c \"niri msg action focus-monitor DP-2 && niri msg action focus-workspace 1\""; }
     // Mod+8 { spawn-sh "sh -c \"niri msg action focus-monitor DP-1 && niri msg action focus-workspace 1\""; }
     // Mod+9 { spawn-sh "sh -c \"niri msg action focus-monitor DP-3 && niri msg action focus-workspace 1\""; }
@@ -243,7 +240,7 @@ binds {
     // maximize-window-to-edges doesn't: the window expands to the edges of the screen.
     // This bind corresponds to normal window maximizing,
     // e.g. by double-clicking on the titlebar.
-    Mod+M { maximize-window-to-edges; }
+    // Mod+M { maximize-window-to-edges; }
 
     // Expand the focused column to space not taken up by other fully visible columns.
     // Makes the column "fill the rest of the space".
