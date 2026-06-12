@@ -1,4 +1,4 @@
-output "DP-1" {
+output "Dell Inc. Dell AW2721D #HDEYMxgwABQ3" {
     mode "2560x1440@239.970"
     position x=2560 y=0
     focus-at-startup
@@ -6,13 +6,13 @@ output "DP-1" {
     scale 1
 }
 
-output "DP-2" {
+output "Dell Inc. DELL S2721D 3WS9P43" {
     mode "2560x1440@74.971"
     position x=0 y=0
     scale 1
 }
  
-output "DP-3" {
+output "Acer Technologies CBA272 H C328050C03W01" {
     mode "1920x1080@100"
     position x=5120 y=0
     scale 1

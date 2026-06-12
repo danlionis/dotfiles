@@ -6,14 +6,14 @@
 window-rule {
     match app-id=r#"(^discord$)|(^com.discordapp.Discord$)|(^vesktop$)|(^dev.vencord.Vesktop$)"#
     default-column-width { proportion 1.0; }
-    open-on-output "DP-3"
+    open-on-output "Acer Technologies CBA272 H C328050C03W01"
 }
 
 // Open spotify on DP-3
 window-rule {
     match app-id=r#"(^Spotify$)|(^com.spotify.Client$)"#
     default-column-width { proportion 0.66667; }
-    open-on-output "DP-3"
+    open-on-output "Acer Technologies CBA272 H C328050C03W01"
 }
 
 // Brave Picture-in-picture like window should float
@@ -29,7 +29,7 @@ window-rule {
     open-focused true
     default-column-width { proportion 0.5; }
     default-window-height { fixed 800; }
-    open-on-output "DP-1"
+    open-on-output "Dell Inc. Dell AW2721D #HDEYMxgwABQ3"
 }
 
 window-rule {
@@ -37,11 +37,10 @@ window-rule {
     open-floating true
 }
 
-// For steam games, find the app-id and use a rule like this:
 window-rule { 
     match app-id=r#"^steam_app.*"#;
     open-fullscreen true;
-    open-on-output "DP-1";
+    open-on-output "Dell Inc. Dell AW2721D #HDEYMxgwABQ3";
 }
 
 // The default niri rule for Firefox Picture-in-Picture
@@ -70,7 +69,6 @@ window-rule {
 // --- Notes on untranslatable rules ---
 // - Per-window opacity is not supported in niri.
 // - Idle inhibit rules are not supported. Apps should use the idle-inhibit protocol.
-// - The discord mute/deafen script will not work as it relies on hyprctl.
 
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
