@@ -5,6 +5,12 @@ return {
 		build = ":TSUpdate",
 		lazy = false,
 		config = function()
+			vim.filetype.add({
+				extension = {
+					templ = "templ",
+				},
+			})
+
 			local ts = require("nvim-treesitter")
 
 			-- 1. Setup (main only uses this for custom install directories if needed)
@@ -28,6 +34,7 @@ return {
 				"query",
 				"regex",
 				"rust",
+				"templ",
 				"typescript",
 				"vim",
 				"vimdoc",
@@ -37,11 +44,17 @@ return {
 			ts.install(ensure_installed)
 
 			vim.api.nvim_create_autocmd("FileType", {
-				pattern = { "<filetype>" },
+				pattern = "*",
 				callback = function()
-					vim.treesitter.start()
+					local ft = vim.bo.filetype
+
+					if ft ~= "" and vim.bo.buftype == "" then
+						-- pcall prevents errors if a filetype doesn't have a treesitter parser installed
+						pcall(vim.treesitter.start)
+					end
 				end,
 			})
+
 			-- -- 3. Enable Core Highlighting and Indentation via Autocommands
 			-- vim.api.nvim_create_autocmd("FileType", {
 			-- 	callback = function(args)
