@@ -14,13 +14,13 @@
 // Check the wiki for a full description of the configuration:
 // https://yalter.github.io/niri/Configuration:-Introduction
 
-
 {{ if eq .chezmoi.hostname "dan-pc" -}}
 include "./dan-pc/input.kdl"
 include "./dan-pc/monitors.kdl"
 include "./dan-pc/binds.kdl"
-{{- else -}}
-// no config for this host
+{{ else if eq .chezmoi.hostname "work" -}}
+include "./work/input.kdl"
+include "./work/monitors.kdl"
 {{- end}}
 
 include "layout.kdl"
