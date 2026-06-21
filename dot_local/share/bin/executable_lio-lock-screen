@@ -5,6 +5,11 @@ playerctl --all-players pause
 # Lock the screen
 pidof hyprlock || hyprlock &
 
+if [[ "$XDG_CURRENT_DESKTOP" == "niri" ]]; then
+    sleep 1
+    niri msg action power-off-monitors
+fi
+
 # # Ensure 1password is locked
 # if pgrep -x "1password" >/dev/null; then
 #     1password --lock &
