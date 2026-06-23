@@ -2,7 +2,6 @@ output "Dell Inc. Dell AW2721D #HDEYMxgwABQ3" {
     mode "2560x1440@239.970"
     position x=2560 y=0
     focus-at-startup
-    variable-refresh-rate
     scale 1
 }
 
