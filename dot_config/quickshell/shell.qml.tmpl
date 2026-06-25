@@ -1,0 +1,23 @@
+import QtQml
+import Quickshell
+
+Scope {
+    id: root
+
+    readonly property var barConfigs: [
+        {{ if eq .chezmoi.hostname "dan-pc" -}}
+        { screen: "DP-1", side: Bar.AnchorSide.Left },
+        {{- end}}
+    ]
+
+    Instantiator {
+        model: root.barConfigs
+        delegate: Bar {
+            required property var modelData
+            screen: modelData.screen
+            side: modelData.side
+        }
+    }
+
+    Notifications {}
+}

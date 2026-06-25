@@ -10,11 +10,15 @@ import Quickshell.Widgets
 Scope {
     id: root
 
+    enum AnchorSide {
+        Left,
+        Right
+    }
+
     signal groupsChanged()
 
     required property var screen
-
-    // --- Configuration & Helpers ---
+    property int side: Bar.AnchorSide.Left
 
     property var targetScreens: {
         var screens = Quickshell.screens;
@@ -31,8 +35,6 @@ Scope {
         if (entry && entry.icon) return entry.icon;
         return appId;
     }
-
-    // --- Grouping Logic ---
 
     property var windowGroups: ({})
     property var appsList: []
@@ -63,7 +65,6 @@ Scope {
     function unregisterWindow(win) {
         if (!win) return;
         
-        // Search by object reference directly to bypass null property issues on teardown
         var found = false;
         for (var app in root.windowGroups) {
             var list = root.windowGroups[app];
@@ -107,8 +108,6 @@ Scope {
         }
     }
 
-    // --- Visuals ---
-
     Variants {
         model: root.targetScreens
 
@@ -123,7 +122,8 @@ Scope {
             anchors {
                 top: true
                 bottom: true
-                left: true
+                left: root.side === Bar.AnchorSide.Left
+                right: root.side === Bar.AnchorSide.Right
             }
 
             implicitWidth: 42
@@ -135,7 +135,6 @@ Scope {
                 anchors.bottomMargin: 8
                 spacing: 4
 
-                // --- Clock & Date ---
                 Item {
                     Layout.alignment: Qt.AlignHCenter
                     Layout.preferredWidth: 42
@@ -202,7 +201,6 @@ Scope {
                     }
                 }
 
-                // --- App List ---
                 Repeater {
                     model: root.appsList
                     delegate: Item {
@@ -267,10 +265,8 @@ Scope {
                     }
                 }
 
-                // --- Spacer ---
                 Item { Layout.fillHeight: true }
 
-                // --- Bottom Controls ---
                 ColumnLayout {
                     spacing: 8
 
@@ -292,7 +288,7 @@ Scope {
                         }
 
                         Rectangle {
-                            width: 24; height: 24
+                            width: 28; height: 28
                             anchors.centerIn: parent
                             radius: 5
                             color: "white"
@@ -302,7 +298,7 @@ Scope {
 
                         IconImage {
                             anchors.centerIn: parent
-                            width: 14; height: 14
+                            width: 16; height: 16
                             source: Quickshell.iconPath(parent.iconName)
                         }
                     }
