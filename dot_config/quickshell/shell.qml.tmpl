@@ -8,6 +8,9 @@ Scope {
         {{ if eq .chezmoi.hostname "dan-pc" -}}
         { screen: "DP-1", side: Bar.AnchorSide.Left },
         {{- end}}
+        {{ if eq .chezmoi.hostname "work" -}}
+        { screen: "eDP-1", side: Bar.AnchorSide.Left },
+        {{- end}}
     ]
 
     Instantiator {
