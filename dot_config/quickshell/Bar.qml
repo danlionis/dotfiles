@@ -20,6 +20,7 @@ Scope {
     required property var screen
     property int side: Bar.AnchorSide.Left
     property bool showBattery: false
+    property string backgroundColor: "#142027"
 
     property var targetScreens: {
         var screens = Quickshell.screens;
@@ -128,7 +129,7 @@ Scope {
             }
 
             implicitWidth: 42
-            color: "#142027"
+            color: root.backgroundColor
 
             ColumnLayout {
                 anchors.fill: parent

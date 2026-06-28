@@ -9,7 +9,7 @@ Scope {
         { screen: "DP-1", side: Bar.AnchorSide.Left, showBattery: false },
         {{- end}}
         {{ if eq .chezmoi.hostname "work" -}}
-        { screen: "eDP-1", side: Bar.AnchorSide.Left, showBattery: true },
+        { screen: "eDP-1", side: Bar.AnchorSide.Left, showBattery: true, backgroundColor: "#000000" },
         {{- end}}
     ]
 
@@ -20,6 +20,7 @@ Scope {
             screen: modelData.screen
             side: modelData.side
             showBattery: modelData.showBattery ?? false
+            backgroundColor: modelData.backgroundColor ?? "#142027"
         }
     }
 
