@@ -7,7 +7,11 @@
 #: The basic colors
 
 foreground #c9d1d9
+{{if eq .chezmoi.hostname "work" -}}
+background #000000
+{{- else -}}
 background #0d1117
+{{- end }}
 selection_foreground #0d1117
 selection_background #58a6ff
 
