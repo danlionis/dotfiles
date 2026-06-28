@@ -19,6 +19,7 @@ Scope {
 
     required property var screen
     property int side: Bar.AnchorSide.Left
+    property bool showBattery: false
 
     property var targetScreens: {
         var screens = Quickshell.screens;
@@ -300,6 +301,106 @@ Scope {
                             anchors.centerIn: parent
                             width: 16; height: 16
                             source: Quickshell.iconPath(parent.iconName)
+                        }
+                    }
+
+
+                    Loader {
+                        id: batteryLoader
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.preferredWidth: active ? 30 : 0
+                        Layout.preferredHeight: active ? 34 : 0
+                        active: root.showBattery
+                        visible: root.showBattery
+
+                        sourceComponent: Item {
+                            id: batteryIndicator
+                            width: 30
+                            height: 34
+
+                            property int percent: 0
+                            property bool isCharging: false
+
+                            readonly property var batteryProcess: Process {
+                                command: ["sh", "-c", "cat /sys/class/power_supply/BAT0/capacity; cat /sys/class/power_supply/BAT0/status"]
+                                running: true
+                                stdout: StdioCollector {
+                                    onStreamFinished: {
+                                        var lines = this.text.trim().split("\n");
+                                        if (lines.length >= 2) {
+                                            var p = parseInt(lines[0]);
+                                            if (!isNaN(p)) {
+                                                batteryIndicator.percent = p;
+                                            }
+                                            var s = lines[1].trim();
+                                            batteryIndicator.isCharging = (s === "Charging");
+                                        }
+                                    }
+                                }
+                            }
+
+                            Timer {
+                                interval: 10000
+                                running: true
+                                repeat: true
+                                triggeredOnStart: true
+                                onTriggered: batteryIndicator.batteryProcess.running = true
+                            }
+
+                            MouseArea {
+                                id: battMouseArea
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: batteryIndicator.batteryProcess.running = true
+                            }
+
+                            Rectangle {
+                                width: 28; height: 28
+                                anchors.centerIn: parent
+                                radius: 5
+                                color: "white"
+                                opacity: battMouseArea.containsMouse ? 0.1 : 0.0
+                                Behavior on opacity { NumberAnimation { duration: 150 } }
+                            }
+
+                            ColumnLayout {
+                                anchors.centerIn: parent
+                                spacing: 1
+
+                                Text {
+                                    Layout.alignment: Qt.AlignHCenter
+                                    text: {
+                                        if (batteryIndicator.isCharging) {
+                                            return "󰂄";
+                                        } else {
+                                            var p = batteryIndicator.percent;
+                                            if (p >= 95) return "󰁹";
+                                            if (p >= 85) return "󰂂";
+                                            if (p >= 75) return "󰂁";
+                                            if (p >= 65) return "󰂀";
+                                            if (p >= 55) return "󰁿";
+                                            if (p >= 45) return "󰁾";
+                                            if (p >= 35) return "󰁽";
+                                            if (p >= 25) return "󰁼";
+                                            if (p >= 15) return "󰁻";
+                                            return "󰁺";
+                                        }
+                                    }
+                                    color: batteryIndicator.isCharging ? "#50fa7b" : (batteryIndicator.percent < 20 ? "#ff5555" : "white")
+                                    font.family: "JetBrainsMono Nerd Font"
+                                    font.pixelSize: 14
+                                }
+
+                                Text {
+                                    Layout.alignment: Qt.AlignHCenter
+                                    text: batteryIndicator.percent + "%"
+                                    color: "white"
+                                    font.family: "JetBrainsMono Nerd Font"
+                                    font.pixelSize: 10
+                                    font.weight: 600
+                                }
+                            }
                         }
                     }
 

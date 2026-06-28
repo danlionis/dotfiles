@@ -6,10 +6,10 @@ Scope {
 
     readonly property var barConfigs: [
         {{ if eq .chezmoi.hostname "dan-pc" -}}
-        { screen: "DP-1", side: Bar.AnchorSide.Left },
+        { screen: "DP-1", side: Bar.AnchorSide.Left, showBattery: false },
         {{- end}}
         {{ if eq .chezmoi.hostname "work" -}}
-        { screen: "eDP-1", side: Bar.AnchorSide.Left },
+        { screen: "eDP-1", side: Bar.AnchorSide.Left, showBattery: true },
         {{- end}}
     ]
 
@@ -19,6 +19,7 @@ Scope {
             required property var modelData
             screen: modelData.screen
             side: modelData.side
+            showBattery: modelData.showBattery ?? false
         }
     }
 
