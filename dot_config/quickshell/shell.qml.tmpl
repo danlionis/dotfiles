@@ -6,10 +6,10 @@ Scope {
 
     readonly property var barConfigs: [
         {{ if eq .chezmoi.hostname "dan-pc" -}}
-        { screen: "DP-1", side: Bar.AnchorSide.Left, showBattery: false },
+        { screen: "DP-1", side: Bar.AnchorSide.Left, showBattery: false, showNetwork: false },
         {{- end}}
         {{ if eq .chezmoi.hostname "work" -}}
-        { screen: "eDP-1", side: Bar.AnchorSide.Left, showBattery: true, backgroundColor: "#000000" },
+        { screen: "eDP-1", side: Bar.AnchorSide.Left, showBattery: true, showNetwork: true, backgroundColor: "#000000" },
         {{- end}}
     ]
 
@@ -20,6 +20,7 @@ Scope {
             screen: modelData.screen
             side: modelData.side
             showBattery: modelData.showBattery ?? false
+            showNetwork: modelData.showNetwork ?? false
             backgroundColor: modelData.backgroundColor ?? "#142027"
         }
     }

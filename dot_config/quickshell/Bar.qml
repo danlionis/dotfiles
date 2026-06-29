@@ -20,6 +20,7 @@ Scope {
     required property var screen
     property int side: Bar.AnchorSide.Left
     property bool showBattery: false
+    property bool showNetwork: false
     property string backgroundColor: "#142027"
 
     property var targetScreens: {
@@ -401,6 +402,103 @@ Scope {
                                     font.pixelSize: 10
                                     font.weight: 600
                                 }
+                            }
+                        }
+                    }
+
+                    Loader {
+                        id: networkLoader
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.preferredWidth: active ? 30 : 0
+                        Layout.preferredHeight: active ? 24 : 0
+                        active: root.showNetwork
+                        visible: root.showNetwork
+
+                        sourceComponent: Item {
+                            id: networkIndicator
+                            width: 30
+                            height: 24
+
+                            property string stateStr: "disconnected"
+                            property string ssid: ""
+                            property int rssi: -100
+
+                            readonly property var networkProcess: Process {
+                                command: ["sh", "-c", "iwctl station wlan0 show | awk -F '  +' '/State|Connected network|RSSI/ {print $2 \":\" $3}'"]
+                                running: true
+                                stdout: StdioCollector {
+                                    onStreamFinished: {
+                                        var lines = this.text.trim().split("\n");
+                                        var state = "disconnected";
+                                        var ssid = "";
+                                        var rssi = -100;
+                                        for (var i = 0; i < lines.length; i++) {
+                                            var parts = lines[i].split(":");
+                                            if (parts.length >= 2) {
+                                                var key = parts[0].trim();
+                                                var val = parts[1].trim();
+                                                if (key === "State") {
+                                                    state = val;
+                                                } else if (key === "Connected network") {
+                                                    ssid = val;
+                                                } else if (key === "RSSI") {
+                                                    var p = parseInt(val);
+                                                    if (!isNaN(p)) rssi = p;
+                                                }
+                                            }
+                                        }
+                                        networkIndicator.stateStr = state;
+                                        networkIndicator.ssid = ssid;
+                                        networkIndicator.rssi = rssi;
+                                    }
+                                }
+                            }
+
+                            Timer {
+                                interval: 5000
+                                running: true
+                                repeat: true
+                                triggeredOnStart: true
+                                onTriggered: networkIndicator.networkProcess.running = true
+                            }
+
+                            readonly property var impalaProcess: Process {
+                                command: ["lio-launch-floating-terminal", "--silent", "impala"]
+                            }
+
+                            MouseArea {
+                                id: netMouseArea
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: networkIndicator.impalaProcess.startDetached()
+                            }
+
+                            Rectangle {
+                                width: 28; height: 28
+                                anchors.centerIn: parent
+                                radius: 5
+                                color: "white"
+                                opacity: netMouseArea.containsMouse ? 0.1 : 0.0
+                                Behavior on opacity { NumberAnimation { duration: 150 } }
+                            }
+
+                            Text {
+                                anchors.centerIn: parent
+                                text: {
+                                    if (networkIndicator.stateStr !== "connected") {
+                                        return "󰤮";
+                                    }
+                                    var r = networkIndicator.rssi;
+                                    if (r >= -55) return "󰤨";
+                                    if (r >= -70) return "󰤥";
+                                    if (r >= -85) return "󰤢";
+                                    return "󰤟";
+                                }
+                                color: networkIndicator.stateStr === "connected" ? "white" : "#6272a4"
+                                opacity: networkIndicator.stateStr === "connected" ? 1.0 : 0.6
+                                font.family: "JetBrainsMono Nerd Font"
+                                font.pixelSize: 14
                             }
                         }
                     }
