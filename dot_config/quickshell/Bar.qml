@@ -183,6 +183,7 @@ Scope {
                             font.family: Config.bar.fontFamily
                             font.pixelSize: 14
                             font.weight: 800
+                            horizontalAlignment: Text.AlignHCenter
                         }
 
                         Text {
@@ -191,6 +192,7 @@ Scope {
                             color: "white"
                             font.family: Config.bar.fontFamily
                             font.pixelSize: 14
+                            horizontalAlignment: Text.AlignHCenter
                         }
 
                         Text {
@@ -202,6 +204,7 @@ Scope {
                             font.family: Config.bar.fontFamily
                             font.weight: 600
                             font.pixelSize: 10
+                            horizontalAlignment: Text.AlignHCenter
                         }
                     }
                 }
