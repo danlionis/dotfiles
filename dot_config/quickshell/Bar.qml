@@ -7,6 +7,8 @@ import Quickshell.Wayland
 import Quickshell.Io
 import Quickshell.Widgets
 
+import "config.js" as Config
+
 Scope {
     id: root
 
@@ -21,7 +23,7 @@ Scope {
     property int side: Bar.AnchorSide.Left
     property bool showBattery: false
     property bool showNetwork: false
-    property string backgroundColor: "#142027"
+    property string backgroundColor: Config.colors.bg
 
     property var targetScreens: {
         var screens = Quickshell.screens;
@@ -115,7 +117,7 @@ Scope {
         model: root.targetScreens
 
         PanelWindow {
-            id: panel
+            id: barPanel
 
             required property var modelData
             screen: modelData
@@ -129,7 +131,7 @@ Scope {
                 right: root.side === Bar.AnchorSide.Right
             }
 
-            implicitWidth: 42
+            implicitWidth: Config.bar.width
             color: root.backgroundColor
 
             ColumnLayout {
@@ -178,7 +180,7 @@ Scope {
                             Layout.alignment: Qt.AlignHCenter
                             text: Qt.formatDateTime(clock.date, "hh")
                             color: "white"
-                            font.family: "JetBrainsMono Nerd Font"
+                            font.family: Config.bar.fontFamily
                             font.pixelSize: 14
                             font.weight: 800
                         }
@@ -187,7 +189,7 @@ Scope {
                             Layout.alignment: Qt.AlignHCenter
                             text: Qt.formatDateTime(clock.date, "mm")
                             color: "white"
-                            font.family: "JetBrainsMono Nerd Font"
+                            font.family: Config.bar.fontFamily
                             font.pixelSize: 14
                         }
 
@@ -197,7 +199,7 @@ Scope {
                             text: Qt.formatDateTime(clock.date, "dd.M")
                             color: "white"
                             opacity: 0.6
-                            font.family: "JetBrainsMono Nerd Font"
+                            font.family: Config.bar.fontFamily
                             font.weight: 600
                             font.pixelSize: 10
                         }
@@ -257,12 +259,14 @@ Scope {
 
                             Text {
                                 id: countText
-                                anchors.centerIn: parent
+                                anchors.fill: parent 
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter 
                                 text: groupCount
                                 color: "#BDDDD2"
                                 font.pixelSize: 10
                                 font.bold: true
-                                font.family: "JetBrainsMono Nerd Font"
+                                font.family: Config.bar.fontFamily
                             }
                         }
                     }
@@ -390,7 +394,7 @@ Scope {
                                         }
                                     }
                                     color: batteryIndicator.isCharging ? "#50fa7b" : (batteryIndicator.percent < 20 ? "#ff5555" : "white")
-                                    font.family: "JetBrainsMono Nerd Font"
+                                    font.family: Config.bar.fontFamily
                                     font.pixelSize: 14
                                 }
 
@@ -398,7 +402,7 @@ Scope {
                                     Layout.alignment: Qt.AlignHCenter
                                     text: batteryIndicator.percent + "%"
                                     color: "white"
-                                    font.family: "JetBrainsMono Nerd Font"
+                                    font.family: Config.bar.fontFamily
                                     font.pixelSize: 10
                                     font.weight: 600
                                 }
@@ -497,7 +501,7 @@ Scope {
                                 }
                                 color: networkIndicator.stateStr === "connected" ? "white" : "#6272a4"
                                 opacity: networkIndicator.stateStr === "connected" ? 1.0 : 0.6
-                                font.family: "JetBrainsMono Nerd Font"
+                                font.family: Config.barfontFamily
                                 font.pixelSize: 14
                             }
                         }
@@ -521,6 +525,10 @@ Scope {
 
                     ControlButton {
                         iconName: "notifications"
+                        readonly property var process: Process {
+                            command: ["sh", "-c", "qs ipc call notifications toggle"]
+                        }
+                        onClicked: process.startDetached()
                     }
                 }
             }

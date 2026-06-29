@@ -1,6 +1,8 @@
 import QtQml
 import Quickshell
 
+import "config.js" as Config
+
 Scope {
     id: root
 
@@ -9,7 +11,7 @@ Scope {
         { screen: "DP-1", side: Bar.AnchorSide.Left, showBattery: false, showNetwork: false },
         {{- end}}
         {{ if eq .chezmoi.hostname "work" -}}
-        { screen: "eDP-1", side: Bar.AnchorSide.Left, showBattery: true, showNetwork: true, backgroundColor: "#000000" },
+        { screen: "eDP-1", side: Bar.AnchorSide.Left, showBattery: true, showNetwork: true, backgroundColor: Config.colors.black },
         {{- end}}
     ]
 
@@ -21,9 +23,9 @@ Scope {
             side: modelData.side
             showBattery: modelData.showBattery ?? false
             showNetwork: modelData.showNetwork ?? false
-            backgroundColor: modelData.backgroundColor ?? "#142027"
+            backgroundColor: modelData.backgroundColor ?? Config.colors.black
         }
     }
 
-    Notifications {}
+    Notify { screen: "DP-2" }
 }

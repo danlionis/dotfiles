@@ -3,7 +3,6 @@
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 
-spawn-at-startup "dunst"
 spawn-at-startup "sway-audio-idle-inhibit"
 spawn-sh-at-startup "hypridle --config ~/.config/niri/hypridle.conf"
 spawn-at-startup "hyprpaper"
