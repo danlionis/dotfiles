@@ -85,7 +85,7 @@ show_system_menu() {
         ["     SSH"]="show_ssh_menu"
         ["     Idle Inhibit"]="lio-idleinhibit"
         ["     Bluetooth"]="lio-launch-floating-terminal --silent 'bluetui'"
-        ["     WIFI"]="lio-launch-floating-terminal --silent 'impala'"
+        ["     WIFI"]="lio-launch-floating-terminal --silent 'wlctl'"
         # ["       Test"]="lio-launch-floating-terminal --silent 'gum confirm --default --timeout=5s && notify-send testing'"
     )
 

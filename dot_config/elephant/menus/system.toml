@@ -19,7 +19,7 @@ icon = "audio-volume-high"
 
 [[entries]]
 text = "WIFI"
-actions = { "launch" = "lio-launch-floating-terminal --silent impala" }
+actions = { "launch" = "lio-launch-floating-terminal --silent wlctl" }
 icon = "network-wireless"
 
 [[entries]]

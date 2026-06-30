@@ -24,7 +24,7 @@ window-rule {
 
 // Floating windows from system.conf
 window-rule {
-    match app-id=r#"^(System|floating|blueberry.py|Impala|Wiremix|org.gnome.NautilusPreviewer|com.gabm.satty|TUI.float|xdg-desktop-portal-gtk|sublime_text|DesktopEditors)$"#
+    match app-id=r#"^(System|floating|blueberry.py|Wiremix|org.gnome.NautilusPreviewer|com.gabm.satty|TUI.float|xdg-desktop-portal-gtk|sublime_text|DesktopEditors)$"#
     open-floating true
     open-focused true
     default-column-width { proportion 0.5; }

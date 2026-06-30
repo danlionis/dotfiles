@@ -470,7 +470,7 @@ Scope {
                             }
 
                             readonly property var impalaProcess: Process {
-                                command: ["lio-launch-floating-terminal", "--silent", "impala"]
+                                command: ["lio-launch-floating-terminal", "--silent", "wlctl"]
                             }
 
                             MouseArea {
@@ -518,6 +518,7 @@ Scope {
                         onClicked: process.startDetached()
                     }
 
+                    /*
                     ControlButton {
                         iconName: "system-shutdown"
                         readonly property var process: Process {
@@ -525,6 +526,7 @@ Scope {
                         }
                         onClicked: process.startDetached()
                     }
+                    */
 
                     ControlButton {
                         iconName: "notifications"
