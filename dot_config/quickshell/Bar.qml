@@ -349,11 +349,15 @@ Scope {
                             }
 
                             Timer {
-                                interval: 10000
+                                interval: 2000
                                 running: true
                                 repeat: true
                                 triggeredOnStart: true
                                 onTriggered: batteryIndicator.batteryProcess.running = true
+                            }
+
+                            readonly property var cpufreqProcess: Process {
+                                command: ["auto-cpufreq-gtk"]
                             }
 
                             MouseArea {
@@ -361,7 +365,7 @@ Scope {
                                 anchors.fill: parent
                                 hoverEnabled: true
                                 cursorShape: Qt.PointingHandCursor
-                                onClicked: batteryIndicator.batteryProcess.running = true
+                                onClicked: batteryIndicator.cpufreqProcess.startDetached()
                             }
 
                             Rectangle {
