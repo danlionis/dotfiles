@@ -1,0 +1,3 @@
+{{ if eq .chezmoi.hostname "work" -}}
+{{- include "dot_config/kanshi/work.config" -}}
+{{- end}}
