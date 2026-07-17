@@ -433,9 +433,10 @@ Scope {
                             property string stateStr: "disconnected"
                             property string ssid: ""
                             property int rssi: -100
+                            property string ethernetState: "disconnected"
 
                             readonly property var networkProcess: Process {
-                                command: ["sh", "-c", "iwctl station wlan0 show | awk -F '  +' '/State|Connected network|RSSI/ {print $2 \":\" $3}'"]
+                                command: ["sh", "-c", "eth_connected=0; for f in /sys/class/net/e*; do if [ -e \"$f/carrier\" ] && [ \"$(cat \"$f/carrier\")\" = \"1\" ]; then eth_connected=1; break; fi; done; if [ \"$eth_connected\" -eq 1 ]; then echo \"ethernet:connected\"; else echo \"ethernet:disconnected\"; fi; iwctl station wlan0 show | awk -F '  +' '/State|Connected network|RSSI/ {print $2 \":\" $3}'"]
                                 running: true
                                 stdout: StdioCollector {
                                     onStreamFinished: {
@@ -443,12 +444,15 @@ Scope {
                                         var state = "disconnected";
                                         var ssid = "";
                                         var rssi = -100;
+                                        var ethernet = "disconnected";
                                         for (var i = 0; i < lines.length; i++) {
                                             var parts = lines[i].split(":");
                                             if (parts.length >= 2) {
                                                 var key = parts[0].trim();
                                                 var val = parts[1].trim();
-                                                if (key === "State") {
+                                                if (key === "ethernet") {
+                                                    ethernet = val;
+                                                } else if (key === "State") {
                                                     state = val;
                                                 } else if (key === "Connected network") {
                                                     ssid = val;
@@ -458,6 +462,7 @@ Scope {
                                                 }
                                             }
                                         }
+                                        networkIndicator.ethernetState = ethernet;
                                         networkIndicator.stateStr = state;
                                         networkIndicator.ssid = ssid;
                                         networkIndicator.rssi = rssi;
@@ -496,7 +501,11 @@ Scope {
 
                             Text {
                                 anchors.centerIn: parent
+                                readonly property bool isConnected: networkIndicator.ethernetState === "connected" || networkIndicator.stateStr === "connected"
                                 text: {
+                                    if (networkIndicator.ethernetState === "connected") {
+                                        return "󰈀";
+                                    }
                                     if (networkIndicator.stateStr !== "connected") {
                                         return "󰤮";
                                     }
@@ -506,8 +515,8 @@ Scope {
                                     if (r >= -85) return "󰤢";
                                     return "󰤟";
                                 }
-                                color: networkIndicator.stateStr === "connected" ? "white" : "#6272a4"
-                                opacity: networkIndicator.stateStr === "connected" ? 1.0 : 0.6
+                                color: isConnected ? "white" : "#6272a4"
+                                opacity: isConnected ? 1.0 : 0.6
                                 font.family: Config.barfontFamily
                                 font.pixelSize: 14
                             }
