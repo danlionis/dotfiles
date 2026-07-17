@@ -123,8 +123,3 @@ carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
 $env.CARAPACE_MATCH = 1
 $env.CARAPACE_LENIENT = 1
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
-
-def --env notes [] {
-    cd ~/Documents/notes/vault/
-    nvim index.md
-}

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+pushd ~/Documents/notes/vault/ || exit
+
+git pull
+nvim index.md
+
+popd || exit
