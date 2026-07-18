@@ -1,0 +1,8 @@
+binds {
+    Mod+7 { focus-monitor "Samsung Display Corp. ATNA40HQ02-0  Unknown"; }
+    Mod+8 { focus-monitor "Acer Technologies Acer B277K 0x84210B80"; }
+    Mod+9 { focus-monitor "Philips Consumer Electronics Company PHL 276B1JH UK02148020816"; }
+    Mod+Shift+7 { move-column-to-monitor "Samsung Display Corp. ATNA40HQ02-0  Unknown"; }
+    Mod+Shift+8 { move-column-to-monitor "Acer Technologies Acer B277K 0x84210B80"; }
+    Mod+Shift+9 { move-column-to-monitor "Philips Consumer Electronics Company PHL 276B1JH UK02148020816"; }
+}

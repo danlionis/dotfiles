@@ -19,6 +19,7 @@ binds {
 
 
     Mod+Escape { spawn "lio-lock-screen"; }
+    Mod+Grave allow-when-locked=true { spawn-sh "niri msg action power-off-monitors"; }
 
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
     // in the end. To find an XKB name for a particular key, you may use a program
@@ -77,6 +78,11 @@ binds {
     Mod+Up  { focus-window-or-workspace-up; }
     Mod+Down  { focus-window-or-workspace-down; }
 
+    Mod+H  { focus-column-or-monitor-left; }
+    Mod+L  { focus-column-or-monitor-right; }
+    Mod+K  { focus-window-or-workspace-up; }
+    Mod+J  { focus-window-or-workspace-down; }
+
     // --- Movement ---
     Mod+Shift+Left  { move-column-left; }
     Mod+Shift+Right { move-column-right; }
@@ -84,11 +90,6 @@ binds {
     // Mod+Shift+Right { move-column-right-or-to-monitor-right; }
     Mod+Shift+Up    { move-window-up-or-to-workspace-up; }
     Mod+Shift+Down  { move-window-down-or-to-workspace-down; }
-
-    Mod+H     { focus-column-left; }
-    Mod+J     { focus-window-down; }
-    Mod+K     { focus-window-up; }
-    Mod+L     { focus-column-right; }
 
     // Alternative commands that move across workspaces when reaching
     // the first or last window in a column.

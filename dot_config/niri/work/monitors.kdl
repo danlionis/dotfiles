@@ -6,4 +6,4 @@
 //     scale 1.5
 // }
 
-spawn-sh-at-startup "kanshi"
+// spawn-sh-at-startup "kanshi"

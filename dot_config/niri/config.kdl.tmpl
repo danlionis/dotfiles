@@ -18,12 +18,14 @@
 include "./dan-pc/input.kdl"
 include "./dan-pc/monitors.kdl"
 include "./dan-pc/binds.kdl"
+include "./dan-pc/layout.kdl"
 {{ else if eq .chezmoi.hostname "work" -}}
 include "./work/input.kdl"
 include "./work/monitors.kdl"
+include "./work/binds.kdl"
+include "./work/layout.kdl"
 {{- end}}
 
-include "layout.kdl"
 include "autostart.kdl"
 include "appearance.kdl"
 include "window_rules.kdl"
