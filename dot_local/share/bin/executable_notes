@@ -15,6 +15,7 @@ pushd ~/Documents/notes/vault/ >/dev/null
 readonly CURRENT_HOST=$(hostname)
 
 sync_repo() {
+    git pull --rebase
     if [[ -n "$(git status --porcelain)" ]]; then
         git add .
         git commit -m "[${CURRENT_HOST}] Auto-commit: $(date +'%Y-%m-%d %H:%M:%S')"
@@ -29,7 +30,7 @@ background_sync() {
     done
 }
 
-git pull
+git pull --rebase
 
 background_sync &
 SYNC_PID=$!
