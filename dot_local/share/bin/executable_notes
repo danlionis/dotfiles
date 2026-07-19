@@ -1,18 +1,12 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
-IFS=$'\n\t'
 
-SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-readonly SCRIPT_DIR
+# Enable tracing when DEBUG=1/yes/true
+[[ "${DEBUG-}" =~ ^(1|yes|true)$ ]] && set -x
 
-if [[ "${DEBUG-}" =~ ^1|yes|true$ ]]; then
-    set -x
-fi
-
-pushd ~/Documents/notes/vault/ >/dev/null
-
-readonly CURRENT_HOST=$(hostname)
+cd ~/Documents/notes/vault
+CURRENT_HOST=$(hostname)
+readonly CURRENT_HOST
 
 sync_repo() {
     git pull --rebase
@@ -32,14 +26,20 @@ background_sync() {
 
 git pull --rebase
 
-background_sync &
+# Job control (`set -m`) makes bash give this background job its own
+# process group, so "kill -TERM -$SYNC_PID" (note the leading "-") can
+# later kill the loop *and* any git command it's mid-running, without
+# touching this script's own process group.
+set -m
+background_sync </dev/null &>/dev/null &
 SYNC_PID=$!
+set +m
 
-trap 'kill $SYNC_PID 2>/dev/null || true' EXIT
+cleanup_bg() { kill -TERM -"${SYNC_PID:-}" 2>/dev/null || true; }
+trap cleanup_bg EXIT
 
 nvim index.md
 
-kill "$SYNC_PID" 2>/dev/null || true
+# Stop the loop before the final sync so they don't race on git's lock
+cleanup_bg
 sync_repo
-
-popd >/dev/null
