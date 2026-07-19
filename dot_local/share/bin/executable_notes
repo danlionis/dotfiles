@@ -1,8 +1,44 @@
 #!/usr/bin/env bash
 
-pushd ~/Documents/notes/vault/ || exit
+set -euo pipefail
+IFS=$'\n\t'
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+readonly SCRIPT_DIR
+
+if [[ "${DEBUG-}" =~ ^1|yes|true$ ]]; then
+    set -x
+fi
+
+pushd ~/Documents/notes/vault/ >/dev/null
+
+readonly CURRENT_HOST=$(hostname)
+
+sync_repo() {
+    if [[ -n "$(git status --porcelain)" ]]; then
+        git add .
+        git commit -m "[${CURRENT_HOST}] Auto-commit: $(date +'%Y-%m-%d %H:%M:%S')"
+        git push
+    fi
+}
+
+background_sync() {
+    while true; do
+        sleep 600
+        sync_repo
+    done
+}
 
 git pull
+
+background_sync &
+SYNC_PID=$!
+
+trap 'kill $SYNC_PID 2>/dev/null || true' EXIT
+
 nvim index.md
 
-popd || exit
+kill "$SYNC_PID" 2>/dev/null || true
+sync_repo
+
+popd >/dev/null
