@@ -1,20 +1,36 @@
 #!/usr/bin/env bash
+
 set -euo pipefail
 
-# Enable tracing when DEBUG=1/yes/true
-[[ "${DEBUG-}" =~ ^(1|yes|true)$ ]] && set -x
+IFS=$'\n\t'
 
-cd ~/Documents/notes/vault
-CURRENT_HOST=$(hostname)
-readonly CURRENT_HOST
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+readonly SCRIPT_DIR
+
+if [[ "${DEBUG-}" =~ ^1|yes|true$ ]]; then
+    set -x
+fi
+
+readonly CURRENT_HOST=$(hostname)
+readonly LOCK_FILE="/tmp/$USER-notes-git-sync.lock"
+
+cd ~/Documents/notes/vault || exit
 
 sync_repo() {
-    git pull --rebase
-    if [[ -n "$(git status --porcelain)" ]]; then
-        git add .
-        git commit -m "[${CURRENT_HOST}] Auto-commit: $(date +'%Y-%m-%d %H:%M:%S')"
-        git push
-    fi
+    (
+        flock -w 5 9 || exit 0
+
+        if [[ -n "$(git status --porcelain)" ]]; then
+            git add .
+            if ! git diff --staged --quiet; then
+                git commit -m "[${CURRENT_HOST}] $(date +'%Y-%m-%d %H:%M:%S')"
+            fi
+        fi
+
+        git pull --rebase || true
+        git push || true
+
+    ) 9>"${LOCK_FILE}"
 }
 
 background_sync() {
@@ -24,12 +40,11 @@ background_sync() {
     done
 }
 
-git pull --rebase
+(
+    flock -w 10 9 || exit 1
+    git pull --rebase --autostash || true
+) 9>"${LOCK_FILE}"
 
-# Job control (`set -m`) makes bash give this background job its own
-# process group, so "kill -TERM -$SYNC_PID" (note the leading "-") can
-# later kill the loop *and* any git command it's mid-running, without
-# touching this script's own process group.
 set -m
 background_sync </dev/null &>/dev/null &
 SYNC_PID=$!
@@ -40,6 +55,5 @@ trap cleanup_bg EXIT
 
 nvim index.md
 
-# Stop the loop before the final sync so they don't race on git's lock
 cleanup_bg
 sync_repo
