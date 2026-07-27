@@ -1,59 +1,104 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
-
 IFS=$'\n\t'
 
-SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-readonly SCRIPT_DIR
-
-if [[ "${DEBUG-}" =~ ^1|yes|true$ ]]; then
+if [[ "${DEBUG-}" =~ ^(1|yes|true)$ ]]; then
     set -x
 fi
 
-readonly CURRENT_HOST=$(hostname)
-readonly LOCK_FILE="/tmp/$USER-notes-git-sync.lock"
+readonly VAULT_DIR="$HOME/Documents/notes/vault"
+readonly CURRENT_HOST="$(hostname)"
+readonly USER_NAME="${USER:-$(id -un)}"
+readonly LOCK_FILE="/tmp/${USER_NAME}-notes-git-sync.lock"
+readonly CLIENT_LOCK="/tmp/${USER_NAME}-notes-git-client.lock"
+readonly DAEMON_LOCK="/tmp/${USER_NAME}-notes-git-daemon.lock"
+readonly LOG_FILE="/tmp/${USER_NAME}-notes-git-sync.log"
 
-cd ~/Documents/notes/vault || exit
+log() {
+    printf '%s [%s] %s\n' "$(date +'%Y-%m-%d %H:%M:%S')" "$$" "$*" >>"$LOG_FILE"
+}
 
+cd "$VAULT_DIR" || exit 1
+
+# Sync the repo: stage, commit, pull --rebase, push.
+# Every git command is individually guarded so a single failure
+# (conflict, auth issue, etc.) can never propagate under `set -e`
+# and kill the caller — whether that's the daemon loop or the
+# exit trap. sync_repo always returns 0.
 sync_repo() {
     (
-        flock -w 5 9 || exit 0
+        flock -w 5 9 || {
+            log "sync_repo: could not acquire lock in time"
+            exit 0
+        }
 
-        if [[ -n "$(git status --porcelain)" ]]; then
-            git add .
+        if [[ -n "$(git status --porcelain || true)" ]]; then
+            if ! git add . 2>>"$LOG_FILE"; then
+                log "sync_repo: git add failed"
+                exit 0
+            fi
             if ! git diff --staged --quiet; then
-                git commit -m "[${CURRENT_HOST}] $(date +'%Y-%m-%d %H:%M:%S')"
+                if ! git commit -m "[${CURRENT_HOST}] $(date +'%Y-%m-%d %H:%M:%S')" 2>>"$LOG_FILE"; then
+                    log "sync_repo: git commit failed"
+                    exit 0
+                fi
             fi
         fi
 
-        git pull --rebase || true
-        git push || true
-
-    ) 9>"${LOCK_FILE}"
+        if ! git pull --rebase 2>>"$LOG_FILE"; then
+            log "sync_repo: git pull --rebase failed (possible conflict, resolve manually)"
+        fi
+        if ! git push 2>>"$LOG_FILE"; then
+            log "sync_repo: git push failed"
+        fi
+    ) 9>"${LOCK_FILE}" || log "sync_repo: subshell exited non-zero"
+    return 0
 }
 
-background_sync() {
+# --- Register this instance as an active client (shared lock) ---
+exec 8>>"${CLIENT_LOCK}"
+flock -s 8
+
+# --- Start the background daemon, detached from this instance ---
+(
+    # Don't hold the client lock inside the daemon itself
+    exec 8>&-
+
+    # Ensure only one daemon runs system-wide
+    exec 9>>"${DAEMON_LOCK}"
+    if ! flock -n -x 9; then
+        exit 0 # a daemon is already running
+    fi
+
+    log "daemon: started"
+
     while true; do
-        sleep 600
+        sleep 600 || true
+
+        # Try to grab the client lock exclusively. Success means
+        # no instance holds it shared, i.e. no editors are open.
+        exec 7>>"${CLIENT_LOCK}"
+        if flock -n -x 7; then
+            log "daemon: no active clients, exiting"
+            exit 0
+        fi
+        exec 7>&- # avoid leaking the fd across loop iterations
+
         sync_repo
     done
-}
+) </dev/null >>"${LOG_FILE}" 2>&1 &
+disown $!
 
+# --- Initial pull on editor startup (never fatal to the script) ---
 (
-    flock -w 10 9 || exit 1
-    git pull --rebase --autostash || true
-) 9>"${LOCK_FILE}"
+    if ! flock -w 10 9; then
+        log "startup pull: could not acquire lock in time, skipping"
+        exit 0
+    fi
+    git pull --rebase --autostash 2>>"$LOG_FILE" || log "startup pull: git pull failed"
+) 9>"${LOCK_FILE}" || true
 
-set -m
-background_sync </dev/null &>/dev/null &
-SYNC_PID=$!
-set +m
+# --- Guarantee a flush on exit, however this script terminates ---
+trap sync_repo EXIT
 
-cleanup_bg() { kill -TERM -"${SYNC_PID:-}" 2>/dev/null || true; }
-trap cleanup_bg EXIT
-
-nvim index.md
-
-cleanup_bg
-sync_repo
+nvim index.md || true
