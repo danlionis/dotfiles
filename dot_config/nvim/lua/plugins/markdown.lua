@@ -4,7 +4,7 @@ return {
 		opts = {
 			latex = { enabled = true },
 			win_options = {
-				conceallevel = { rendered = 2 },
+				conceallevel = { rendered = 1 },
 			},
 			pipe_table = {
 				enabled = false,
