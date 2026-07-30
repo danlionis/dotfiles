@@ -69,19 +69,7 @@ binds {
 
     Mod+Q repeat=false { close-window; }
 
-    // Mod+Left  { focus-column-left; }
-    // Mod+Right { focus-column-right; }
-    // Mod+Up    { focus-window-up; }
-    // Mod+Down  { focus-window-down; }
-    Mod+Left  { focus-column-or-monitor-left; }
-    Mod+Right  { focus-column-or-monitor-right; }
-    Mod+Up  { focus-window-or-workspace-up; }
-    Mod+Down  { focus-window-or-workspace-down; }
 
-    Mod+H  { focus-column-or-monitor-left; }
-    Mod+L  { focus-column-or-monitor-right; }
-    Mod+K  { focus-window-or-workspace-up; }
-    Mod+J  { focus-window-or-workspace-down; }
 
     // --- Movement ---
     Mod+Shift+Left  { move-column-left; }
@@ -90,6 +78,7 @@ binds {
     // Mod+Shift+Right { move-column-right-or-to-monitor-right; }
     Mod+Shift+Up    { move-window-up-or-to-workspace-up; }
     Mod+Shift+Down  { move-window-down-or-to-workspace-down; }
+
 
     // Alternative commands that move across workspaces when reaching
     // the first or last window in a column.

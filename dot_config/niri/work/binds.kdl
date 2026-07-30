@@ -1,8 +1,18 @@
 binds {
-    Mod+7 { focus-monitor "Samsung Display Corp. ATNA40HQ02-0  Unknown"; }
-    Mod+8 { focus-monitor "Acer Technologies Acer B277K 0x84210B80"; }
-    Mod+9 { focus-monitor "Philips Consumer Electronics Company PHL 276B1JH UK02148020816"; }
-    Mod+Shift+7 { move-column-to-monitor "Samsung Display Corp. ATNA40HQ02-0  Unknown"; }
-    Mod+Shift+8 { move-column-to-monitor "Acer Technologies Acer B277K 0x84210B80"; }
-    Mod+Shift+9 { move-column-to-monitor "Philips Consumer Electronics Company PHL 276B1JH UK02148020816"; }
+    Mod+Left  { focus-column-left; }
+    Mod+Right { focus-column-right; }
+    Mod+Up    { focus-window-or-workspace-up; }
+    Mod+Down  { focus-window-or-workspace-down; }
+
+    Mod+H  { focus-column-left; }
+    Mod+L  { focus-column-right; }
+    Mod+K  { focus-window-or-workspace-up; }
+    Mod+J  { focus-window-or-workspace-down; }
+
+    Mod+Shift+H  { move-column-left; }
+    Mod+Shift+L { move-column-right; }
+    // Mod+Shift+Left  { move-column-left-or-to-monitor-left; }
+    // Mod+Shift+Right { move-column-right-or-to-monitor-right; }
+    Mod+Shift+K    { move-window-up-or-to-workspace-up; }
+    Mod+Shift+J  { move-window-down-or-to-workspace-down; }
 }

@@ -5,4 +5,9 @@ binds {
     Mod+Shift+7 { move-column-to-monitor "Dell Inc. DELL S2721D 3WS9P43"; }
     Mod+Shift+8 { move-column-to-monitor "Dell Inc. Dell AW2721D #HDEYMxgwABQ3"; }
     Mod+Shift+9 { move-column-to-monitor "Acer Technologies CBA272 H C328050C03W01"; }
+
+    Mod+Left  { focus-column-or-monitor-left; }
+    Mod+Right  { focus-column-or-monitor-right; }
+    Mod+Up  { focus-window-or-workspace-up; }
+    Mod+Down  { focus-window-or-workspace-down; }
 }
