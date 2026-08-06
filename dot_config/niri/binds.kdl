@@ -239,6 +239,7 @@ binds {
     Mod+Ctrl+F { expand-column-to-available-width; }
 
     Mod+Shift+C { center-column; }
+    Mod+M { center-column; }
 
     // Center all fully visible columns on screen.
     // Mod+Ctrl+C { center-visible-columns; }
