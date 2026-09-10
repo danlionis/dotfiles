@@ -940,6 +940,8 @@ alias ":q" = exit
 
 alias s = kitten ssh
 
+def monitors [] { niri msg -j outputs | from json | values | select name make logical }
+
 # if ((tty) == "/dev/tty1") {
 #     exec uswm start default
 # }
