@@ -10,4 +10,10 @@ binds {
     Mod+Right  { focus-column-or-monitor-right; }
     Mod+Up  { focus-window-or-workspace-up; }
     Mod+Down  { focus-window-or-workspace-down; }
+
+    Mod+H  { focus-column-or-monitor-left; }
+    Mod+L  { focus-column-or-monitor-right; }
+    Mod+K  { focus-window-or-workspace-up; }
+    Mod+J  { focus-window-or-workspace-down; }
+
 }
