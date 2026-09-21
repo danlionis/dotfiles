@@ -1,10 +1,11 @@
 return {
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
+		enabled = false,
 		opts = {
 			latex = { enabled = true },
 			win_options = {
-				conceallevel = { rendered = 1 },
+				-- conceallevel = { rendered = 1 },
 			},
 			pipe_table = {
 				enabled = false,

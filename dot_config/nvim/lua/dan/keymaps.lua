@@ -97,12 +97,15 @@ vim.keymap.del("n", "grr")
 vim.keymap.del("n", "gri")
 vim.keymap.del("n", "grt")
 
-local conceal_on = false
+-- local conceal_on = false
+vim.o.conceallevel = 1
 vim.keymap.set("n", "<C-e>", function()
-    if conceal_on then
-        vim.o.conceallevel = 0
-    else
-        vim.o.conceallevel = 2
-    end
-    conceal_on = not conceal_on
+	vim.o.conceallevel = (vim.o.conceallevel + 1) % 3
+	vim.notify("Conceallevel: " .. vim.o.conceallevel)
+	-- if conceal_on then
+	-- 	vim.o.conceallevel = 0
+	-- else
+	-- 	vim.o.conceallevel = 1
+	-- end
+	-- conceal_on = not conceal_on
 end)
