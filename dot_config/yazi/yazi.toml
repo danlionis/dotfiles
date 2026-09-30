@@ -1,0 +1,9 @@
+[opener]
+brave = [{ run = "brave --new-window %s", desc = "Brave" }]
+open = [{ run = "xdg-open %s1", desc = "Open" }]
+
+[open]
+prepend_rules = [
+  # Multiple openers for a single rule
+  { url = "*.{html,json,svg}", use = ["brave", "open", "edit"] },
+]
