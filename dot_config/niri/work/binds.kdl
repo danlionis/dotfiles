@@ -11,8 +11,9 @@ binds {
 
     Mod+Shift+H  { move-column-left; }
     Mod+Shift+L { move-column-right; }
-    // Mod+Shift+Left  { move-column-left-or-to-monitor-left; }
-    // Mod+Shift+Right { move-column-right-or-to-monitor-right; }
     Mod+Shift+K    { move-window-up-or-to-workspace-up; }
     Mod+Shift+J  { move-window-down-or-to-workspace-down; }
+
+    Mod+Shift+Tab { move-workspace-to-monitor-next; }
+    Mod+Tab { focus-monitor-next; }
 }
