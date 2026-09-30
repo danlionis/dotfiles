@@ -436,7 +436,10 @@ Scope {
                             property string ethernetState: "disconnected"
 
                             readonly property var networkProcess: Process {
-                                command: ["sh", "-c", "eth_connected=0; for f in /sys/class/net/e*; do if [ -e \"$f/carrier\" ] && [ \"$(cat \"$f/carrier\")\" = \"1\" ]; then eth_connected=1; break; fi; done; if [ \"$eth_connected\" -eq 1 ]; then echo \"ethernet:connected\"; else echo \"ethernet:disconnected\"; fi; iwctl station wlan0 show | awk -F '  +' '/State|Connected network|RSSI/ {print $2 \":\" $3}'"]
+                                command: [
+                                    "sh", "-c",
+                                    "eth_connected=0; for f in /sys/class/net/e*; do if [ -e \"$f/carrier\" ] && [ \"$(cat \"$f/carrier\" 2>/dev/null)\" = \"1\" ]; then eth_connected=1; break; fi; done; if [ \"$eth_connected\" -eq 1 ]; then echo \"ethernet:connected\"; else echo \"ethernet:disconnected\"; fi; wdev=$(nmcli -t -f DEVICE,TYPE dev | awk -F: '$2==\"wifi\"{print $1; exit}'); if [ -n \"$wdev\" ]; then nmcli -t -f GENERAL.STATE,GENERAL.CONNECTION dev show \"$wdev\" | awk -F: 'index($1, \"GENERAL.STATE\"){ if (index($2, \"(connected)\") > 0) print \"State:connected\"; else if (index($2, \"connecting\") > 0) print \"State:connecting\"; else print \"State:disconnected\"; } index($1, \"GENERAL.CONNECTION\"){ print \"Connected network:\" $2; }'; nmcli -t -f IN-USE,SIGNAL dev wifi list ifname \"$wdev\" | awk -F: '$1==\"*\" { print \"RSSI:\" int($2/2 - 100); exit; }'; fi"
+                                ]
                                 running: true
                                 stdout: StdioCollector {
                                     onStreamFinished: {
@@ -445,23 +448,29 @@ Scope {
                                         var ssid = "";
                                         var rssi = -100;
                                         var ethernet = "disconnected";
+
                                         for (var i = 0; i < lines.length; i++) {
-                                            var parts = lines[i].split(":");
-                                            if (parts.length >= 2) {
-                                                var key = parts[0].trim();
-                                                var val = parts[1].trim();
+                                            var line = lines[i].trim();
+                                            var sepIdx = line.indexOf(":");
+                                            if (sepIdx !== -1) {
+                                                var key = line.substring(0, sepIdx).trim();
+                                                var val = line.substring(sepIdx + 1).trim();
+
                                                 if (key === "ethernet") {
                                                     ethernet = val;
                                                 } else if (key === "State") {
                                                     state = val;
                                                 } else if (key === "Connected network") {
-                                                    ssid = val;
+                                                    if (val !== "--") {
+                                                        ssid = val;
+                                                    }
                                                 } else if (key === "RSSI") {
                                                     var p = parseInt(val);
                                                     if (!isNaN(p)) rssi = p;
                                                 }
                                             }
                                         }
+
                                         networkIndicator.ethernetState = ethernet;
                                         networkIndicator.stateStr = state;
                                         networkIndicator.ssid = ssid;
@@ -474,8 +483,11 @@ Scope {
                                 interval: 5000
                                 running: true
                                 repeat: true
-                                triggeredOnStart: true
-                                onTriggered: networkIndicator.networkProcess.running = true
+                                triggeredOnStart: false
+                                onTriggered: {
+                                    networkIndicator.networkProcess.running = false;
+                                    networkIndicator.networkProcess.running = true;
+                                }
                             }
 
                             readonly property var impalaProcess: Process {
