@@ -11,7 +11,7 @@ binds {
     // Mod+P { spawn-sh "walker --provider menus:power"; }
     Mod+B { spawn "brave"; }
     Mod+Shift+B { spawn-sh "brave --incognito"; }
-    Mod+N { spawn-sh "lio-launch-or-focus obsidian"; }
+    // Mod+N { spawn-sh "lio-launch-or-focus obsidian"; }
     Mod+E { spawn-sh "kitty -o tab_bar_style=hidden -e yazi"; }
     Mod+U { spawn-sh "kitty -o tab_bar_style=hidden -e btop"; }
     Mod+Y { spawn "lio-cmd-yubikey"; }
